@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css",
-    "main.js": "/abdulkadirciftsuren.github.io/static/js/main.3d105f64.js",
+    "main.js": "/abdulkadirciftsuren.github.io/static/js/main.1b1cd65c.js",
     "static/js/453.f8765ebf.chunk.js": "/abdulkadirciftsuren.github.io/static/js/453.f8765ebf.chunk.js",
     "index.html": "/abdulkadirciftsuren.github.io/index.html",
     "main.e6c13ad2.css.map": "/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css.map",
-    "main.3d105f64.js.map": "/abdulkadirciftsuren.github.io/static/js/main.3d105f64.js.map",
+    "main.1b1cd65c.js.map": "/abdulkadirciftsuren.github.io/static/js/main.1b1cd65c.js.map",
     "453.f8765ebf.chunk.js.map": "/abdulkadirciftsuren.github.io/static/js/453.f8765ebf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.3d105f64.js"
+    "static/js/main.1b1cd65c.js"
   ]
 }
