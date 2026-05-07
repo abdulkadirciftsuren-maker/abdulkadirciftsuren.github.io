@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:none">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v16</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v18</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -59,6 +59,54 @@
     if(t)t.textContent=pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick();setInterval(tick,1000);
+
+  // Dil dropdown'a AR ve CN ekle
+  var AR_TRANS={search:'ابحث عن حلاق، صالون، مساج...', login:'ختم الماس', register:'تسجيل', hero1:'من جميع أنحاء العالم', hero2:'المحترفون معاً', heroSub:'شعر • لحية • مكياج • مساج • أظافر', btn1:'جرب إطلالتك', btn2:'اعثر على الخريطة', btn3:'ابحث عن عمل', cats:'الفئات', stories:'القصص', addStory:'إضافة قصة', feed:'التغذية', map:'الخريطة', edu:'التدريب', jobs:'الوظائف', share:'ماذا تريد أن تشارك؟', nearby:'المحترفون القريبون', trending:'الرائج', latestJobs:'أحدث الوظائف', appointment:'حجز موعد', share2:'مشاركة', seeAll:'عرض الكل', reels:'ريلز', menHair:'قص شعر رجالي', beard:'لحية', womenHair:'قص شعر نسائي', makeup:'مكياج', massage:'مساج', skincare:'العناية بالبشرة', nails:'أظافر', trainings:'تدريبات', jobsMenu:'الوظائف', mapMenu:'الخريطة', explore:'استكشف', barbers:'الحلاقون', hairdressers:'مصففو الشعر', myProfile:'ملفي الشخصي', appointments:'مواعيدي', customers:'العملاء', gallery:'معرض الصور', statistics:'إحصائيات', certificates:'الشهادات', liveStream:'بث مباشر', messages:'الرسائل', settings:'الإعدادات', proFor:'للمحترفين', learnGrow:'تعلم وانمو', other:'أخرى', videoBtn:'فيديو', photoBtn:'صورة', hairStyle:'تسريحة الشعر', massageBtn:'مساج', jobPost:'إعلان وظيفة', mapShow:'عرض على الخريطة', apply:'تقديم', postJob:'نشر وظيفة', homePage:'الصفحة الرئيسية', allProfs:'جميع المحترفين', bookNow:'احجز الآن', reviews:'تقييمات', rating:'التقييم', distance:'كم', sendMsg:'إرسال رسالة', follow:'متابعة', following:'متابَع', noAppointments:'لا مواعيد بعد', noMessages:'لا رسائل بعد', filter:'تصفية', sortBy:'ترتيب حسب', newest:'الأحدث', popular:'الأكثر شعبية', comingSoon:'قريباً', backHome:'العودة للرئيسية', liveNow:'مباشر الآن', watching:'يشاهد', profileInfo:'معلومات الملف', editProfile:'تعديل الملف', totalPosts:'منشورات', totalFollowers:'متابعون', totalFollowing:'متابَعون', back:'رجوع', confirmed:'تم التأكيد', edit:'تعديل', user:'مستخدم', nextAppt:'الموعد القادم', lastAppts:'آخر المواعيد', details:'تفاصيل', completed:'مكتمل', daysAgo:'أيام مضت', favorites:'المفضلة', comments2:'تقييمات', quickAccess:'وصول سريع', likes:'إعجاب'};
+  var CN_TRANS={search:'搜索理发师、沙龙、按摩...', login:'钻石印章', register:'注册', hero1:'来自世界各地', hero2:'专业人士齐聚', heroSub:'头发 • 胡须 • 化妆 • 按摩 • 美甲', btn1:'尝试发型', btn2:'地图查找', btn3:'找工作', cats:'分类', stories:'故事', addStory:'添加故事', feed:'动态', map:'地图', edu:'培训', jobs:'招聘', share:'您想分享什么？', nearby:'附近大师', trending:'热门', latestJobs:'最新职位', appointment:'预约', share2:'分享', seeAll:'查看全部', reels:'视频', menHair:'男士发型', beard:'胡须', womenHair:'女士发型', makeup:'化妆', massage:'按摩', skincare:'护肤', nails:'美甲', trainings:'培训', jobsMenu:'招聘', mapMenu:'地图', explore:'探索', barbers:'理发师', hairdressers:'美发师', myProfile:'我的资料', appointments:'我的预约', customers:'客户', gallery:'图库', statistics:'统计', certificates:'证书', liveStream:'直播', messages:'消息', settings:'设置', proFor:'专业人士', learnGrow:'学习成长', other:'其他', videoBtn:'视频', photoBtn:'照片', hairStyle:'发型', massageBtn:'按摩', jobPost:'招聘信息', mapShow:'地图显示', apply:'申请', postJob:'发布职位', homePage:'首页', allProfs:'所有专业人士', bookNow:'立即预约', reviews:'评价', rating:'评分', distance:'公里', sendMsg:'发消息', follow:'关注', following:'已关注', noAppointments:'暂无预约', noMessages:'暂无消息', filter:'筛选', sortBy:'排序', newest:'最新', popular:'热门', comingSoon:'即将推出', backHome:'返回首页', liveNow:'正在直播', watching:'正在观看', profileInfo:'个人资料', editProfile:'编辑资料', totalPosts:'帖子', totalFollowers:'粉丝', totalFollowing:'关注', back:'返回', confirmed:'已确认', edit:'编辑', user:'用户', nextAppt:'下次预约', lastAppts:'历史预约', details:'详情', completed:'已完成', daysAgo:'天前', favorites:'收藏', comments2:'评价', quickAccess:'快速访问', likes:'点赞'};
+
+  function addLangs(){
+    var dropdown=document.querySelector('[style*="minWidth"]');
+    if(!dropdown){setTimeout(addLangs,300);return;}
+    ['AR','CN'].forEach(function(code){
+      if(document.getElementById('gw-lang-'+code))return;
+      var flag=code==='AR'?'🇸🇦':'🇨🇳';
+      var name=code==='AR'?'العربية':'中文';
+      var div=document.createElement('div');
+      div.id='gw-lang-'+code;
+      div.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;color:#e8e0d0;font-weight:500;font-size:13px;font-family:DM Sans,sans-serif;';
+      div.innerHTML='<span style="font-size:18px">'+flag+'</span><span style="font-weight:800;font-size:11px;min-width:28px">'+code+'</span><span style="font-size:12px;opacity:0.7">'+name+'</span>';
+      div.onmouseover=function(){this.style.background='rgba(201,162,39,0.08)';};
+      div.onmouseout=function(){this.style.background='transparent';};
+      div.onclick=function(e){
+        e.stopPropagation();
+        var trans=code==='AR'?AR_TRANS:CN_TRANS;
+        // React fiber arac ile lang state degistir
+        var root=document.getElementById('root');
+        var fiberKey=Object.keys(root).find(function(k){return k.startsWith('__reactFiber')||k.startsWith('__reactInternalInstance');});
+        if(fiberKey){
+          var fiber=root[fiberKey];
+          while(fiber){
+            if(fiber.memoizedState&&fiber.memoizedState.queue){
+              try{
+                var q=fiber.memoizedState;
+                while(q){if(q.memoizedState===window._gwLang||typeof q.memoizedState==='string'&&['TR','EN','DE','ES','FR','RU','UKR'].includes(q.memoizedState)){
+                  q.queue.dispatch(code);window._gwLang=code;
+                  // Translate visible text
+                  document.querySelectorAll('[data-gw]').forEach(function(el){el.textContent=trans[el.dataset.gw]||el.textContent;});
+                  dropdown.style.display='none';setTimeout(function(){dropdown.style.display='';},100);
+                  break;}q=q.next;}
+              }catch(e){}
+            }
+            fiber=fiber.child||fiber.sibling||fiber.return;
+          }
+        }
+      };
+      dropdown.appendChild(div);
+    });
+  }
+
+  var obs=new MutationObserver(function(){addLangs();});
+  obs.observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 </body></html>
