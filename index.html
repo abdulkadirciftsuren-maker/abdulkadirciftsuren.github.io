@@ -1,60 +1,36 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet">
+<style id="gw-style">
 @media(max-width:768px){
-  .sbs{font-size:8px!important;letter-spacing:2.5px!important;color:rgba(201,162,39,0.5)!important;padding:14px 16px 5px!important;font-weight:900!important;border-bottom:1px solid rgba(201,162,39,0.07)!important;}
-  .sbi{padding:11px 16px!important;font-size:13px!important;font-weight:600!important;border-radius:0 10px 10px 0!important;margin:1px 8px 1px 0!important;transition:background 0.18s,color 0.18s!important;}
+  .sidebar.closed{transform:translateX(110%)!important;box-shadow:none!important;}
+  .sidebar:not(.closed){transform:translateX(0)!important;box-shadow:-8px 0 40px rgba(0,0,0,0.85)!important;}
+  .sidebar{position:fixed!important;top:0!important;bottom:0!important;right:0!important;left:auto!important;width:260px!important;z-index:1200!important;padding-top:108px!important;border-radius:0!important;border-right:none!important;border-left:2px solid rgba(201,162,39,0.35)!important;background:linear-gradient(180deg,#09090f,#0d0d18,#07070e)!important;transition:transform 0.3s cubic-bezier(0.4,0,0.2,1)!important;}
+  .sbs{font-size:8px!important;letter-spacing:2px!important;color:rgba(201,162,39,0.5)!important;padding:14px 16px 5px!important;font-weight:900!important;}
+  .sbi{padding:11px 16px!important;font-size:13px!important;font-weight:600!important;border-radius:0 10px 10px 0!important;margin:1px 8px 1px 0!important;}
   .sbi.act{background:linear-gradient(90deg,rgba(201,162,39,0.15),transparent)!important;color:#ffd700!important;border-left-color:#c9a227!important;font-weight:700!important;}
 }
-</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
+@media(max-width:480px){
+  .sidebar{padding-top:80px!important;width:240px!important;}
+}
+</style>
+</head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:none">
   <div style="display:flex;align-items:center;gap:4px">
-    <span id="gw-ver" style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px"></span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v3</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
 </div>
 <script>
 (function(){
-  var BASE=new Date('2026-01-01');
   function pad(n){return n<10?'0'+n:''+n;}
   function tick(){
     var now=new Date();
-    var day=Math.floor((now-BASE)/86400000)+1;
-    var v=document.getElementById('gw-ver');
     var d=document.getElementById('gw-date');
     var t=document.getElementById('gw-time');
-    if(v)v.textContent='v'+day;
     if(d)d.textContent=pad(now.getDate())+'.'+pad(now.getMonth()+1)+'.'+now.getFullYear();
     if(t)t.textContent=pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick();setInterval(tick,1000);
-
-  function fixMenu(){
-    var sb=document.querySelector('.sidebar');
-    if(!sb){setTimeout(fixMenu,150);return;}
-    if(window.innerWidth>768)return;
-    sb.style.position='fixed';
-    sb.style.top='0';sb.style.bottom='0';
-    sb.style.right='0';sb.style.left='auto';
-    sb.style.width='260px';
-    sb.style.zIndex='1200';
-    sb.style.paddingTop=window.innerWidth<=480?'74px':'108px';
-    sb.style.borderLeft='2px solid rgba(201,162,39,0.35)';
-    sb.style.borderRight='none';
-    sb.style.borderRadius='0';
-    sb.style.background='linear-gradient(180deg,#09090f 0%,#0d0d18 50%,#07070e 100%)';
-    sb.style.transition='transform 0.3s cubic-bezier(0.4,0,0.2,1)';
-    sb.style.overflowY='auto';
-    var apply=function(){
-      var closed=sb.classList.contains('closed');
-      sb.style.transform=closed?'translateX(110%)':'translateX(0)';
-      sb.style.boxShadow=closed?'none':'-8px 0 40px rgba(0,0,0,0.85)';
-    };
-    apply();
-    new MutationObserver(apply).observe(sb,{attributes:true,attributeFilter:['class']});
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fixMenu);
-  else fixMenu();
-  window.addEventListener('resize',fixMenu);
 })();
 </script>
 </body></html>
