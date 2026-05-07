@@ -1,12 +1,25 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:none">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v10</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v11</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
 </div>
 <style>
+/* Karartma kalk */
+.mob-overlay{display:none!important;}
+
+/* Masaüstü - şeffaf sol menü */
+@media screen and (min-width:769px){
+  .sidebar{
+    background:transparent!important;border:none!important;box-shadow:none!important;
+  }
+  .sbs{font-size:8px!important;letter-spacing:2.5px!important;color:rgba(201,162,39,0.5)!important;font-weight:900!important;background:none!important;}
+  .sbi{font-size:13px!important;font-weight:700!important;color:rgba(255,255,255,0.85)!important;background:none!important;border:none!important;text-shadow:0 1px 6px rgba(0,0,0,0.7)!important;}
+  .sbi.act{color:#ffd700!important;text-shadow:0 0 10px rgba(255,215,0,0.5),0 1px 6px rgba(0,0,0,0.7)!important;background:none!important;}
+}
+
 @media screen and (max-width:768px){
   .strip2{z-index:1001!important;position:relative!important;}
   html body .layout .sidebar{
@@ -33,7 +46,7 @@
     color:rgba(255,255,255,0.9)!important;
     background:none!important;border:none!important;
     text-shadow:0 1px 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.6)!important;
-    letter-spacing:0.3px!important;
+    letter-spacing:0.3px!important;pointer-events:auto!important;cursor:pointer!important;
   }
   html body .layout .sbi.act{
     color:#ffd700!important;
