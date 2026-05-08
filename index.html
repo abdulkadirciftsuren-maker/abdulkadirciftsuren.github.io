@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v12</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v13</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -38,7 +38,7 @@
 }
 @media screen and (max-width:768px){
   .strip2{z-index:1001!important;position:relative!important;}
-  html body .lsub{display:block!important;font-size:8px!important;letter-spacing:2px!important;opacity:0.65!important;margin-top:1px!important;}
+  html body .lsub{display:none!important;}
   html body .layout .sidebar{
     position:fixed!important;top:0!important;bottom:0!important;right:0!important;left:auto!important;
     width:180px!important;z-index:999!important;padding-top:120px!important;
@@ -97,13 +97,13 @@
     var lb=document.querySelector('.lbar');
     if(!lb)return;
     lb.style.setProperty('height','auto','important');
-    lb.style.setProperty('min-height','120px','important');
-    lb.style.setProperty('padding','28px 20px 20px','important');
+    lb.style.setProperty('min-height','80px','important');
+    lb.style.setProperty('padding','16px 20px 14px','important');
     lb.style.setProperty('flex-direction','column','important');
     lb.style.setProperty('align-items','flex-start','important');
     lb.style.setProperty('justify-content','flex-start','important');
     var ls=lb.querySelector('.lsub');
-    if(ls){ls.style.setProperty('display','block','important');ls.style.setProperty('margin-top','14px','important');ls.style.setProperty('font-size','9px','important');ls.style.setProperty('opacity','0.75','important');}
+    if(ls){ls.style.setProperty('display','block','important');ls.style.setProperty('margin-top','8px','important');ls.style.setProperty('font-size','8px','important');ls.style.setProperty('opacity','0.7','important');}
     var nb=document.querySelector('.nbar');
     if(nb){nb.style.setProperty('padding','8px 20px 10px','important');nb.style.setProperty('min-height','unset','important');nb.style.setProperty('height','auto','important');}
   }
