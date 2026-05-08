@@ -27,8 +27,8 @@
   html body .diamond-ico{width:32px!important;height:28px!important;}
   html body .bin{padding:9px 20px!important;font-size:13px!important;font-weight:800!important;border-radius:16px!important;height:40px!important;}
   /* Arama çubuğu — slogan ile 20px boşluk */
-  html body .nbar{height:52px!important;padding:0 32px!important;gap:14px!important;display:flex!important;align-items:center!important;border-top:1px solid rgba(201,162,39,0.1)!important;}
-  html body input[type="text"],html body input[type="search"]{font-size:13px!important;height:32px!important;border-radius:10px!important;padding:0 14px!important;}
+  html body .nbar{height:36px!important;padding:0 32px!important;gap:14px!important;display:flex!important;align-items:center!important;}
+  html body input[type="text"],html body input[type="search"]{font-size:12px!important;height:24px!important;border-radius:8px!important;padding:0 10px!important;border-width:1px!important;}
   html body .lc{gap:12px!important;}
 }
 @media screen and (min-width:1200px){
@@ -95,6 +95,24 @@
     if(t)t.textContent=pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick();setInterval(tick,1000);
+
+  // Arama şeridi zarif ince - JS inline override
+  function slimSearch(){
+    if(window.innerWidth<=768)return;
+    var nb=document.querySelector('.nbar');
+    if(!nb)return;
+    nb.style.setProperty('height','36px','important');
+    nb.style.setProperty('padding','0 32px','important');
+    nb.style.setProperty('min-height','unset','important');
+    document.querySelectorAll('.nbar input').forEach(function(inp){
+      inp.style.setProperty('height','24px','important');
+      inp.style.setProperty('font-size','12px','important');
+      inp.style.setProperty('padding','0 10px','important');
+    });
+  }
+  setTimeout(slimSearch,400);
+  setInterval(slimSearch,2000);
+  window.addEventListener('resize',slimSearch);
 
 
   // Rozet sürükleme
