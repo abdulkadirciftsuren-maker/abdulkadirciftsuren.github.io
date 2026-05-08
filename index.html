@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v6</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v7</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -19,6 +19,26 @@
   html body .hero{height:340px!important;}
   html body [class*="reel"]{grid-template-columns:repeat(4,1fr)!important;gap:12px!important;}
   html body [class*="stor"]{grid-template-columns:repeat(6,1fr)!important;}
+
+  /* ── LOGO & NAVBAR BÜYÜTME ── */
+  html body .lbar{height:86px!important;padding:0 32px!important;}
+  html body .ltx{font-size:30px!important;letter-spacing:5px!important;font-weight:900!important;}
+  html body .lsub{display:block!important;font-size:11px!important;letter-spacing:3px!important;opacity:0.7!important;}
+  html body .diamond-ico{width:34px!important;height:30px!important;}
+  /* Giriş (Pırlanta Mührü) butonu */
+  html body .bin{
+    padding:10px 22px!important;font-size:14px!important;font-weight:800!important;
+    border-radius:18px!important;letter-spacing:1px!important;
+    min-width:140px!important;height:42px!important;
+  }
+  /* Arama çubuğu */
+  html body .nbar{height:56px!important;padding:0 32px!important;gap:16px!important;}
+  html body input[type="text"],html body input[type="search"]{
+    font-size:14px!important;height:38px!important;border-radius:12px!important;
+  }
+  /* Dikey ortalama — lbar içeriği */
+  html body .lbar{display:flex!important;align-items:center!important;}
+  html body .lc{gap:14px!important;}
 }
 @media screen and (min-width:1200px){
   html body .cgrid{grid-template-columns:repeat(7,1fr)!important;}
