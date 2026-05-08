@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v16</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v17</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -97,43 +97,53 @@ html body .s2c{font-size:9px!important;}
   }
   tick();setInterval(tick,1000);
 
-  // v15: Telefon yatay - strip2 göster + header inline
-  function fixLandscape(){
-    var land=window.innerWidth>window.innerHeight&&window.innerHeight<=500;
-    if(!land)return;
-    // Orijinal strip2 gizle, şehir şeridi ekle
-    var s2=document.querySelector('.strip2');
-    if(s2)s2.style.setProperty('display','none','important');
-    if(!document.getElementById('gw-cs')){
-      var CITIES=[['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI'],['JP','TOKYO'],['CN','ŞANGAY'],['RU','MOSKOVA'],['ES','MADRİD'],['IT','ROMA'],['NL','AMSTERDAM'],['CH','ZÜRIH'],['AT','VİYANA'],['SE','STOCKHOLM'],['SG','SİNGAPUR'],['IN','MUMBAY'],['AU','SİDNEY'],['BR','RİO'],['CA','TORONTO'],['SA','RİYAD'],['KR','SEUL'],['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI']];
-      var st=document.createElement('div');st.id='gw-cs';
-      st.style.cssText='overflow:hidden;height:20px;background:linear-gradient(90deg,#06050a,#09080f,#06050a);border-bottom:1px solid rgba(201,162,39,0.3);display:flex;align-items:center;z-index:1002;position:relative;';
-      var inn=document.createElement('div');inn.style.cssText='display:flex;white-space:nowrap;animation:s2r 22s linear infinite;align-items:center;';
-      CITIES.forEach(function(c){
-        var sp=document.createElement('span');sp.style.cssText='display:inline-flex;align-items:center;gap:5px;padding:0 10px;';
-        sp.innerHTML='<span style="font-size:7px;font-weight:900;color:#c9a227;border:1px solid rgba(201,162,39,0.55);border-radius:4px;padding:1px 4px;letter-spacing:1px;background:rgba(201,162,39,0.08)">'+c[0]+'</span><span style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#c9a227;opacity:0.9">'+c[1]+'</span>';
-        inn.appendChild(sp);
-      });
-      st.appendChild(inn);
-      var nb=document.querySelector('.navbar');
-      if(nb)nb.parentNode.insertBefore(st,nb);
-    }
-    var lb=document.querySelector('.lbar');
-    if(!lb)return;
-    lb.style.setProperty('height','auto','important');
-    lb.style.setProperty('min-height','80px','important');
-    lb.style.setProperty('padding','16px 20px 14px','important');
-    lb.style.setProperty('flex-direction','column','important');
-    lb.style.setProperty('align-items','flex-start','important');
-    lb.style.setProperty('justify-content','flex-start','important');
-    var ls=lb.querySelector('.lsub');
-    if(ls){ls.style.setProperty('display','block','important');ls.style.setProperty('margin-top','8px','important');ls.style.setProperty('font-size','8px','important');ls.style.setProperty('opacity','0.7','important');}
-    var nb=document.querySelector('.nbar');
-    if(nb){nb.style.setProperty('padding','8px 20px 10px','important');nb.style.setProperty('min-height','unset','important');nb.style.setProperty('height','auto','important');}
+  // v17: Şehir şeridi - desktop + yatay telefon, portrait'te gizle
+  var CITIES=[['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI'],['JP','TOKYO'],['CN','ŞANGAY'],['RU','MOSKOVA'],['ES','MADRİD'],['IT','ROMA'],['NL','AMSTERDAM'],['CH','ZÜRIH'],['AT','VİYANA'],['SE','STOCKHOLM'],['SG','SİNGAPUR'],['IN','MUMBAY'],['AU','SİDNEY'],['BR','RİO'],['CA','TORONTO'],['SA','RİYAD'],['KR','SEUL'],['GR','ATİNA'],['PT','LİZBON'],['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI']];
+  function buildCityStrip(){
+    if(document.getElementById('gw-cs'))return;
+    var st=document.createElement('div');st.id='gw-cs';
+    st.style.cssText='overflow:hidden;height:22px;background:linear-gradient(90deg,#06050a,#09080f,#06050a);border-bottom:1px solid rgba(201,162,39,0.3);display:flex;align-items:center;z-index:1002;position:relative;';
+    var inn=document.createElement('div');inn.style.cssText='display:flex;white-space:nowrap;animation:s2r 22s linear infinite;align-items:center;';
+    CITIES.forEach(function(c){
+      var sp=document.createElement('span');sp.style.cssText='display:inline-flex;align-items:center;gap:5px;padding:0 10px;';
+      sp.innerHTML='<span style="font-size:7px;font-weight:900;color:#c9a227;border:1px solid rgba(201,162,39,0.55);border-radius:4px;padding:1px 4px;letter-spacing:1px;background:rgba(201,162,39,0.08)">'+c[0]+'</span><span style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#c9a227;opacity:0.9">'+c[1]+'</span>';
+      inn.appendChild(sp);
+    });
+    st.appendChild(inn);
+    var nb=document.querySelector('.navbar');
+    if(nb)nb.parentNode.insertBefore(st,nb);
   }
-  setInterval(fixLandscape,400);
-  window.addEventListener('orientationchange',function(){setTimeout(fixLandscape,200);});
-  window.addEventListener('resize',fixLandscape);
+  function updateLayout(){
+    var w=window.innerWidth,h=window.innerHeight;
+    var isDesktop=w>768;
+    var isLandscape=w>h&&h<=500;
+    var isPortrait=!isDesktop&&!isLandscape;
+    var s2=document.querySelector('.strip2');
+    var cs=document.getElementById('gw-cs');
+    if(isPortrait){
+      // Portrait: şehir şeridini gizle, orijinali göster, header sıfırla
+      if(cs)cs.style.display='none';
+      if(s2)s2.style.removeProperty('display');
+      var lb=document.querySelector('.lbar');
+      if(lb){lb.style.removeProperty('height');lb.style.removeProperty('min-height');lb.style.removeProperty('padding');lb.style.removeProperty('flex-direction');lb.style.removeProperty('align-items');lb.style.removeProperty('justify-content');}
+      var ls=lb&&lb.querySelector('.lsub');
+      if(ls)ls.style.removeProperty('display');
+      return;
+    }
+    // Desktop veya Landscape: şehir şeridini göster
+    buildCityStrip();
+    if(cs)cs.style.display='flex';
+    if(s2)s2.style.setProperty('display','none','important');
+    if(isLandscape){
+      var lb=document.querySelector('.lbar');
+      if(lb){lb.style.setProperty('height','auto','important');lb.style.setProperty('min-height','80px','important');lb.style.setProperty('padding','16px 20px 14px','important');lb.style.setProperty('flex-direction','column','important');lb.style.setProperty('align-items','flex-start','important');lb.style.setProperty('justify-content','flex-start','important');}
+      var ls2=lb&&lb.querySelector('.lsub');
+      if(ls2){ls2.style.setProperty('display','block','important');ls2.style.setProperty('margin-top','8px','important');ls2.style.setProperty('font-size','8px','important');}
+    }
+  }
+  setInterval(updateLayout,400);
+  window.addEventListener('orientationchange',function(){setTimeout(updateLayout,200);});
+  window.addEventListener('resize',updateLayout);
 
   // v8: Header iki katına, arama en alta - body'e runtime style ekle
   function fixDesktopLayout(){
