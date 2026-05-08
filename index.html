@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:none">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v42</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v43</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -66,57 +66,59 @@
   }
   tick();setInterval(tick,1000);
 
-  // ── YENİ MASAÜSTÜ MENÜ ──────────────────────────────
-  var MENU=[
-    {icon:'⌂',label:'Ana Sayfa',idx:0},
-    {icon:'◎',label:'Keşfet',idx:1},
-    {icon:'✂',label:'Berberler',idx:2},
-    {icon:'✦',label:'Kuaförler',idx:3},
-    {icon:'♡',label:'Masaj',idx:4},
-    {icon:'◈',label:'Makyaj',idx:5},
-    {icon:'◇',label:'Tırnak',idx:6},
-    {icon:'▷',label:'Eğitimler',idx:7},
-    {icon:'◉',label:'İş İlanları',idx:8},
-    {icon:'⊕',label:'Harita',idx:9},
-    {icon:'◐',label:'Canlı Yayın',idx:10},
-    {icon:'✉',label:'Mesajlar',idx:11},
-    {icon:'◑',label:'Profilim',idx:12},
-    {icon:'⚙',label:'Ayarlar',idx:13}
+  // ── MASAÜSTÜ MENÜ ─────────────────────────────────────
+  var GW_ITEMS=[
+    {ic:'🏠',c:'#38b2ac',lbl:'Ana Sayfa'},
+    {ic:'🔍',c:'#9333ea',lbl:'Keşfet'},
+    {ic:'✂️',c:'#ed64a6',lbl:'Berberler'},
+    {ic:'💇',c:'#f59e0b',lbl:'Kuaförler'},
+    {ic:'💆',c:'#38b2ac',lbl:'Masaj'},
+    {ic:'💄',c:'#f472b6',lbl:'Makyaj'},
+    {ic:'💅',c:'#a78bfa',lbl:'Tırnak'},
+    {ic:'📚',c:'#34d399',lbl:'Eğitimler'},
+    {ic:'💼',c:'#60a5fa',lbl:'İş İlanları'},
+    {ic:'🗺️',c:'#fbbf24',lbl:'Harita'},
+    {ic:'📡',c:'#f87171',lbl:'Canlı Yayın'},
+    {ic:'✉️',c:'#4ade80',lbl:'Mesajlar'},
+    {ic:'👤',c:'#38b2ac',lbl:'Profilim'},
+    {ic:'⚙️',c:'#9ca3af',lbl:'Ayarlar'}
   ];
-  function buildNav(){
+  function gwBuildNav(){
     if(window.innerWidth<=768){var n=document.getElementById('gw-nav');if(n)n.style.display='none';return;}
-    if(document.getElementById('gw-nav')){document.getElementById('gw-nav').style.display='flex';return;}
+    var existing=document.getElementById('gw-nav');
+    if(existing){existing.style.display='block';return;}
+    // Hamburger gizle
+    var fab=document.querySelector('.menu-fab');
+    if(fab)fab.style.display='none';
     var nav=document.createElement('div');
     nav.id='gw-nav';
-    nav.style.cssText='position:fixed;left:0;top:172px;bottom:0;width:188px;z-index:900;display:flex;flex-direction:column;overflow-y:auto;padding:6px 0 20px;border-left:1px solid rgba(201,162,39,0.18);';
-    MENU.forEach(function(m,i){
+    nav.style.cssText='position:fixed;left:0;top:160px;bottom:0;width:200px;z-index:900;overflow-y:auto;padding:4px 0 24px;border-right:1px solid rgba(201,162,39,0.12);';
+    GW_ITEMS.forEach(function(m){
       var d=document.createElement('div');
-      d.className='gw-nav-item';
-      d.dataset.idx=m.idx;
-      d.style.cssText='display:flex;align-items:center;gap:10px;padding:9px 14px 9px 16px;cursor:pointer;font-family:DM Sans,Segoe UI,sans-serif;font-size:13px;font-weight:600;color:rgba(220,210,195,0.88);letter-spacing:0.2px;transition:color 0.2s,background 0.2s;border-right:2px solid transparent;';
-      d.innerHTML='<span style="font-size:14px;width:16px;text-align:center;opacity:0.7;flex-shrink:0">'+m.icon+'</span><span>'+m.label+'</span>';
-      d.onmouseover=function(){if(!this.classList.contains('gw-act')){this.style.color='rgba(255,215,0,0.9)';this.style.background='rgba(201,162,39,0.04)';}};
-      d.onmouseout=function(){if(!this.classList.contains('gw-act')){this.style.color='rgba(220,210,195,0.88)';this.style.background='transparent';}};
+      d.className='gw-ni';
+      d.dataset.lbl=m.lbl;
+      d.style.cssText='display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;font-family:DM Sans,sans-serif;font-size:14px;font-weight:600;color:rgba(230,220,205,0.9);transition:all 0.18s;border-left:3px solid transparent;';
+      d.innerHTML='<span style="font-size:18px;width:22px;text-align:center;flex-shrink:0">'+m.ic+'</span><span>'+m.lbl+'</span>';
+      d.onmouseover=function(){if(!this._act){this.style.color='#ffd700';this.style.background='rgba(201,162,39,0.05)';}};
+      d.onmouseout=function(){if(!this._act){this.style.color='rgba(230,220,205,0.9)';this.style.background='transparent';}};
       d.onclick=function(){
-        var sbi=document.querySelectorAll('.sbi');
-        var idx=parseInt(this.dataset.idx);
-        var flat=[]; sbi.forEach(function(s){flat.push(s);});
-        if(flat[idx])flat[idx].click();
-        nav.querySelectorAll('.gw-nav-item').forEach(function(el){el.classList.remove('gw-act');el.style.color='rgba(220,210,195,0.88)';el.style.background='transparent';el.style.borderRight='2px solid transparent';el.querySelector('span').style.opacity='0.7';});
-        this.classList.add('gw-act');
-        this.style.color='#ffd700';
-        this.style.background='rgba(201,162,39,0.06)';
-        this.style.borderRight='2px solid rgba(201,162,39,0.7)';
-        this.querySelector('span').style.opacity='1';
+        var lbl=this.dataset.lbl;
+        // Gizli sidebar'dan eşleşen öğeyi bul ve tıkla
+        var matched=null;
+        document.querySelectorAll('.sbi').forEach(function(s){if(s.textContent.trim().indexOf(lbl)>=0)matched=s;});
+        if(matched)matched.click();
+        // Aktif durumu güncelle
+        nav.querySelectorAll('.gw-ni').forEach(function(el){el._act=false;el.style.color='rgba(230,220,205,0.9)';el.style.background='transparent';el.style.borderLeft='3px solid transparent';});
+        this._act=true;this.style.color='#ffd700';this.style.background='rgba(201,162,39,0.07)';this.style.borderLeft='3px solid #c9a227';
       };
       nav.appendChild(d);
     });
     document.body.appendChild(nav);
   }
-  new MutationObserver(function(){if(!document.getElementById('gw-nav'))buildNav();}).observe(document.body,{childList:true,subtree:false});
-  setTimeout(buildNav,600);
-  window.addEventListener('resize',buildNav);
-  // ── YENİ MASAÜSTÜ MENÜ SONU ─────────────────────────
+  new MutationObserver(function(){if(!document.getElementById('gw-nav')&&window.innerWidth>768)gwBuildNav();}).observe(document.body,{childList:true,subtree:false});
+  setTimeout(gwBuildNav,500);
+  window.addEventListener('resize',gwBuildNav);
+  // ── MASAÜSTÜ MENÜ SONU ────────────────────────────────
 
   // Dil menüsü dışarı tık + Android geri kapama
   var overlay=document.createElement('div');
