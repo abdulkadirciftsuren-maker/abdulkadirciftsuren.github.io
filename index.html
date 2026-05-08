@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:none">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v44</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v45</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -11,12 +11,10 @@
 .sidebar,.sbi,.sbs{pointer-events:auto!important;}
 .sbi{cursor:pointer!important;}
 @media screen and (min-width:769px){
-  #gw-nav{display:none!important;}
-  html body .sidebar{background:transparent!important;background-color:transparent!important;border:none!important;box-shadow:none!important;border-right:1px solid rgba(201,162,39,0.15)!important;}
-  html body .sbi{background:none!important;border:none!important;color:rgba(225,215,200,0.9)!important;font-size:13.5px!important;font-weight:600!important;}
-  html body .sbi:hover{color:#ffd700!important;background:rgba(201,162,39,0.05)!important;}
-  html body .sbi.act{background:rgba(201,162,39,0.08)!important;color:#ffd700!important;font-weight:700!important;border-left:2px solid #c9a227!important;}
-  html body .sbs{color:rgba(201,162,39,0.4)!important;background:none!important;font-size:8px!important;letter-spacing:2px!important;}
+  html body .sidebar{display:none!important;}
+  #gw-hbar{display:flex!important;}
+  html body .main{margin-left:0!important;}
+  html body .menu-fab{display:none!important;}
 }
 @media screen and (max-width:768px){
   .strip2{z-index:1001!important;position:relative!important;}
@@ -71,59 +69,38 @@
   }
   tick();setInterval(tick,1000);
 
-  // ── MASAÜSTÜ MENÜ ─────────────────────────────────────
-  var GW_ITEMS=[
-    {ic:'🏠',c:'#38b2ac',lbl:'Ana Sayfa'},
-    {ic:'🔍',c:'#9333ea',lbl:'Keşfet'},
-    {ic:'✂️',c:'#ed64a6',lbl:'Berberler'},
-    {ic:'💇',c:'#f59e0b',lbl:'Kuaförler'},
-    {ic:'💆',c:'#38b2ac',lbl:'Masaj'},
-    {ic:'💄',c:'#f472b6',lbl:'Makyaj'},
-    {ic:'💅',c:'#a78bfa',lbl:'Tırnak'},
-    {ic:'📚',c:'#34d399',lbl:'Eğitimler'},
-    {ic:'💼',c:'#60a5fa',lbl:'İş İlanları'},
-    {ic:'🗺️',c:'#fbbf24',lbl:'Harita'},
-    {ic:'📡',c:'#f87171',lbl:'Canlı Yayın'},
-    {ic:'✉️',c:'#4ade80',lbl:'Mesajlar'},
-    {ic:'👤',c:'#38b2ac',lbl:'Profilim'},
-    {ic:'⚙️',c:'#9ca3af',lbl:'Ayarlar'}
-  ];
-  function gwBuildNav(){
-    if(window.innerWidth<=768){var n=document.getElementById('gw-nav');if(n)n.style.display='none';return;}
-    var existing=document.getElementById('gw-nav');
-    if(existing){existing.style.display='block';return;}
-    // Hamburger gizle
-    var fab=document.querySelector('.menu-fab');
-    if(fab)fab.style.display='none';
-    var nav=document.createElement('div');
-    nav.id='gw-nav';
-    nav.style.cssText='position:fixed;left:0;top:160px;bottom:0;width:200px;z-index:900;overflow-y:auto;padding:4px 0 24px;border-right:1px solid rgba(201,162,39,0.12);';
-    GW_ITEMS.forEach(function(m){
+  // ── YATAY MASAÜSTÜ MENÜ ────────────────────────────────
+  var GW_CATS=['Ana Sayfa','Keşfet','Berberler','Kuaförler','Masaj','Makyaj','Tırnak','Eğitimler','İş İlanları','Harita','Canlı Yayın','Mesajlar','Profilim','Ayarlar'];
+  function gwBuildHBar(){
+    if(window.innerWidth<=768){var b=document.getElementById('gw-hbar');if(b)b.style.display='none';return;}
+    if(document.getElementById('gw-hbar')){document.getElementById('gw-hbar').style.display='flex';return;}
+    var navbar=document.querySelector('.navbar');
+    if(!navbar){setTimeout(gwBuildHBar,200);return;}
+    var bar=document.createElement('div');
+    bar.id='gw-hbar';
+    bar.style.cssText='display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:0;padding:0 20px;height:40px;background:rgba(6,5,12,0.97);border-bottom:1px solid rgba(201,162,39,0.15);position:sticky;top:'+(navbar.offsetHeight)+'px;z-index:990;';
+    var style=document.createElement('style');
+    style.textContent='#gw-hbar::-webkit-scrollbar{display:none}.gw-hi{position:relative;padding:0 16px;height:40px;display:flex;align-items:center;cursor:pointer;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:rgba(215,205,190,0.9);letter-spacing:0.3px;white-space:nowrap;transition:color 0.18s;border-bottom:2px solid transparent;flex-shrink:0}.gw-hi:hover{color:#ffd700;border-bottom-color:rgba(201,162,39,0.8)!important}.gw-hi.gw-act{color:#ffd700;border-bottom-color:#c9a227!important;font-weight:700}';
+    document.head.appendChild(style);
+    GW_CATS.forEach(function(lbl){
       var d=document.createElement('div');
-      d.className='gw-ni';
-      d.dataset.lbl=m.lbl;
-      d.style.cssText='display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;font-family:DM Sans,sans-serif;font-size:14px;font-weight:600;color:rgba(230,220,205,0.9);transition:all 0.18s;border-left:3px solid transparent;';
-      d.innerHTML='<span style="font-size:18px;width:22px;text-align:center;flex-shrink:0">'+m.ic+'</span><span>'+m.lbl+'</span>';
-      d.onmouseover=function(){if(!this._act){this.style.color='#ffd700';this.style.background='rgba(201,162,39,0.05)';}};
-      d.onmouseout=function(){if(!this._act){this.style.color='rgba(230,220,205,0.9)';this.style.background='transparent';}};
+      d.className='gw-hi';
+      d.textContent=lbl;
       d.onclick=function(){
-        var lbl=this.dataset.lbl;
-        // Gizli sidebar'dan eşleşen öğeyi bul ve tıkla
         var matched=null;
         document.querySelectorAll('.sbi').forEach(function(s){if(s.textContent.trim().indexOf(lbl)>=0)matched=s;});
         if(matched)matched.click();
-        // Aktif durumu güncelle
-        nav.querySelectorAll('.gw-ni').forEach(function(el){el._act=false;el.style.color='rgba(230,220,205,0.9)';el.style.background='transparent';el.style.borderLeft='3px solid transparent';});
-        this._act=true;this.style.color='#ffd700';this.style.background='rgba(201,162,39,0.07)';this.style.borderLeft='3px solid #c9a227';
+        bar.querySelectorAll('.gw-hi').forEach(function(el){el.classList.remove('gw-act');});
+        this.classList.add('gw-act');
       };
-      nav.appendChild(d);
+      bar.appendChild(d);
     });
-    document.body.appendChild(nav);
+    navbar.insertAdjacentElement('afterend',bar);
   }
-  new MutationObserver(function(){if(!document.getElementById('gw-nav')&&window.innerWidth>768)gwBuildNav();}).observe(document.body,{childList:true,subtree:false});
-  setTimeout(gwBuildNav,500);
-  window.addEventListener('resize',gwBuildNav);
-  // ── MASAÜSTÜ MENÜ SONU ────────────────────────────────
+  new MutationObserver(function(){if(!document.getElementById('gw-hbar')&&window.innerWidth>768)gwBuildHBar();}).observe(document.body,{childList:true,subtree:false});
+  setTimeout(gwBuildHBar,500);
+  window.addEventListener('resize',function(){gwBuildHBar();});
+  // ── YATAY MENÜ SONU ────────────────────────────────────
 
   // Dil menüsü dışarı tık + Android geri kapama
   var overlay=document.createElement('div');
@@ -157,4 +134,5 @@
 })();
 </script>
 </body></html>
+
 
