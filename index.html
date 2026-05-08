@@ -20,27 +20,16 @@
   html body [class*="reel"]{grid-template-columns:repeat(4,1fr)!important;gap:12px!important;}
   html body [class*="stor"]{grid-template-columns:repeat(6,1fr)!important;}
 
-  /* ── LOGO & NAVBAR BÜYÜTME ── */
-  html body .lbar{height:86px!important;padding:0 32px!important;}
-  html body .ltx{font-size:30px!important;letter-spacing:5px!important;font-weight:900!important;line-height:1!important;}
-  html body .lsub{display:block!important;font-size:11px!important;letter-spacing:3px!important;opacity:0.7!important;margin-top:2px!important;line-height:1!important;}
-  html body .diamond-ico{width:34px!important;height:30px!important;}
-  /* Giriş (Pırlanta Mührü) butonu */
-  html body .bin{
-    padding:10px 22px!important;font-size:14px!important;font-weight:800!important;
-    border-radius:18px!important;letter-spacing:1px!important;
-    min-width:140px!important;height:42px!important;
-  }
-  /* Arama çubuğu */
-  html body .nbar{height:44px!important;padding:0 32px!important;gap:14px!important;display:flex!important;align-items:center!important;}
-  html body input[type="text"],html body input[type="search"]{
-    font-size:13px!important;height:30px!important;border-radius:10px!important;padding:0 12px!important;
-  }
-  /* Dikey ortalama — lbar içeriği */
-  html body .lbar{display:flex!important;align-items:center!important;justify-content:space-between!important;}
-  html body .lc{gap:14px!important;}
-  html body .lbar>*{display:flex!important;align-items:center!important;}
-  html body .nbar{display:flex!important;align-items:center!important;justify-content:space-between!important;}
+  /* ── LOGO & NAVBAR ── */
+  html body .lbar{height:80px!important;padding:0 32px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+  html body .ltx{font-size:28px!important;letter-spacing:5px!important;font-weight:900!important;line-height:1.1!important;}
+  html body .lsub{display:block!important;font-size:10px!important;letter-spacing:3px!important;opacity:0.65!important;margin-top:4px!important;}
+  html body .diamond-ico{width:32px!important;height:28px!important;}
+  html body .bin{padding:9px 20px!important;font-size:13px!important;font-weight:800!important;border-radius:16px!important;height:40px!important;}
+  /* Arama çubuğu — slogan ile 20px boşluk */
+  html body .nbar{height:52px!important;padding:0 32px!important;gap:14px!important;display:flex!important;align-items:center!important;border-top:1px solid rgba(201,162,39,0.1)!important;}
+  html body input[type="text"],html body input[type="search"]{font-size:13px!important;height:32px!important;border-radius:10px!important;padding:0 14px!important;}
+  html body .lc{gap:12px!important;}
 }
 @media screen and (min-width:1200px){
   html body .cgrid{grid-template-columns:repeat(7,1fr)!important;}
@@ -48,10 +37,10 @@
 @media screen and (orientation:landscape) and (max-height:500px){
   html body .cgrid{grid-template-columns:repeat(4,1fr)!important;gap:8px!important;}
   html body [class*="reel"]{grid-template-columns:repeat(3,1fr)!important;}
-  /* Telefon yatay - nbar ince, lsub gizle */
-  html body .nbar{height:22px!important;padding:0 8px!important;min-height:unset!important;font-size:11px!important;}
+  /* Telefon yatay - kompakt ama boşluklu */
+  html body .lbar{height:38px!important;padding:0 12px!important;}
   html body .lsub{display:none!important;}
-  html body .lbar{height:30px!important;padding:0 10px!important;}
+  html body .nbar{height:32px!important;padding:0 12px!important;}
 }
 @media screen and (max-width:768px){
   .strip2{z-index:1001!important;position:relative!important;}
@@ -107,28 +96,6 @@
   }
   tick();setInterval(tick,1000);
 
-  // Telefon yatay - nbar JS ile incelt (compiled CSS override)
-  function fixLandscape(){
-    var land=window.innerWidth>window.innerHeight&&window.innerHeight<=500;
-    var nb=document.querySelector('.nbar');
-    var lb=document.querySelector('.lbar');
-    var ls=document.querySelector('.lsub');
-    if(!nb)return;
-    if(land){
-      nb.style.setProperty('height','18px','important');
-      nb.style.setProperty('min-height','0','important');
-      nb.style.setProperty('padding','0 8px','important');
-      if(lb){lb.style.setProperty('height','26px','important');lb.style.setProperty('padding','0 8px','important');}
-      if(ls)ls.style.setProperty('display','none','important');
-    } else {
-      nb.style.removeProperty('height');nb.style.removeProperty('min-height');nb.style.removeProperty('padding');
-      if(lb){lb.style.removeProperty('height');lb.style.removeProperty('padding');}
-      if(ls)ls.style.removeProperty('display');
-    }
-  }
-  setInterval(fixLandscape,500);
-  window.addEventListener('orientationchange',function(){setTimeout(fixLandscape,300);});
-  window.addEventListener('resize',fixLandscape);
 
   // Rozet sürükleme
   var badge=document.getElementById('gw-badge');
