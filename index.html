@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:none">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v40</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v41</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -11,11 +11,29 @@
 .sidebar,.sbi,.sbs{pointer-events:auto!important;}
 .sbi{cursor:pointer!important;}
 @media screen and (min-width:769px){
-  .sidebar{display:none!important;}
-  #gw-desktop-nav{display:flex!important;}
-}
-@media screen and (max-width:768px){
   #gw-desktop-nav{display:none!important;}
+  html body .sidebar{
+    background:transparent!important;background-color:transparent!important;
+    border-right:none!important;border-top:none!important;border-bottom:none!important;
+    border-left:1px solid rgba(201,162,39,0.25)!important;
+    box-shadow:none!important;
+  }
+  html body .sbi{
+    background:none!important;background-color:transparent!important;
+    border-left:none!important;border-right:none!important;
+    color:rgba(255,255,255,0.85)!important;font-size:13px!important;font-weight:600!important;
+    letter-spacing:0.2px!important;
+    text-shadow:0 1px 6px rgba(0,0,0,0.7)!important;
+  }
+  html body .sbi.act{
+    background:none!important;color:#ffd700!important;font-weight:800!important;
+    text-shadow:0 0 10px rgba(255,215,0,0.4),0 1px 6px rgba(0,0,0,0.7)!important;
+    border:none!important;
+  }
+  html body .sbs{
+    background:none!important;color:rgba(201,162,39,0.45)!important;
+    font-size:7px!important;letter-spacing:2.5px!important;
+  }
 }
 @media screen and (max-width:768px){
   .strip2{z-index:1001!important;position:relative!important;}
@@ -69,49 +87,6 @@
     if(t)t.textContent=pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick();setInterval(tick,1000);
-
-  // Bilgisayar için yeni şeffaf menü
-  function buildDesktopNav(){
-    if(window.innerWidth<=768)return;
-    if(document.getElementById('gw-desktop-nav'))return;
-    var nav=document.createElement('div');
-    nav.id='gw-desktop-nav';
-    nav.style.cssText='display:none;position:fixed;left:0;top:172px;width:200px;z-index:900;flex-direction:column;padding:8px 0;';
-    var items=[
-      ['Ana Sayfa','home'],['Keşfet','search'],['Berberler','barbers'],
-      ['Kuaförler','hairdressers'],['Masaj','massage'],['Makyaj','makeup'],
-      ['Tırnak','nails'],['Eğitimler','trainings'],['İş İlanları','jobs'],
-      ['Harita','map'],['Canlı Yayın','live'],['Mesajlar','messages'],
-      ['Profilim','profile'],['Ayarlar','settings']
-    ];
-    items.forEach(function(item){
-      var div=document.createElement('div');
-      div.dataset.page=item[1];
-      div.style.cssText='padding:8px 16px;cursor:pointer;font-size:13px;font-weight:600;color:rgba(255,255,255,0.82);font-family:DM Sans,sans-serif;transition:color 0.2s;text-shadow:0 1px 8px rgba(0,0,0,0.8);white-space:nowrap;';
-      div.textContent=item[0];
-      div.onmouseover=function(){this.style.color='#ffd700';};
-      div.onmouseout=function(){if(!this.classList.contains('gw-act'))this.style.color='rgba(255,255,255,0.82)';};
-      div.onclick=function(){
-        var page=this.dataset.page;
-        // Asıl sidebar'daki ilgili butona tıkla
-        var sbi=document.querySelectorAll('.sbi');
-        for(var i=0;i<sbi.length;i++){
-          if(sbi[i].onclick||sbi[i].dataset){
-            sbi[i].click();
-            break;
-          }
-        }
-        // Tüm aktif durumları sıfırla
-        nav.querySelectorAll('div').forEach(function(d){d.style.color='rgba(255,255,255,0.82)';d.classList.remove('gw-act');});
-        this.style.color='#ffd700';this.classList.add('gw-act');
-      };
-      nav.appendChild(div);
-    });
-    document.body.appendChild(nav);
-  }
-  new MutationObserver(buildDesktopNav).observe(document.body,{childList:true,subtree:false});
-  setTimeout(buildDesktopNav,500);
-  window.addEventListener('resize',function(){if(window.innerWidth>768)buildDesktopNav();else{var n=document.getElementById('gw-desktop-nav');if(n)n.style.display='none';}});
 
   // Dil menüsü dışarı tık + Android geri kapama
   var overlay=document.createElement('div');
