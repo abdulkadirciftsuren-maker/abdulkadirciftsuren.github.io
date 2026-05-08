@@ -20,16 +20,10 @@
   html body [class*="reel"]{grid-template-columns:repeat(4,1fr)!important;gap:12px!important;}
   html body [class*="stor"]{grid-template-columns:repeat(6,1fr)!important;}
 
-  /* ── LOGO — dokunma, ferah kalsın ── */
-  html body .lsub{display:block!important;font-size:10px!important;letter-spacing:3px!important;opacity:0.65!important;margin-top:4px!important;}
+  /* ── LOGO: ferah, dokunulmaz ── */
+  html body .ltx{font-size:28px!important;letter-spacing:5px!important;font-weight:900!important;}
+  html body .lsub{display:block!important;font-size:10px!important;letter-spacing:3px!important;opacity:0.65!important;margin-top:5px!important;}
   html body .bin{padding:9px 20px!important;font-size:13px!important;font-weight:800!important;border-radius:16px!important;height:40px!important;}
-  /* ── SADECE ARAMA KUTUSU — ince pırlanta gibi ── */
-  html body .nbar{margin-top:8px!important;padding:0 32px!important;gap:14px!important;display:flex!important;align-items:center!important;}
-  html body input[type="text"],html body input[type="search"]{
-    font-size:12px!important;height:22px!important;
-    border-radius:20px!important;padding:0 12px!important;
-    border-width:1px!important;
-  }
 }
 @media screen and (min-width:1200px){
   html body .cgrid{grid-template-columns:repeat(7,1fr)!important;}
@@ -96,26 +90,40 @@
   }
   tick();setInterval(tick,1000);
 
-  // Arama kutusu pırlanta gibi ince + 20px boşluk
-  function slimSearch(){
+  // Header ferah + arama kutusu aşağıda ve ince
+  function fixDesktopLayout(){
     if(window.innerWidth<=768)return;
+    // Lbar: saray tavanı gibi ferah
+    var lb=document.querySelector('.lbar');
+    if(lb){
+      lb.style.setProperty('height','110px','important');
+      lb.style.setProperty('padding','0 40px','important');
+      lb.style.setProperty('display','flex','important');
+      lb.style.setProperty('align-items','center','important');
+      lb.style.setProperty('justify-content','space-between','important');
+    }
+    // Nbar: aşağıda, ince
     var nb=document.querySelector('.nbar');
-    if(!nb)return;
-    nb.style.setProperty('margin-top','20px','important');
-    nb.style.setProperty('height','32px','important');
-    nb.style.setProperty('min-height','unset','important');
-    nb.style.setProperty('padding','0 32px','important');
+    if(nb){
+      nb.style.setProperty('margin-top','0','important');
+      nb.style.setProperty('height','38px','important');
+      nb.style.setProperty('min-height','unset','important');
+      nb.style.setProperty('padding','0 40px','important');
+      nb.style.setProperty('display','flex','important');
+      nb.style.setProperty('align-items','center','important');
+    }
+    // Input: ince çizgi
     document.querySelectorAll('.nbar input').forEach(function(inp){
       inp.style.setProperty('height','22px','important');
-      inp.style.setProperty('font-size','11px','important');
-      inp.style.setProperty('padding','0 12px','important');
+      inp.style.setProperty('font-size','12px','important');
+      inp.style.setProperty('padding','0 14px','important');
       inp.style.setProperty('border-radius','20px','important');
       inp.style.setProperty('border-width','1px','important');
     });
   }
-  setTimeout(slimSearch,300);
-  setInterval(slimSearch,1500);
-  window.addEventListener('resize',slimSearch);
+  setTimeout(fixDesktopLayout,300);
+  setInterval(fixDesktopLayout,1500);
+  window.addEventListener('resize',fixDesktopLayout);
 
 
   // Rozet sürükleme
