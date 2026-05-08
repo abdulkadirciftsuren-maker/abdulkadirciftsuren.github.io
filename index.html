@@ -107,6 +107,29 @@
   }
   tick();setInterval(tick,1000);
 
+  // Telefon yatay - nbar JS ile incelt (compiled CSS override)
+  function fixLandscape(){
+    var land=window.innerWidth>window.innerHeight&&window.innerHeight<=500;
+    var nb=document.querySelector('.nbar');
+    var lb=document.querySelector('.lbar');
+    var ls=document.querySelector('.lsub');
+    if(!nb)return;
+    if(land){
+      nb.style.setProperty('height','18px','important');
+      nb.style.setProperty('min-height','0','important');
+      nb.style.setProperty('padding','0 8px','important');
+      if(lb){lb.style.setProperty('height','26px','important');lb.style.setProperty('padding','0 8px','important');}
+      if(ls)ls.style.setProperty('display','none','important');
+    } else {
+      nb.style.removeProperty('height');nb.style.removeProperty('min-height');nb.style.removeProperty('padding');
+      if(lb){lb.style.removeProperty('height');lb.style.removeProperty('padding');}
+      if(ls)ls.style.removeProperty('display');
+    }
+  }
+  setInterval(fixLandscape,500);
+  window.addEventListener('orientationchange',function(){setTimeout(fixLandscape,300);});
+  window.addEventListener('resize',fixLandscape);
+
   // Rozet sürükleme
   var badge=document.getElementById('gw-badge');
   var dragging=false,ox=0,oy=0;
