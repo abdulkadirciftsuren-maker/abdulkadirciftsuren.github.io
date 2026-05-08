@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
-<div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:none">
+<div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v45</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v1</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -68,6 +68,16 @@
     if(t)t.textContent=pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick();setInterval(tick,1000);
+
+  // Rozet sürükleme
+  var badge=document.getElementById('gw-badge');
+  var dragging=false,ox=0,oy=0;
+  badge.addEventListener('mousedown',function(e){dragging=true;ox=e.clientX-badge.offsetLeft;oy=e.clientY-badge.offsetTop;badge.style.cursor='grabbing';e.preventDefault();});
+  badge.addEventListener('touchstart',function(e){dragging=true;ox=e.touches[0].clientX-badge.offsetLeft;oy=e.touches[0].clientY-badge.offsetTop;e.preventDefault();},{passive:false});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;badge.style.left=Math.max(0,Math.min(window.innerWidth-badge.offsetWidth,e.clientX-ox))+'px';badge.style.top=Math.max(0,Math.min(window.innerHeight-badge.offsetHeight,e.clientY-oy))+'px';});
+  document.addEventListener('touchmove',function(e){if(!dragging)return;badge.style.left=Math.max(0,Math.min(window.innerWidth-badge.offsetWidth,e.touches[0].clientX-ox))+'px';badge.style.top=Math.max(0,Math.min(window.innerHeight-badge.offsetHeight,e.touches[0].clientY-oy))+'px';},{passive:false});
+  document.addEventListener('mouseup',function(){dragging=false;badge.style.cursor='grab';});
+  document.addEventListener('touchend',function(){dragging=false;});
 
   // ── YATAY MASAÜSTÜ MENÜ ────────────────────────────────
   var GW_CATS=['Ana Sayfa','Keşfet','Berberler','Kuaförler','Masaj','Makyaj','Tırnak','Eğitimler','İş İlanları','Harita','Canlı Yayın','Mesajlar','Profilim','Ayarlar'];
