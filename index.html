@@ -96,22 +96,25 @@
   }
   tick();setInterval(tick,1000);
 
-  // Arama şeridi zarif ince - JS inline override
+  // Arama kutusu pırlanta gibi ince + 20px boşluk
   function slimSearch(){
     if(window.innerWidth<=768)return;
     var nb=document.querySelector('.nbar');
     if(!nb)return;
-    nb.style.setProperty('height','36px','important');
-    nb.style.setProperty('padding','0 32px','important');
+    nb.style.setProperty('margin-top','20px','important');
+    nb.style.setProperty('height','32px','important');
     nb.style.setProperty('min-height','unset','important');
+    nb.style.setProperty('padding','0 32px','important');
     document.querySelectorAll('.nbar input').forEach(function(inp){
-      inp.style.setProperty('height','24px','important');
-      inp.style.setProperty('font-size','12px','important');
-      inp.style.setProperty('padding','0 10px','important');
+      inp.style.setProperty('height','22px','important');
+      inp.style.setProperty('font-size','11px','important');
+      inp.style.setProperty('padding','0 12px','important');
+      inp.style.setProperty('border-radius','20px','important');
+      inp.style.setProperty('border-width','1px','important');
     });
   }
-  setTimeout(slimSearch,400);
-  setInterval(slimSearch,2000);
+  setTimeout(slimSearch,300);
+  setInterval(slimSearch,1500);
   window.addEventListener('resize',slimSearch);
 
 
