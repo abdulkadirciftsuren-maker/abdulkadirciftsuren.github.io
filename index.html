@@ -262,7 +262,7 @@ html body .s2c{font-size:9px!important;}
     }
     // 2.5 sn sonra modal aç
     // Tooltip'e dokunulunca hemen aç (mobil), masaüstünde 2.5sn
-    var delay=('ontouchstart' in window)?4500:2500;
+    var delay=window.innerWidth>768?2500:(window.innerHeight>window.innerWidth?8000:4500);
     clearTimeout(gwModalTimer);
     gwModalTimer=setTimeout(function(){
       document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
@@ -282,7 +282,7 @@ html body .s2c{font-size:9px!important;}
       document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
       document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
       gwTipShowing=false;
-    },window.innerWidth>768?3000:(window.innerHeight>window.innerWidth?4500:7000));
+    },window.innerWidth>768?3000:(window.innerHeight>window.innerWidth?10000:7000));
   }
   function enhanceBin(){
     document.querySelectorAll('.bin').forEach(function(btn){
