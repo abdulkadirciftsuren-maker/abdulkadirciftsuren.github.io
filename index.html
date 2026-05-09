@@ -1,15 +1,16 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v21</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v22</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
 </div>
 <style>
-/* Yatay kaydırmayı engelle */
-html,body{overflow-x:hidden!important;max-width:100vw!important;}
+/* Yatay kaydırma + metin seçimi engelle */
+html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none!important;-webkit-user-select:none!important;-webkit-touch-callout:none!important;}
 #gw-cs{max-width:100vw!important;}
+*{-webkit-touch-callout:none!important;}
 /* ── PIRMANTA MÜHRÜ BUTONU ── */
 @keyframes gw-gold{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes gw-glow{0%,100%{box-shadow:0 0 8px rgba(201,162,39,0.4),0 0 20px rgba(201,162,39,0.2)}50%{box-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(201,162,39,0.5),0 0 60px rgba(255,215,0,0.3)}}
@@ -30,12 +31,14 @@ html body .bin:hover,html body .bin:active{
   animation:gw-gold 1.5s ease infinite,gw-burst 0.4s ease forwards!important;
 }
 html body .bin:hover,html body .bin.gw-tap{transform:scale(1.06)!important;animation:gw-gold 1.5s ease infinite,gw-burst 0.4s ease forwards!important;}
-@keyframes gw-tip-in{0%{opacity:0;transform:translateX(-50%) translateY(8px) scale(0.9)}100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes gw-tip-in{0%{opacity:0;transform:translateX(-50%) scale(0.8) translateY(-10px)}100%{opacity:1;transform:translateX(-50%) scale(1) translateY(0)}}
 @keyframes gw-sparkle{0%,100%{opacity:0;transform:scale(0) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(180deg)}}
-#gw-tip{position:fixed;z-index:99998;background:linear-gradient(135deg,#1a0a00 0%,#2d1500 50%,#1a0a00 100%);border:1.5px solid rgba(201,162,39,0.8);border-radius:16px;padding:12px 20px;text-align:center;pointer-events:none;box-shadow:0 0 30px rgba(201,162,39,0.5),0 8px 32px rgba(0,0,0,0.8);animation:gw-tip-in 0.35s ease forwards;}
-#gw-tip-txt{font-size:11px;font-weight:900;letter-spacing:1.5px;color:#ffd700;text-shadow:0 0 12px rgba(255,215,0,0.8);}
-#gw-tip::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:rgba(201,162,39,0.8);}
-.gw-spark{position:fixed;pointer-events:none;z-index:99997;animation:gw-sparkle 0.9s ease forwards;}
+@keyframes gw-beam{0%{opacity:0;height:0}100%{opacity:0.6;height:var(--beam-h,100px)}}
+#gw-tip{position:fixed;left:50%;top:80px;z-index:99998;background:linear-gradient(135deg,#1a0a00 0%,#2d1500 50%,#1a0a00 100%);border:1.5px solid rgba(201,162,39,0.8);border-radius:20px;padding:14px 24px;text-align:center;pointer-events:none;box-shadow:0 0 40px rgba(201,162,39,0.6),0 0 80px rgba(201,162,39,0.2),0 12px 40px rgba(0,0,0,0.9);transform:translateX(-50%);animation:gw-tip-in 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;}
+#gw-tip-txt{font-size:12px;font-weight:900;letter-spacing:2px;color:#ffd700;text-shadow:0 0 16px rgba(255,215,0,0.9),0 0 32px rgba(255,215,0,0.4);}
+#gw-tip-sub{font-size:9px;color:rgba(201,162,39,0.7);margin-top:4px;letter-spacing:1px;}
+#gw-beam{position:fixed;left:50%;width:2px;background:linear-gradient(to bottom,rgba(201,162,39,0.7),transparent);pointer-events:none;z-index:99996;transform:translateX(-50%);animation:gw-beam 0.4s ease forwards;}
+.gw-spark{position:fixed;pointer-events:none;z-index:99997;animation:gw-sparkle 1s ease forwards;}
 .mob-overlay{background:transparent!important;pointer-events:none!important;}
 .sidebar,.sbi,.sbs{pointer-events:auto!important;}
 .sbi{cursor:pointer!important;}
@@ -139,43 +142,68 @@ html body .s2c{font-size:9px!important;}
   }
   tick();setInterval(tick,1000);
 
-  // Pırlanta Mührü — tooltip yukarıda + pırıltı
-  var gwTipTimer=null;
+  // Pırlanta Mührü — tepede tooltip + ışık bağı + 2.5sn delay modal
+  var gwTipTimer=null;var gwModalTimer=null;var gwTipShowing=false;
   function showGwTip(btn){
-    var old=document.getElementById('gw-tip');if(old)old.remove();
+    if(gwTipShowing)return;
+    gwTipShowing=true;
+    document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
+    document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
     document.querySelectorAll('.gw-spark').forEach(function(s){s.remove();});
     var r=btn.getBoundingClientRect();
+    var bx=r.left+r.width/2;var by=r.top;
+    var tipTop=80;
+    // Işık bağı (ışın)
+    var beam=document.createElement('div');beam.id='gw-beam';
+    var beamH=by-tipTop-60;
+    beam.style.cssText='top:'+(tipTop+60)+'px;height:0;--beam-h:'+beamH+'px;';
+    document.body.appendChild(beam);
+    // Tooltip tepede
     var tip=document.createElement('div');tip.id='gw-tip';
-    tip.innerHTML='<div id="gw-tip-txt">💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎</div>';
-    var cx=r.left+r.width/2;var ty=r.top-10;
-    tip.style.cssText='left:'+cx+'px;top:'+ty+'px;transform:translateX(-50%) translateY(-100%);';
+    tip.innerHTML='<div id="gw-tip-txt">💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎</div><div id="gw-tip-sub">Ayrıcalıklı üyeliğiniz sizi bekliyor...</div>';
     document.body.appendChild(tip);
-    // Pırlanta kıvılcımları
-    var sparks=['✦','◆','✧','◇','★','✦'];
-    for(var i=0;i<6;i++){
-      (function(i){
-        setTimeout(function(){
-          var sp=document.createElement('div');sp.className='gw-spark';
-          sp.textContent=sparks[i%sparks.length];
-          var ang=Math.random()*360;var dist=30+Math.random()*40;
-          var sx=cx+Math.cos(ang)*dist;var sy=ty-80+Math.sin(ang)*dist;
-          sp.style.cssText='left:'+sx+'px;top:'+sy+'px;font-size:'+(8+Math.random()*8)+'px;color:#ffd700;text-shadow:0 0 6px #ffd700;';
-          document.body.appendChild(sp);
-          setTimeout(function(){sp.remove();},900);
-        },i*120);
-      })(i);
+    // Kıvılcımlar tepede
+    var sparks=['💎','✦','◆','✧','◇','★'];
+    for(var i=0;i<8;i++){
+      (function(i){setTimeout(function(){
+        var sp=document.createElement('div');sp.className='gw-spark';
+        sp.textContent=sparks[i%sparks.length];
+        var sx=window.innerWidth/2+(Math.random()-0.5)*200;
+        var sy=60+Math.random()*60;
+        sp.style.cssText='left:'+sx+'px;top:'+sy+'px;font-size:'+(8+Math.random()*10)+'px;color:#ffd700;text-shadow:0 0 8px #ffd700;';
+        document.body.appendChild(sp);
+        setTimeout(function(){sp.remove();},1000);
+      },i*100);})(i);
     }
+    // 2.5 sn sonra modal aç
+    clearTimeout(gwModalTimer);
+    gwModalTimer=setTimeout(function(){
+      document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
+      document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
+      gwTipShowing=false;
+      btn.dataset.gwAllow='1';
+      btn.click();
+    },2500);
+    // 3sn sonra temizle
     clearTimeout(gwTipTimer);
-    gwTipTimer=setTimeout(function(){var t=document.getElementById('gw-tip');if(t)t.remove();},2500);
+    gwTipTimer=setTimeout(function(){
+      document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
+      document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
+      gwTipShowing=false;
+    },3200);
   }
-  function hideGwTip(){clearTimeout(gwTipTimer);gwTipTimer=setTimeout(function(){var t=document.getElementById('gw-tip');if(t)t.remove();},300);}
   function enhanceBin(){
     document.querySelectorAll('.bin').forEach(function(btn){
       if(btn.dataset.gwDone)return;
       btn.dataset.gwDone='1';
       btn.addEventListener('mouseenter',function(){showGwTip(this);});
-      btn.addEventListener('mouseleave',function(){hideGwTip();});
-      btn.addEventListener('touchstart',function(e){this.classList.add('gw-tap');showGwTip(this);},{passive:true});
+      btn.addEventListener('mouseleave',function(){/* tooltip tepede kalır */});
+      btn.addEventListener('click',function(e){
+        if(this.dataset.gwAllow){delete this.dataset.gwAllow;return;}
+        e.preventDefault();e.stopImmediatePropagation();
+        showGwTip(this);
+      },true);
+      btn.addEventListener('touchstart',function(){this.classList.add('gw-tap');},{passive:true});
       btn.addEventListener('touchend',function(){var s=this;setTimeout(function(){s.classList.remove('gw-tap');},800);});
     });
   }
