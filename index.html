@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v37</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v38</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -318,40 +318,38 @@ html body .s2c{font-size:9px!important;}
     var gBtn=null;
     document.querySelectorAll('button').forEach(function(b){if((b.textContent||'').trim().toLowerCase().indexOf('google')>=0&&!b.id)gBtn=b;});
     if(!gBtn)return;
-    // Google butonunun üstüne güzel bir ayırıcı + tier seçici ekle
+    // Dil desteği
+    var cl=gwGetLang();
+    var MLG={TR:{d:'PIRLANTA',ds:'Profesyonel',s:'GÜMÜŞ',ss:'Misafir',q:'VEYA HIZLI GİRİŞ',p:'💳 ÖDEME SEÇENEKLERİ',soon:'yakında aktif!'},EN:{d:'DIAMOND',ds:'Professional',s:'SILVER',ss:'Guest',q:'OR QUICK LOGIN',p:'💳 PAYMENT OPTIONS',soon:'coming soon!'},DE:{d:'DIAMANT',ds:'Professionell',s:'SILBER',ss:'Gast',q:'ODER SCHNELL',p:'💳 ZAHLUNGSOPTIONEN',soon:'bald verfügbar!'},FR:{d:'DIAMANT',ds:'Professionnel',s:'ARGENT',ss:'Invité',q:'OU CONNEXION RAPIDE',p:'💳 OPTIONS DE PAIEMENT',soon:'bientôt disponible!'},ES:{d:'DIAMANTE',ds:'Profesional',s:'PLATA',ss:'Invitado',q:'O ACCESO RÁPIDO',p:'💳 OPCIONES DE PAGO',soon:'¡próximamente!'},RU:{d:'БРИЛЛИАНТ',ds:'Профессионал',s:'СЕРЕБРО',ss:'Гость',q:'ИЛИ БЫСТРЫЙ ВХОД',p:'💳 СПОСОБЫ ОПЛАТЫ',soon:'скоро!'}};
+    var t=MLG[cl]||MLG['TR'];
     var extra=document.createElement('div');extra.id='gw-extra';
     extra.style.cssText='font-family:DM Sans,sans-serif;width:100%;box-sizing:border-box;';
     extra.innerHTML=
-      // Tier seçici
       '<div style="display:flex;gap:8px;margin-bottom:10px;">'
-      +'<div id="gd" style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid #ffd700;background:rgba(201,162,39,0.16);color:#ffd700;text-align:center;cursor:pointer;"><div style="font-size:16px;">💎</div><div style="font-size:10px;font-weight:900;">PIRLANTA</div><div style="font-size:8px;opacity:0.7;">Profesyonel</div></div>'
-      +'<div id="gs" style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid rgba(192,192,192,0.35);background:rgba(192,192,192,0.06);color:#c0c0c0;text-align:center;cursor:pointer;"><div style="font-size:16px;">🥈</div><div style="font-size:10px;font-weight:900;">GÜMÜŞ</div><div style="font-size:8px;opacity:0.7;">Misafir</div></div>'
+      +'<div id="gd" style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid #ffd700;background:rgba(201,162,39,0.16);color:#ffd700;text-align:center;cursor:pointer;"><div style="font-size:16px;">💎</div><div style="font-size:10px;font-weight:900;">'+t.d+'</div><div style="font-size:8px;opacity:0.7;">'+t.ds+'</div></div>'
+      +'<div id="gs" style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid rgba(192,192,192,0.35);background:rgba(192,192,192,0.06);color:#c0c0c0;text-align:center;cursor:pointer;"><div style="font-size:16px;">🥈</div><div style="font-size:10px;font-weight:900;">'+t.s+'</div><div style="font-size:8px;opacity:0.7;">'+t.ss+'</div></div>'
       +'</div>'
-      // Ayırıcı
-      +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:8px;border-top:1px solid rgba(201,162,39,0.15);padding-top:10px;">VEYA HIZLI GİRİŞ</div>'
-      // Sosyal butonlar (Google butonunun yerine)
+      +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:8px;border-top:1px solid rgba(201,162,39,0.15);padding-top:10px;">'+t.q+'</div>'
       +'<div style="display:flex;gap:6px;margin-bottom:10px;">'
       +'<button id="gg" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(66,133,244,0.5);background:rgba(66,133,244,0.1);color:#fff;font-size:11px;cursor:pointer;font-weight:700;font-family:DM Sans,sans-serif;"><span style="color:#4285F4">G</span> Google</button>'
       +'<button id="ga" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:#fff;font-size:11px;cursor:pointer;font-weight:700;font-family:DM Sans,sans-serif;">🍎 Apple</button>'
       +'<button id="gf" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(59,89,152,0.5);background:rgba(59,89,152,0.15);color:#fff;font-size:11px;cursor:pointer;font-weight:700;font-family:DM Sans,sans-serif;"><span style="color:#4267B2">f</span> FB</button>'
       +'</div>'
-      // Ödeme
-      +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:7px;">💳 ÖDEME SEÇENEKLERİ</div>'
+      +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:7px;">'+t.p+'</div>'
       +'<div style="display:flex;gap:5px;margin-bottom:4px;">'
       +'<div style="flex:1;background:rgba(201,162,39,0.12);border:1px solid rgba(201,162,39,0.4);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ffd700;cursor:pointer;font-weight:700;">💳<br>Kart</div>'
       +'<div style="flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ddd;cursor:pointer;font-weight:700;">🍎<br>Pay</div>'
       +'<div style="flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ddd;cursor:pointer;font-weight:700;">📱<br>Mobil</div>'
       +'<div style="flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ddd;cursor:pointer;font-weight:700;">🏦<br>Banka</div>'
       +'</div>';
-    // Google butonunun üstüne ekle, Google butonu gizle
     gBtn.parentNode.insertBefore(extra,gBtn);
     gBtn.style.setProperty('display','none','important');
-    // Event handlers
     extra.querySelector('#gd').addEventListener('click',function(){gwTierActive='diamond';this.style.border='2px solid #ffd700';extra.querySelector('#gs').style.border='2px solid rgba(192,192,192,0.35)';});
     extra.querySelector('#gs').addEventListener('click',function(){gwTierActive='silver';this.style.border='2px solid #c0c0c0';extra.querySelector('#gd').style.border='2px solid rgba(201,162,39,0.35)';});
     extra.querySelector('#gg').addEventListener('click',function(){gBtn.style.removeProperty('display');gBtn.click();setTimeout(function(){gBtn.style.setProperty('display','none','important');},100);});
-    extra.querySelector('#ga').addEventListener('click',function(){alert('Apple ile giriş yakında!');});
-    extra.querySelector('#gf').addEventListener('click',function(){alert('Facebook ile giriş yakında!');});
+    extra.querySelector('#ga').addEventListener('click',function(){alert('Apple '+t.soon);});
+    extra.querySelector('#gf').addEventListener('click',function(){alert('Facebook '+t.soon);});
+    extra.querySelectorAll('div[style*="cursor:pointer"]').forEach(function(d,i){d.addEventListener('click',function(){alert(['Kart','Apple Pay','Mobil Ödeme','Banka Havalesi'][i]+' '+t.soon);});});
     startSholen();
   }
   function checkModalClosed(){
