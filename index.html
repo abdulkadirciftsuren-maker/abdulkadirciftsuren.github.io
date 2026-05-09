@@ -29,12 +29,13 @@ html body .bin:hover,html body .bin:active{
   transform:scale(1.08)!important;
   animation:gw-gold 1.5s ease infinite,gw-burst 0.4s ease forwards!important;
 }
-html body .bin span.gw-bin-txt{transition:opacity 0.25s ease!important;}
-html body .bin:hover span.gw-bin-txt{opacity:0!important;}
-html body .bin span.gw-bin-alt{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;opacity:0!important;font-size:10px!important;font-weight:900!important;letter-spacing:1px!important;transition:opacity 0.25s ease 0.15s!important;color:#1a0a00!important;padding:0 8px!important;text-align:center!important;}
-html body .bin:hover span.gw-bin-alt,html body .bin.gw-tap span.gw-bin-alt{opacity:1!important;}
-html body .bin:hover span.gw-bin-txt,html body .bin.gw-tap span.gw-bin-txt{opacity:0!important;}
-html body .bin.gw-tap{transform:scale(1.08)!important;animation:gw-gold 1.5s ease infinite,gw-burst 0.4s ease forwards!important;}
+html body .bin:hover,html body .bin.gw-tap{transform:scale(1.06)!important;animation:gw-gold 1.5s ease infinite,gw-burst 0.4s ease forwards!important;}
+@keyframes gw-tip-in{0%{opacity:0;transform:translateX(-50%) translateY(8px) scale(0.9)}100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes gw-sparkle{0%,100%{opacity:0;transform:scale(0) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(180deg)}}
+#gw-tip{position:fixed;z-index:99998;background:linear-gradient(135deg,#1a0a00 0%,#2d1500 50%,#1a0a00 100%);border:1.5px solid rgba(201,162,39,0.8);border-radius:16px;padding:12px 20px;text-align:center;pointer-events:none;box-shadow:0 0 30px rgba(201,162,39,0.5),0 8px 32px rgba(0,0,0,0.8);animation:gw-tip-in 0.35s ease forwards;}
+#gw-tip-txt{font-size:11px;font-weight:900;letter-spacing:1.5px;color:#ffd700;text-shadow:0 0 12px rgba(255,215,0,0.8);}
+#gw-tip::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:rgba(201,162,39,0.8);}
+.gw-spark{position:fixed;pointer-events:none;z-index:99997;animation:gw-sparkle 0.9s ease forwards;}
 .mob-overlay{background:transparent!important;pointer-events:none!important;}
 .sidebar,.sbi,.sbs{pointer-events:auto!important;}
 .sbi{cursor:pointer!important;}
@@ -138,16 +139,44 @@ html body .s2c{font-size:9px!important;}
   }
   tick();setInterval(tick,1000);
 
-  // Pırlanta Mührü butonu güçlendir
+  // Pırlanta Mührü — tooltip yukarıda + pırıltı
+  var gwTipTimer=null;
+  function showGwTip(btn){
+    var old=document.getElementById('gw-tip');if(old)old.remove();
+    document.querySelectorAll('.gw-spark').forEach(function(s){s.remove();});
+    var r=btn.getBoundingClientRect();
+    var tip=document.createElement('div');tip.id='gw-tip';
+    tip.innerHTML='<div id="gw-tip-txt">💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎</div>';
+    var cx=r.left+r.width/2;var ty=r.top-10;
+    tip.style.cssText='left:'+cx+'px;top:'+ty+'px;transform:translateX(-50%) translateY(-100%);';
+    document.body.appendChild(tip);
+    // Pırlanta kıvılcımları
+    var sparks=['✦','◆','✧','◇','★','✦'];
+    for(var i=0;i<6;i++){
+      (function(i){
+        setTimeout(function(){
+          var sp=document.createElement('div');sp.className='gw-spark';
+          sp.textContent=sparks[i%sparks.length];
+          var ang=Math.random()*360;var dist=30+Math.random()*40;
+          var sx=cx+Math.cos(ang)*dist;var sy=ty-80+Math.sin(ang)*dist;
+          sp.style.cssText='left:'+sx+'px;top:'+sy+'px;font-size:'+(8+Math.random()*8)+'px;color:#ffd700;text-shadow:0 0 6px #ffd700;';
+          document.body.appendChild(sp);
+          setTimeout(function(){sp.remove();},900);
+        },i*120);
+      })(i);
+    }
+    clearTimeout(gwTipTimer);
+    gwTipTimer=setTimeout(function(){var t=document.getElementById('gw-tip');if(t)t.remove();},2500);
+  }
+  function hideGwTip(){clearTimeout(gwTipTimer);gwTipTimer=setTimeout(function(){var t=document.getElementById('gw-tip');if(t)t.remove();},300);}
   function enhanceBin(){
     document.querySelectorAll('.bin').forEach(function(btn){
       if(btn.dataset.gwDone)return;
       btn.dataset.gwDone='1';
-      var orig=btn.innerHTML;
-      btn.innerHTML='<span class="gw-bin-txt">'+orig+'</span><span class="gw-bin-alt">💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎</span>';
-      // Mobil tap desteği
-      btn.addEventListener('touchstart',function(){this.classList.add('gw-tap');},{passive:true});
-      btn.addEventListener('touchend',function(){var s=this;setTimeout(function(){s.classList.remove('gw-tap');},600);});
+      btn.addEventListener('mouseenter',function(){showGwTip(this);});
+      btn.addEventListener('mouseleave',function(){hideGwTip();});
+      btn.addEventListener('touchstart',function(e){this.classList.add('gw-tap');showGwTip(this);},{passive:true});
+      btn.addEventListener('touchend',function(){var s=this;setTimeout(function(){s.classList.remove('gw-tap');},800);});
     });
   }
   setTimeout(enhanceBin,400);
