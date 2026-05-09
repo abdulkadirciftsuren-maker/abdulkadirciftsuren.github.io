@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v34</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v35</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -282,9 +282,8 @@ html body .s2c{font-size:9px!important;}
   setTimeout(enhanceBin,400);
   setInterval(enhanceBin,2000);
 
-  // VIP Modal — Pırlanta vs Gümüş tier seçici
-  // VIP Modal v26 — tier seçici form içine + şölen efekti
-  var gwTierActive='diamond';var gwSholenInt=null;
+  // VIP Modal — sade, güzel, çalışan
+  var gwSholenInt=null;
   function stopSholen(){if(gwSholenInt){clearInterval(gwSholenInt);gwSholenInt=null;}document.querySelectorAll('.gw-sholen').forEach(function(s){s.remove();});}
   function startSholen(){
     if(gwSholenInt)return;
@@ -305,133 +304,53 @@ html body .s2c{font-size:9px!important;}
       setTimeout(function(){s.remove();},(dur+0.5)*1000);
     },300);
   }
+  var gwTierActive='diamond';
+  // Modal: şölen efekti + Google butonundan sonra güzel ek bölüm
   function enhanceModal(){
-    // Modal açık mı? Herhangi bir input veya modal class var mı?
-    var inputs=document.querySelectorAll('input[type="email"],input[type="password"],input[type="text"]');
-    var modalOpen=inputs.length>0||document.querySelector('[class*="auth"],[class*="modal"],[class*="Modal"]');
-    if(!modalOpen)return;
-    if(document.getElementById('gw-tier-sel'))return;
-    // Modal açıksa overlay göster
-    if(!document.getElementById('gw-vip-overlay')){
-      var ov=document.createElement('div');ov.id='gw-vip-overlay';
-      ov.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:99996;background:linear-gradient(to top,rgba(6,5,10,0.98),rgba(6,5,10,0.9) 80%,transparent);padding:16px 20px 24px;font-family:DM Sans,sans-serif;';
-      ov.innerHTML='<div style="display:flex;gap:8px;margin-bottom:10px;">'
-        +'<div style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid #ffd700;background:rgba(201,162,39,0.14);color:#ffd700;text-align:center;cursor:pointer;" id="gw-dia-btn"><span style="font-size:16px;display:block;">💎</span><span style="font-size:10px;font-weight:900;letter-spacing:1px;">PIRLANTA</span><span style="font-size:8px;opacity:0.7;display:block;">Profesyonel</span></div>'
-        +'<div style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid rgba(192,192,192,0.4);background:rgba(192,192,192,0.06);color:#c0c0c0;text-align:center;cursor:pointer;" id="gw-sil-btn"><span style="font-size:16px;display:block;">🥈</span><span style="font-size:10px;font-weight:900;letter-spacing:1px;">GÜMÜŞ</span><span style="font-size:8px;opacity:0.7;display:block;">Misafir</span></div>'
-        +'</div>'
-        +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:8px;">HIZLI GİRİŞ</div>'
-        +'<div style="display:flex;gap:6px;margin-bottom:8px;">'
-        +'<button style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.05);color:#e8e0d0;font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">G Google</button>'
-        +'<button style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.05);color:#e8e0d0;font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">🍎 Apple</button>'
-        +'<button style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid rgba(59,89,152,0.4);background:rgba(59,89,152,0.12);color:#e8e0d0;font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">f Facebook</button>'
-        +'</div>'
-        +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:6px;">ÖDEME</div>'
-        +'<div style="display:flex;gap:5px;">'
-        +'<div style="flex:1;background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.3);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#ffd700;cursor:pointer;">💳 Kart</div>'
-        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#e8e0d0;cursor:pointer;">🍎 Pay</div>'
-        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#e8e0d0;cursor:pointer;">📱 Mobil</div>'
-        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#e8e0d0;cursor:pointer;">🏦 Banka</div>'
-        +'</div>';
-      document.body.appendChild(ov);
-      document.getElementById('gw-dia-btn').addEventListener('click',function(){gwTierActive='diamond';this.style.border='2px solid #ffd700';document.getElementById('gw-sil-btn').style.border='2px solid rgba(192,192,192,0.4)';});
-      document.getElementById('gw-sil-btn').addEventListener('click',function(){gwTierActive='silver';this.style.border='2px solid #c0c0c0';document.getElementById('gw-dia-btn').style.border='2px solid rgba(201,162,39,0.3)';});
-    }
-    // Input bulunamazsa sadece overlay ile devam et
-    if(!inputs.length){startSholen();return;}
-    // Input'tan 3-4 seviye yukarı çık — asıl kart container
-    var card=inputs[0].parentNode;
-    for(var i=0;i<5;i++){if(card&&card.parentNode&&card.parentNode!==document.body)card=card.parentNode;else break;}
-    if(!card)return;
-    // Kartı şeffaf ve sınırı ile stillendir
-    card.style.setProperty('overflow','visible','important');
-    var sel=document.createElement('div');sel.id='gw-tier-sel';
-    sel.style.cssText='display:flex;gap:10px;padding:4px 0 18px;border-bottom:1px solid rgba(201,162,39,0.25);margin-bottom:18px;width:100%;box-sizing:border-box;';
-    sel.innerHTML='<div class="gw-tier-btn diamond active" data-tier="diamond" style="flex:1;padding:14px 6px;border-radius:18px;cursor:pointer;border:2px solid #ffd700;background:rgba(201,162,39,0.16);color:#ffd700;text-align:center;box-shadow:0 0 20px rgba(255,215,0,0.35);"><span style="font-size:20px;display:block;margin-bottom:3px;">💎</span><span style="font-size:11px;font-weight:900;letter-spacing:1px;display:block;">PIRLANTA GİRİŞ</span><span style="font-size:9px;opacity:0.7;display:block;margin-top:2px;">Profesyoneller İçin</span></div>'
-      +'<div class="gw-tier-btn silver" data-tier="silver" style="flex:1;padding:14px 6px;border-radius:18px;cursor:pointer;border:2px solid rgba(192,192,192,0.35);background:rgba(180,180,200,0.06);color:#c0c0c0;text-align:center;"><span style="font-size:20px;display:block;margin-bottom:3px;">🥈</span><span style="font-size:11px;font-weight:900;letter-spacing:1px;display:block;">GÜMÜŞ GİRİŞ</span><span style="font-size:9px;opacity:0.7;display:block;margin-top:2px;">Misafir Girişi</span></div>';
-    sel.querySelectorAll('.gw-tier-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        gwTierActive=this.dataset.tier;
-        sel.querySelectorAll('.gw-tier-btn').forEach(function(b){
-          b.style.border='2px solid rgba(192,192,192,0.35)';b.style.background='rgba(180,180,200,0.06)';b.style.boxShadow='';
-        });
-        if(gwTierActive==='diamond'){this.style.border='2px solid #ffd700';this.style.background='rgba(201,162,39,0.16)';this.style.boxShadow='0 0 20px rgba(255,215,0,0.35)';}
-        else{this.style.border='2px solid #c0c0c0';this.style.background='rgba(192,192,192,0.12)';}
-        var info=document.getElementById('gw-tier-info');if(info)info.remove();
-        if(gwTierActive==='silver'){
-          var inf=document.createElement('div');inf.id='gw-tier-info';
-          inf.style.cssText='background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:11px;color:#c0c0c0;text-align:center;font-family:DM Sans,sans-serif;';
-          inf.innerHTML='🥈 Misafir girişi — bazı özellikler kısıtlıdır.<br><span style="color:#ffd700;cursor:pointer;font-weight:800;font-size:10px;"> 💎 Pırlantaya Yükselt →</span>';
-          inf.querySelector('span').addEventListener('click',function(){sel.querySelector('[data-tier="diamond"]').click();inf.remove();});
-          sel.after(inf);
-        }
-      });
-    });
-    card.insertBefore(sel,card.firstChild);
-    // Sosyal giriş + ödeme seçenekleri — her zaman görünür
-    if(!document.getElementById('gw-social')){
-      var soc=document.createElement('div');soc.id='gw-social';
-      soc.style.cssText='margin-top:14px;border-top:1px solid rgba(201,162,39,0.15);padding-top:14px;';
-      soc.innerHTML='<div style="font-size:9px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:10px;font-family:DM Sans,sans-serif;">VEYA HIZLI GİRİŞ</div>'
-        +'<div style="display:flex;gap:8px;margin-bottom:12px;">'
-        +'<button onclick="alert(\'Google ile giriş yakında!\')" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.06);color:#e8e0d0;font-size:12px;font-family:DM Sans,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;"><span style="font-size:14px;">G</span> Google</button>'
-        +'<button onclick="alert(\'Apple ile giriş yakında!\')" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.06);color:#e8e0d0;font-size:12px;font-family:DM Sans,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;"><span style="font-size:14px;">🍎</span> Apple</button>'
-        +'<button onclick="alert(\'Facebook ile giriş yakında!\')" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(201,162,39,0.3);background:rgba(59,89,152,0.15);color:#e8e0d0;font-size:12px;font-family:DM Sans,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;"><span style="font-size:14px;">f</span> Facebook</button>'
-        +'</div>'
-        +'<div style="font-size:9px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:8px;font-family:DM Sans,sans-serif;">💳 ÖDEME SEÇENEKLERİ</div>'
-        +'<div style="display:flex;gap:6px;">'
-        +'<div style="flex:1;background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.35);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#ffd700;font-family:DM Sans,sans-serif;cursor:pointer;">💳 Kart</div>'
-        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#e8e0d0;font-family:DM Sans,sans-serif;cursor:pointer;">🍎 Pay</div>'
-        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#e8e0d0;font-family:DM Sans,sans-serif;cursor:pointer;">📱 Mobil</div>'
-        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#e8e0d0;font-family:DM Sans,sans-serif;cursor:pointer;">🏦 Banka</div>'
-        +'</div>';
-      card.appendChild(soc);
-    }
-    // Kart ve modalı en üste scroll et
-    setTimeout(function(){
-      card.scrollTop=0;
-      if(card.parentNode)card.parentNode.scrollTop=0;
-      // Modalı da yukarı kaydır
-      var modals=document.querySelectorAll('[style*="overflow"]');
-      modals.forEach(function(m){m.scrollTop=0;});
-    },80);
-    startSholen();
-    // Kayıt/Giriş tab değişimini izle — tab'a göre açıklama ekle
-    var gwTabObs=new MutationObserver(function(){
-      var old=document.getElementById('gw-tab-info');if(old)old.remove();
-      var tabs=document.querySelectorAll('[class*="tab"],[class*="Tab"]');
-      var isReg=false;
-      tabs.forEach(function(t){if((t.textContent||'').toLowerCase().indexOf('kayıt')>=0&&t.getAttribute('aria-selected')==='true')isReg=true;if((t.textContent||'').toLowerCase().indexOf('register')>=0&&t.getAttribute('aria-selected')==='true')isReg=true;});
-      if(isReg&&!document.getElementById('gw-tab-info')){
-        var inf=document.createElement('div');inf.id='gw-tab-info';
-        var isDia=gwTierActive==='diamond';
-        inf.style.cssText='background:'+(isDia?'linear-gradient(135deg,rgba(201,162,39,0.12),rgba(255,215,0,0.06))':'rgba(192,192,192,0.06)')+';border:1px solid '+(isDia?'rgba(201,162,39,0.4)':'rgba(192,192,192,0.3)')+';border-radius:14px;padding:12px 14px;margin-bottom:14px;font-family:DM Sans,sans-serif;';
-        if(isDia){
-          inf.innerHTML='<div style="color:#ffd700;font-size:12px;font-weight:900;margin-bottom:8px;">💎 PIRLANTA ÜYELİĞİ — SINIRSIZ AYRICALIK</div>'
-            +'<div style="color:rgba(201,162,39,0.85);font-size:10px;line-height:1.6;">✦ Randevu takvimi & gelir tablosu<br>✦ Özel altın profil rozeti<br>✦ Öncelikli müşteri eşleşmesi<br>✦ Sınırsız servis ilanı</div>'
-            +'<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">'
-            +'<div style="flex:1;min-width:80px;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.5);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;color:#ffd700;font-size:10px;font-weight:800;">💳 Kredi Kartı</div>'
-            +'<div style="flex:1;min-width:80px;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.5);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;color:#ffd700;font-size:10px;font-weight:800;">📱 Apple Pay</div>'
-            +'<div style="flex:1;min-width:80px;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.5);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;color:#ffd700;font-size:10px;font-weight:800;">🏦 Banka</div>'
-            +'</div>';
-        } else {
-          inf.innerHTML='<div style="color:#c0c0c0;font-size:11px;font-weight:800;margin-bottom:6px;">🥈 GÜMÜŞ ÜYE — Misafir Hesabı</div>'
-            +'<div style="color:rgba(192,192,192,0.8);font-size:10px;line-height:1.5;">◇ Temel hizmetleri görüntüle<br>◇ Sınırlı randevu al<br>◇ Favorilere ekle</div>'
-            +'<div style="margin-top:8px;font-size:10px;color:#ffd700;cursor:pointer;font-weight:800;">💎 Pırlantaya Yükselt → Tüm Avantajları Kazan</div>';
-          inf.querySelector('div:last-child').addEventListener('click',function(){sel.querySelector('[data-tier="diamond"]').click();inf.remove();});
-        }
-        sel.after(inf);
-      }
-    });
-    gwTabObs.observe(document.body,{subtree:true,attributes:true,attributeFilter:['aria-selected','class']});
+    if(document.getElementById('gw-extra'))return;
+    // Google butonunu bul
+    var gBtn=null;
+    document.querySelectorAll('button').forEach(function(b){if((b.textContent||'').trim().toLowerCase().indexOf('google')>=0&&!b.id)gBtn=b;});
+    if(!gBtn)return;
+    // Google butonunun üstüne güzel bir ayırıcı + tier seçici ekle
+    var extra=document.createElement('div');extra.id='gw-extra';
+    extra.style.cssText='font-family:DM Sans,sans-serif;width:100%;box-sizing:border-box;';
+    extra.innerHTML=
+      // Tier seçici
+      '<div style="display:flex;gap:8px;margin-bottom:10px;">'
+      +'<div id="gd" style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid #ffd700;background:rgba(201,162,39,0.16);color:#ffd700;text-align:center;cursor:pointer;"><div style="font-size:16px;">💎</div><div style="font-size:10px;font-weight:900;">PIRLANTA</div><div style="font-size:8px;opacity:0.7;">Profesyonel</div></div>'
+      +'<div id="gs" style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid rgba(192,192,192,0.35);background:rgba(192,192,192,0.06);color:#c0c0c0;text-align:center;cursor:pointer;"><div style="font-size:16px;">🥈</div><div style="font-size:10px;font-weight:900;">GÜMÜŞ</div><div style="font-size:8px;opacity:0.7;">Misafir</div></div>'
+      +'</div>'
+      // Ayırıcı
+      +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:8px;border-top:1px solid rgba(201,162,39,0.15);padding-top:10px;">VEYA HIZLI GİRİŞ</div>'
+      // Sosyal butonlar (Google butonunun yerine)
+      +'<div style="display:flex;gap:6px;margin-bottom:10px;">'
+      +'<button id="gg" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(66,133,244,0.5);background:rgba(66,133,244,0.1);color:#fff;font-size:11px;cursor:pointer;font-weight:700;font-family:DM Sans,sans-serif;"><span style="color:#4285F4">G</span> Google</button>'
+      +'<button id="ga" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:#fff;font-size:11px;cursor:pointer;font-weight:700;font-family:DM Sans,sans-serif;">🍎 Apple</button>'
+      +'<button id="gf" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(59,89,152,0.5);background:rgba(59,89,152,0.15);color:#fff;font-size:11px;cursor:pointer;font-weight:700;font-family:DM Sans,sans-serif;"><span style="color:#4267B2">f</span> FB</button>'
+      +'</div>'
+      // Ödeme
+      +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:7px;">💳 ÖDEME SEÇENEKLERİ</div>'
+      +'<div style="display:flex;gap:5px;margin-bottom:4px;">'
+      +'<div style="flex:1;background:rgba(201,162,39,0.12);border:1px solid rgba(201,162,39,0.4);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ffd700;cursor:pointer;font-weight:700;">💳<br>Kart</div>'
+      +'<div style="flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ddd;cursor:pointer;font-weight:700;">🍎<br>Pay</div>'
+      +'<div style="flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ddd;cursor:pointer;font-weight:700;">📱<br>Mobil</div>'
+      +'<div style="flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 3px;text-align:center;font-size:10px;color:#ddd;cursor:pointer;font-weight:700;">🏦<br>Banka</div>'
+      +'</div>';
+    // Google butonunun üstüne ekle, Google butonu gizle
+    gBtn.parentNode.insertBefore(extra,gBtn);
+    gBtn.style.setProperty('display','none','important');
+    // Event handlers
+    extra.querySelector('#gd').addEventListener('click',function(){gwTierActive='diamond';this.style.border='2px solid #ffd700';extra.querySelector('#gs').style.border='2px solid rgba(192,192,192,0.35)';});
+    extra.querySelector('#gs').addEventListener('click',function(){gwTierActive='silver';this.style.border='2px solid #c0c0c0';extra.querySelector('#gd').style.border='2px solid rgba(201,162,39,0.35)';});
+    extra.querySelector('#gg').addEventListener('click',function(){gBtn.style.removeProperty('display');gBtn.click();setTimeout(function(){gBtn.style.setProperty('display','none','important');},100);});
+    extra.querySelector('#ga').addEventListener('click',function(){alert('Apple ile giriş yakında!');});
+    extra.querySelector('#gf').addEventListener('click',function(){alert('Facebook ile giriş yakında!');});
     startSholen();
   }
   function checkModalClosed(){
-    var inputs=document.querySelectorAll('input[type="email"],input[type="password"]');
-    var modal=document.querySelector('[class*="auth"],[class*="modal"],[class*="Modal"]');
-    if(!inputs.length&&!modal){
-      stopSholen();
-      var t=document.getElementById('gw-tier-sel');if(t)t.remove();
-      var o=document.getElementById('gw-vip-overlay');if(o)o.remove();
+    if(!document.querySelectorAll('input[type="email"],input[type="password"]').length){
+      stopSholen();var e=document.getElementById('gw-extra');if(e)e.remove();
     }
   }
   new MutationObserver(function(){enhanceModal();checkModalClosed();}).observe(document.body,{childList:true,subtree:true});
