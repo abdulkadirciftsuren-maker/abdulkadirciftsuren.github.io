@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v24</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v25</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -18,22 +18,22 @@ html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none
 html body [class*="modal"],[class*="Modal"]{backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;background:rgba(0,0,0,0.7)!important;}
 /* Modal kart glassmorphism */
 html body [class*="modal"] [style*="background:#"]:not(button),html body [class*="modal"] [style*="background: #"]:not(button){
-  background:linear-gradient(145deg,rgba(15,10,5,0.95),rgba(25,15,5,0.95))!important;
+  background:linear-gradient(145deg,rgba(15,10,5,0.78),rgba(25,15,5,0.78))!important;
   border:1.5px solid rgba(201,162,39,0.5)!important;
   animation:gw-border-glow 3s ease-in-out infinite,gw-modal-in 0.4s ease forwards!important;
   border-radius:24px!important;
 }
 /* Tier seçici */
-#gw-tier-sel{display:flex;gap:12px;padding:0 0 16px;border-bottom:1px solid rgba(201,162,39,0.2);margin-bottom:16px;}
-.gw-tier-btn{flex:1;padding:12px 8px;border-radius:16px;cursor:pointer;border:2px solid transparent;transition:all 0.3s;text-align:center;font-family:DM Sans,sans-serif;}
-.gw-tier-btn.silver{background:rgba(180,180,200,0.08);border-color:rgba(192,192,192,0.4);color:#c0c0c0;}
-.gw-tier-btn.silver.active{background:rgba(192,192,192,0.15);border-color:#c0c0c0;box-shadow:0 0 20px rgba(192,192,192,0.3);}
-.gw-tier-btn.diamond{background:rgba(201,162,39,0.08);border-color:rgba(201,162,39,0.4);color:#ffd700;}
-.gw-tier-btn.diamond.active{background:rgba(201,162,39,0.18);border-color:#ffd700;box-shadow:0 0 20px rgba(255,215,0,0.4);}
+#gw-tier-sel{display:flex;gap:10px;padding:4px 0 18px;border-bottom:1px solid rgba(201,162,39,0.25);margin-bottom:18px;width:100%;box-sizing:border-box;}
+.gw-tier-btn{flex:1;padding:14px 4px;border-radius:18px;cursor:pointer;border:2px solid transparent;transition:all 0.3s;text-align:center;font-family:DM Sans,sans-serif;min-width:0;box-sizing:border-box;}
+.gw-tier-btn.silver{background:rgba(180,180,200,0.06);border-color:rgba(192,192,192,0.35);color:#c0c0c0;}
+.gw-tier-btn.silver.active{background:rgba(192,192,192,0.12);border-color:#c0c0c0;box-shadow:0 0 16px rgba(192,192,192,0.25);}
+.gw-tier-btn.diamond{background:rgba(201,162,39,0.06);border-color:rgba(201,162,39,0.35);color:#ffd700;}
+.gw-tier-btn.diamond.active{background:rgba(201,162,39,0.16);border-color:#ffd700;box-shadow:0 0 20px rgba(255,215,0,0.35);}
 .gw-tier-ico{font-size:22px;display:block;margin-bottom:4px;}
 .gw-tier-ttl{font-size:11px;font-weight:900;letter-spacing:1px;}
 .gw-tier-sub{font-size:9px;opacity:0.7;margin-top:2px;}
-/* ── PIRMANTA MÜHRÜ BUTONU ── */
+/* ── PIRLANTA MÜHRÜ BUTONU ── */
 @keyframes gw-gold{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes gw-glow{0%,100%{box-shadow:0 0 8px rgba(201,162,39,0.4),0 0 20px rgba(201,162,39,0.2)}50%{box-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(201,162,39,0.5),0 0 60px rgba(255,215,0,0.3)}}
 @keyframes gw-burst{0%{box-shadow:0 0 0 0 rgba(255,215,0,0.9)}100%{box-shadow:0 0 0 20px rgba(255,215,0,0)}}
@@ -266,7 +266,7 @@ html body .s2c{font-size:9px!important;}
     var card=modal.querySelector('[style*="background"]');
     if(!card)return;
     var sel=document.createElement('div');sel.id='gw-tier-sel';
-    sel.innerHTML='<div class="gw-tier-btn diamond active" data-tier="diamond"><span class="gw-tier-ico">💎</span><span class="gw-tier-ttl">PIRMANTA GİRİŞ</span><span class="gw-tier-sub">Profesyoneller İçin Ayrıcalıklı Alan</span></div>'
+    sel.innerHTML='<div class="gw-tier-btn diamond active" data-tier="diamond"><span class="gw-tier-ico">💎</span><span class="gw-tier-ttl">PIRLANTA GİRİŞ</span><span class="gw-tier-sub">Profesyoneller İçin Ayrıcalıklı Alan</span></div>'
       +'<div class="gw-tier-btn silver" data-tier="silver"><span class="gw-tier-ico">🥈</span><span class="gw-tier-ttl">GÜMÜŞ GİRİŞ</span><span class="gw-tier-sub">Misafir Kullanıcı Girişi</span></div>';
     sel.querySelectorAll('.gw-tier-btn').forEach(function(btn){
       btn.addEventListener('click',function(){
