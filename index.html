@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v29</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v30</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -15,7 +15,7 @@ html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none
 @keyframes gw-modal-in{0%{opacity:0;transform:scale(0.92) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes gw-border-glow{0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.4),0 0 60px rgba(201,162,39,0.1),inset 0 0 30px rgba(0,0,0,0.5)}50%{box-shadow:0 0 40px rgba(255,215,0,0.6),0 0 100px rgba(201,162,39,0.2),inset 0 0 30px rgba(0,0,0,0.5)}}
 /* Modal arka plan + yatay telefon scroll fix */
-html body [class*="modal"],[class*="Modal"]{backdrop-filter:blur(24px)!important;-webkit-backdrop-filter:blur(24px)!important;background:rgba(0,0,0,0.45)!important;overflow-y:auto!important;align-items:center!important;justify-content:center!important;padding-top:0!important;}
+html body [class*="modal"],[class*="Modal"]{backdrop-filter:blur(28px)!important;-webkit-backdrop-filter:blur(28px)!important;background:rgba(0,0,0,0.3)!important;overflow-y:auto!important;align-items:center!important;justify-content:center!important;padding-top:0!important;}
 /* Yatay: yukarıdan aç (değişmez) */
 @media screen and (orientation:landscape) and (max-height:500px){
   html body [class*="modal"],[class*="Modal"]{align-items:flex-start!important;padding-top:4px!important;}
@@ -199,7 +199,9 @@ html body .s2c{font-size:9px!important;}
     document.body.appendChild(beam);
     // Tooltip tepede
     var tip=document.createElement('div');tip.id='gw-tip';
-    tip.innerHTML='<div id="gw-tip-txt">💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎</div><div id="gw-tip-sub">Ayrıcalıklı üyeliğiniz sizi bekliyor...</div>';
+    var GWT={TR:['💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎','Ayrıcalıklı üyeliğiniz sizi bekliyor...'],EN:['💎 ENTER THE EXCLUSIVE WORLD 💎','Your exclusive membership awaits...'],DE:['💎 EXKLUSIVE WELT BETRETEN 💎','Ihre exklusive Mitgliedschaft wartet...'],ES:['💎 ENTRAR AL MUNDO EXCLUSIVO 💎','Tu membresía exclusiva te espera...'],FR:['💎 ENTRER DANS LE MONDE EXCLUSIF 💎','Votre adhésion exclusive vous attend...'],RU:['💎 ВОЙТИ В МИР ПРИВИЛЕГИЙ 💎','Ваше эксклюзивное членство ждёт...'],UKR:['💎 ЕКСКЛЮЗИВНИЙ ВХІД 💎','Ваше ексклюзивне членство чекає...'],CN:['💎 进入尊享世界 💎','您的尊享会员资格正在等待...'],AR:['💎 ادخل إلى العالم الحصري 💎','عضويتك الحصرية بانتظارك...']};
+    var cl=gwGetLang();var gwtx=GWT[cl]||GWT['TR'];
+    tip.innerHTML='<div id="gw-tip-txt">'+gwtx[0]+'</div><div id="gw-tip-sub">'+gwtx[1]+'</div>';
     document.body.appendChild(tip);
     // Altın aura
     document.getElementById('gw-aura')&&document.getElementById('gw-aura').remove();
@@ -339,6 +341,35 @@ html body .s2c{font-size:9px!important;}
       var modals=document.querySelectorAll('[style*="overflow"]');
       modals.forEach(function(m){m.scrollTop=0;});
     },80);
+    startSholen();
+    // Kayıt/Giriş tab değişimini izle — tab'a göre açıklama ekle
+    var gwTabObs=new MutationObserver(function(){
+      var old=document.getElementById('gw-tab-info');if(old)old.remove();
+      var tabs=document.querySelectorAll('[class*="tab"],[class*="Tab"]');
+      var isReg=false;
+      tabs.forEach(function(t){if((t.textContent||'').toLowerCase().indexOf('kayıt')>=0&&t.getAttribute('aria-selected')==='true')isReg=true;if((t.textContent||'').toLowerCase().indexOf('register')>=0&&t.getAttribute('aria-selected')==='true')isReg=true;});
+      if(isReg&&!document.getElementById('gw-tab-info')){
+        var inf=document.createElement('div');inf.id='gw-tab-info';
+        var isDia=gwTierActive==='diamond';
+        inf.style.cssText='background:'+(isDia?'linear-gradient(135deg,rgba(201,162,39,0.12),rgba(255,215,0,0.06))':'rgba(192,192,192,0.06)')+';border:1px solid '+(isDia?'rgba(201,162,39,0.4)':'rgba(192,192,192,0.3)')+';border-radius:14px;padding:12px 14px;margin-bottom:14px;font-family:DM Sans,sans-serif;';
+        if(isDia){
+          inf.innerHTML='<div style="color:#ffd700;font-size:12px;font-weight:900;margin-bottom:8px;">💎 PIRLANTA ÜYELİĞİ — SINIRSIZ AYRICALIK</div>'
+            +'<div style="color:rgba(201,162,39,0.85);font-size:10px;line-height:1.6;">✦ Randevu takvimi & gelir tablosu<br>✦ Özel altın profil rozeti<br>✦ Öncelikli müşteri eşleşmesi<br>✦ Sınırsız servis ilanı</div>'
+            +'<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">'
+            +'<div style="flex:1;min-width:80px;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.5);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;color:#ffd700;font-size:10px;font-weight:800;">💳 Kredi Kartı</div>'
+            +'<div style="flex:1;min-width:80px;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.5);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;color:#ffd700;font-size:10px;font-weight:800;">📱 Apple Pay</div>'
+            +'<div style="flex:1;min-width:80px;background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.5);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;color:#ffd700;font-size:10px;font-weight:800;">🏦 Banka</div>'
+            +'</div>';
+        } else {
+          inf.innerHTML='<div style="color:#c0c0c0;font-size:11px;font-weight:800;margin-bottom:6px;">🥈 GÜMÜŞ ÜYE — Misafir Hesabı</div>'
+            +'<div style="color:rgba(192,192,192,0.8);font-size:10px;line-height:1.5;">◇ Temel hizmetleri görüntüle<br>◇ Sınırlı randevu al<br>◇ Favorilere ekle</div>'
+            +'<div style="margin-top:8px;font-size:10px;color:#ffd700;cursor:pointer;font-weight:800;">💎 Pırlantaya Yükselt → Tüm Avantajları Kazan</div>';
+          inf.querySelector('div:last-child').addEventListener('click',function(){sel.querySelector('[data-tier="diamond"]').click();inf.remove();});
+        }
+        sel.after(inf);
+      }
+    });
+    gwTabObs.observe(document.body,{subtree:true,attributes:true,attributeFilter:['aria-selected','class']});
     startSholen();
   }
   function checkModalClosed(){
