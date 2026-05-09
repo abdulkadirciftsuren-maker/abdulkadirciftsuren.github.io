@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v20</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v21</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -10,6 +10,31 @@
 /* Yatay kaydırmayı engelle */
 html,body{overflow-x:hidden!important;max-width:100vw!important;}
 #gw-cs{max-width:100vw!important;}
+/* ── PIRMANTA MÜHRÜ BUTONU ── */
+@keyframes gw-gold{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes gw-glow{0%,100%{box-shadow:0 0 8px rgba(201,162,39,0.4),0 0 20px rgba(201,162,39,0.2)}50%{box-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(201,162,39,0.5),0 0 60px rgba(255,215,0,0.3)}}
+@keyframes gw-burst{0%{box-shadow:0 0 0 0 rgba(255,215,0,0.9)}100%{box-shadow:0 0 0 20px rgba(255,215,0,0)}}
+html body .bin{
+  background:linear-gradient(270deg,#b8860b,#ffd700,#fffacd,#c9a227,#ffd700,#b8860b)!important;
+  background-size:400% 400%!important;
+  animation:gw-gold 3s ease infinite,gw-glow 2.5s ease-in-out infinite!important;
+  color:#1a0a00!important;
+  font-weight:900!important;
+  letter-spacing:0.5px!important;
+  transition:all 0.3s ease!important;
+  overflow:hidden!important;
+  position:relative!important;
+}
+html body .bin:hover,html body .bin:active{
+  transform:scale(1.08)!important;
+  animation:gw-gold 1.5s ease infinite,gw-burst 0.4s ease forwards!important;
+}
+html body .bin span.gw-bin-txt{transition:opacity 0.25s ease!important;}
+html body .bin:hover span.gw-bin-txt{opacity:0!important;}
+html body .bin span.gw-bin-alt{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;opacity:0!important;font-size:10px!important;font-weight:900!important;letter-spacing:1px!important;transition:opacity 0.25s ease 0.15s!important;color:#1a0a00!important;padding:0 8px!important;text-align:center!important;}
+html body .bin:hover span.gw-bin-alt,html body .bin.gw-tap span.gw-bin-alt{opacity:1!important;}
+html body .bin:hover span.gw-bin-txt,html body .bin.gw-tap span.gw-bin-txt{opacity:0!important;}
+html body .bin.gw-tap{transform:scale(1.08)!important;animation:gw-gold 1.5s ease infinite,gw-burst 0.4s ease forwards!important;}
 .mob-overlay{background:transparent!important;pointer-events:none!important;}
 .sidebar,.sbi,.sbs{pointer-events:auto!important;}
 .sbi{cursor:pointer!important;}
@@ -112,6 +137,21 @@ html body .s2c{font-size:9px!important;}
     if(t)t.textContent=pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick();setInterval(tick,1000);
+
+  // Pırlanta Mührü butonu güçlendir
+  function enhanceBin(){
+    document.querySelectorAll('.bin').forEach(function(btn){
+      if(btn.dataset.gwDone)return;
+      btn.dataset.gwDone='1';
+      var orig=btn.innerHTML;
+      btn.innerHTML='<span class="gw-bin-txt">'+orig+'</span><span class="gw-bin-alt">💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎</span>';
+      // Mobil tap desteği
+      btn.addEventListener('touchstart',function(){this.classList.add('gw-tap');},{passive:true});
+      btn.addEventListener('touchend',function(){var s=this;setTimeout(function(){s.classList.remove('gw-tap');},600);});
+    });
+  }
+  setTimeout(enhanceBin,400);
+  setInterval(enhanceBin,2000);
 
   // v17: Şehir şeridi - desktop + yatay telefon, portrait'te gizle
   var CITIES=[['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI'],['JP','TOKYO'],['CN','ŞANGAY'],['RU','MOSKOVA'],['ES','MADRİD'],['IT','ROMA'],['NL','AMSTERDAM'],['CH','ZÜRIH'],['AT','VİYANA'],['SE','STOCKHOLM'],['SG','SİNGAPUR'],['IN','MUMBAY'],['AU','SİDNEY'],['BR','RİO'],['CA','TORONTO'],['SA','RİYAD'],['KR','SEUL'],['GR','ATİNA'],['PT','LİZBON'],['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI']];
