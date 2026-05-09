@@ -7,6 +7,9 @@
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
 </div>
 <style>
+/* Yatay kaydırmayı engelle */
+html,body{overflow-x:hidden!important;max-width:100vw!important;}
+#gw-cs{max-width:100vw!important;}
 .mob-overlay{background:transparent!important;pointer-events:none!important;}
 .sidebar,.sbi,.sbs{pointer-events:auto!important;}
 .sbi{cursor:pointer!important;}
@@ -86,12 +89,16 @@ html body .s2c{font-size:9px!important;}
 @media screen and (max-width:480px){
   html body .layout .sidebar{width:170px!important;padding-top:100px!important;}
 }
-/* Portrait: genel mobil kuralından SONRA - lsub göster */
+/* Portrait: genel mobil kuralından SONRA */
 @media screen and (max-width:768px) and (orientation:portrait){
   html body .navbar .lbar{height:56px!important;min-height:unset!important;padding:0 14px!important;}
   html body .bin{height:36px!important;padding:0 16px!important;font-size:12px!important;border-radius:20px!important;display:inline-flex!important;align-items:center!important;gap:5px!important;}
   html body .lsub{display:block!important;font-size:8px!important;letter-spacing:2px!important;opacity:0.65!important;margin-top:2px!important;}
   html body .menu-fab{top:40px!important;right:12px!important;width:36px!important;height:36px!important;border-radius:10px!important;}
+}
+/* Landscape hamburger - en son, kesin öncelik */
+@media screen and (orientation:landscape) and (max-height:500px) and (max-width:768px){
+  html body .menu-fab{top:24px!important;right:10px!important;width:36px!important;height:36px!important;border-radius:10px!important;}
 }
 </style>
 <script>
