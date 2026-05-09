@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v25</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v26</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -68,6 +68,7 @@ html body .bin:hover,html body .bin.gw-tap{transform:scale(1.06)!important;anima
 #gw-tip-sub{font-size:9px;color:rgba(201,162,39,0.7);margin-top:4px;letter-spacing:1px;}
 #gw-beam{position:fixed;left:50%;width:2px;background:linear-gradient(to bottom,rgba(201,162,39,0.7),transparent);pointer-events:none;z-index:99996;transform:translateX(-50%);animation:gw-beam 0.4s ease forwards;}
 .gw-spark{position:fixed;pointer-events:none;z-index:99997;animation:gw-sparkle 1s ease forwards;}
+@keyframes gw-rise{0%{opacity:1;transform:translateY(0) rotate(0deg)}100%{opacity:0;transform:translateY(-80vh) rotate(360deg)}}
 .mob-overlay{background:transparent!important;pointer-events:none!important;}
 .sidebar,.sbi,.sbs{pointer-events:auto!important;}
 .sbi{cursor:pointer!important;}
@@ -259,38 +260,61 @@ html body .s2c{font-size:9px!important;}
   setInterval(enhanceBin,2000);
 
   // VIP Modal — Pırlanta vs Gümüş tier seçici
-  var gwTierActive='diamond';
+  // VIP Modal v26 — tier seçici form içine + şölen efekti
+  var gwTierActive='diamond';var gwSholenInt=null;
+  function stopSholen(){if(gwSholenInt){clearInterval(gwSholenInt);gwSholenInt=null;}document.querySelectorAll('.gw-sholen').forEach(function(s){s.remove();});}
+  function startSholen(){
+    if(gwSholenInt)return;
+    var emojis=['💎','✨','⭐','🌟','💫','✦','◆'];
+    gwSholenInt=setInterval(function(){
+      var s=document.createElement('div');s.className='gw-sholen';
+      s.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      var x=10+Math.random()*80;
+      s.style.cssText='position:fixed;left:'+x+'vw;top:'+(100+Math.random()*10)+'vh;font-size:'+(10+Math.random()*14)+'px;pointer-events:none;z-index:99990;animation:gw-rise 2.5s ease-out forwards;';
+      document.body.appendChild(s);
+      setTimeout(function(){s.remove();},2500);
+    },120);
+  }
   function enhanceModal(){
-    var modal=document.querySelector('[class*="auth"],[class*="Auth"],[class*="modal"],[class*="Modal"]');
-    if(!modal||document.getElementById('gw-tier-sel'))return;
-    var card=modal.querySelector('[style*="background"]');
+    // Modal kartı bul — form veya input'un atası
+    var inputs=document.querySelectorAll('input[type="email"],input[type="password"],input[type="text"]');
+    if(!inputs.length||document.getElementById('gw-tier-sel'))return;
+    // Input'tan 3-4 seviye yukarı çık — asıl kart container
+    var card=inputs[0].parentNode;
+    for(var i=0;i<5;i++){if(card&&card.parentNode&&card.parentNode!==document.body)card=card.parentNode;else break;}
     if(!card)return;
+    // Kartı şeffaf ve sınırı ile stillendir
+    card.style.setProperty('overflow','visible','important');
     var sel=document.createElement('div');sel.id='gw-tier-sel';
-    sel.innerHTML='<div class="gw-tier-btn diamond active" data-tier="diamond"><span class="gw-tier-ico">💎</span><span class="gw-tier-ttl">PIRLANTA GİRİŞ</span><span class="gw-tier-sub">Profesyoneller İçin Ayrıcalıklı Alan</span></div>'
-      +'<div class="gw-tier-btn silver" data-tier="silver"><span class="gw-tier-ico">🥈</span><span class="gw-tier-ttl">GÜMÜŞ GİRİŞ</span><span class="gw-tier-sub">Misafir Kullanıcı Girişi</span></div>';
+    sel.style.cssText='display:flex;gap:10px;padding:4px 0 18px;border-bottom:1px solid rgba(201,162,39,0.25);margin-bottom:18px;width:100%;box-sizing:border-box;';
+    sel.innerHTML='<div class="gw-tier-btn diamond active" data-tier="diamond" style="flex:1;padding:14px 6px;border-radius:18px;cursor:pointer;border:2px solid #ffd700;background:rgba(201,162,39,0.16);color:#ffd700;text-align:center;box-shadow:0 0 20px rgba(255,215,0,0.35);"><span style="font-size:20px;display:block;margin-bottom:3px;">💎</span><span style="font-size:11px;font-weight:900;letter-spacing:1px;display:block;">PIRLANTA GİRİŞ</span><span style="font-size:9px;opacity:0.7;display:block;margin-top:2px;">Profesyoneller İçin</span></div>'
+      +'<div class="gw-tier-btn silver" data-tier="silver" style="flex:1;padding:14px 6px;border-radius:18px;cursor:pointer;border:2px solid rgba(192,192,192,0.35);background:rgba(180,180,200,0.06);color:#c0c0c0;text-align:center;"><span style="font-size:20px;display:block;margin-bottom:3px;">🥈</span><span style="font-size:11px;font-weight:900;letter-spacing:1px;display:block;">GÜMÜŞ GİRİŞ</span><span style="font-size:9px;opacity:0.7;display:block;margin-top:2px;">Misafir Girişi</span></div>';
     sel.querySelectorAll('.gw-tier-btn').forEach(function(btn){
       btn.addEventListener('click',function(){
         gwTierActive=this.dataset.tier;
-        sel.querySelectorAll('.gw-tier-btn').forEach(function(b){b.classList.remove('active');});
-        this.classList.add('active');
-        var info=document.getElementById('gw-tier-info');
-        if(info)info.remove();
+        sel.querySelectorAll('.gw-tier-btn').forEach(function(b){
+          b.style.border='2px solid rgba(192,192,192,0.35)';b.style.background='rgba(180,180,200,0.06)';b.style.boxShadow='';
+        });
+        if(gwTierActive==='diamond'){this.style.border='2px solid #ffd700';this.style.background='rgba(201,162,39,0.16)';this.style.boxShadow='0 0 20px rgba(255,215,0,0.35)';}
+        else{this.style.border='2px solid #c0c0c0';this.style.background='rgba(192,192,192,0.12)';}
+        var info=document.getElementById('gw-tier-info');if(info)info.remove();
         if(gwTierActive==='silver'){
           var inf=document.createElement('div');inf.id='gw-tier-info';
-          inf.style.cssText='background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:11px;color:#c0c0c0;text-align:center;';
-          inf.innerHTML='🥈 Misafir girişi — bazı özellikler kısıtlıdır.<br><span style="color:#ffd700;cursor:pointer;font-weight:800;font-size:10px;">💎 Pırlanta\'ya Yükselt →</span>';
-          inf.querySelector('span').addEventListener('click',function(){
-            sel.querySelectorAll('.gw-tier-btn').forEach(function(b){b.classList.remove('active');});
-            sel.querySelector('[data-tier="diamond"]').classList.add('active');
-            gwTierActive='diamond';inf.remove();
-          });
-          card.insertBefore(inf,card.querySelector('input')||card.firstChild);
+          inf.style.cssText='background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:11px;color:#c0c0c0;text-align:center;font-family:DM Sans,sans-serif;';
+          inf.innerHTML='🥈 Misafir girişi — bazı özellikler kısıtlıdır.<br><span style="color:#ffd700;cursor:pointer;font-weight:800;font-size:10px;"> 💎 Pırlantaya Yükselt →</span>';
+          inf.querySelector('span').addEventListener('click',function(){sel.querySelector('[data-tier="diamond"]').click();inf.remove();});
+          sel.after(inf);
         }
       });
     });
     card.insertBefore(sel,card.firstChild);
+    startSholen();
   }
-  new MutationObserver(function(){enhanceModal();}).observe(document.body,{childList:true,subtree:true});
+  function checkModalClosed(){
+    var inputs=document.querySelectorAll('input[type="email"],input[type="password"]');
+    if(!inputs.length){stopSholen();var t=document.getElementById('gw-tier-sel');if(t)t.remove();}
+  }
+  new MutationObserver(function(){enhanceModal();checkModalClosed();}).observe(document.body,{childList:true,subtree:true});
 
   // v17: Şehir şeridi - desktop + yatay telefon, portrait'te gizle
   var CITIES=[['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI'],['JP','TOKYO'],['CN','ŞANGAY'],['RU','MOSKOVA'],['ES','MADRİD'],['IT','ROMA'],['NL','AMSTERDAM'],['CH','ZÜRIH'],['AT','VİYANA'],['SE','STOCKHOLM'],['SG','SİNGAPUR'],['IN','MUMBAY'],['AU','SİDNEY'],['BR','RİO'],['CA','TORONTO'],['SA','RİYAD'],['KR','SEUL'],['GR','ATİNA'],['PT','LİZBON'],['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI']];
