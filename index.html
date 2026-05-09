@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v31</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v32</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -301,9 +301,38 @@ html body .s2c{font-size:9px!important;}
     },300);
   }
   function enhanceModal(){
-    // Modal kartı bul — form veya input'un atası
+    // Modal açık mı? Herhangi bir input veya modal class var mı?
     var inputs=document.querySelectorAll('input[type="email"],input[type="password"],input[type="text"]');
-    if(!inputs.length||document.getElementById('gw-tier-sel'))return;
+    var modalOpen=inputs.length>0||document.querySelector('[class*="auth"],[class*="modal"],[class*="Modal"]');
+    if(!modalOpen)return;
+    if(document.getElementById('gw-tier-sel'))return;
+    // Modal açıksa overlay göster
+    if(!document.getElementById('gw-vip-overlay')){
+      var ov=document.createElement('div');ov.id='gw-vip-overlay';
+      ov.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:99996;background:linear-gradient(to top,rgba(6,5,10,0.98),rgba(6,5,10,0.9) 80%,transparent);padding:16px 20px 24px;font-family:DM Sans,sans-serif;';
+      ov.innerHTML='<div style="display:flex;gap:8px;margin-bottom:10px;">'
+        +'<div style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid #ffd700;background:rgba(201,162,39,0.14);color:#ffd700;text-align:center;cursor:pointer;" id="gw-dia-btn"><span style="font-size:16px;display:block;">💎</span><span style="font-size:10px;font-weight:900;letter-spacing:1px;">PIRLANTA</span><span style="font-size:8px;opacity:0.7;display:block;">Profesyonel</span></div>'
+        +'<div style="flex:1;padding:10px 6px;border-radius:14px;border:2px solid rgba(192,192,192,0.4);background:rgba(192,192,192,0.06);color:#c0c0c0;text-align:center;cursor:pointer;" id="gw-sil-btn"><span style="font-size:16px;display:block;">🥈</span><span style="font-size:10px;font-weight:900;letter-spacing:1px;">GÜMÜŞ</span><span style="font-size:8px;opacity:0.7;display:block;">Misafir</span></div>'
+        +'</div>'
+        +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:8px;">HIZLI GİRİŞ</div>'
+        +'<div style="display:flex;gap:6px;margin-bottom:8px;">'
+        +'<button style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.05);color:#e8e0d0;font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">G Google</button>'
+        +'<button style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.05);color:#e8e0d0;font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">🍎 Apple</button>'
+        +'<button style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid rgba(59,89,152,0.4);background:rgba(59,89,152,0.12);color:#e8e0d0;font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">f Facebook</button>'
+        +'</div>'
+        +'<div style="font-size:8px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:6px;">ÖDEME</div>'
+        +'<div style="display:flex;gap:5px;">'
+        +'<div style="flex:1;background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.3);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#ffd700;cursor:pointer;">💳 Kart</div>'
+        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#e8e0d0;cursor:pointer;">🍎 Pay</div>'
+        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#e8e0d0;cursor:pointer;">📱 Mobil</div>'
+        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:8px;padding:6px 2px;text-align:center;font-size:10px;color:#e8e0d0;cursor:pointer;">🏦 Banka</div>'
+        +'</div>';
+      document.body.appendChild(ov);
+      document.getElementById('gw-dia-btn').addEventListener('click',function(){gwTierActive='diamond';this.style.border='2px solid #ffd700';document.getElementById('gw-sil-btn').style.border='2px solid rgba(192,192,192,0.4)';});
+      document.getElementById('gw-sil-btn').addEventListener('click',function(){gwTierActive='silver';this.style.border='2px solid #c0c0c0';document.getElementById('gw-dia-btn').style.border='2px solid rgba(201,162,39,0.3)';});
+    }
+    // Input bulunamazsa sadece overlay ile devam et
+    if(!inputs.length){startSholen();return;}
     // Input'tan 3-4 seviye yukarı çık — asıl kart container
     var card=inputs[0].parentNode;
     for(var i=0;i<5;i++){if(card&&card.parentNode&&card.parentNode!==document.body)card=card.parentNode;else break;}
@@ -393,7 +422,12 @@ html body .s2c{font-size:9px!important;}
   }
   function checkModalClosed(){
     var inputs=document.querySelectorAll('input[type="email"],input[type="password"]');
-    if(!inputs.length){stopSholen();var t=document.getElementById('gw-tier-sel');if(t)t.remove();}
+    var modal=document.querySelector('[class*="auth"],[class*="modal"],[class*="Modal"]');
+    if(!inputs.length&&!modal){
+      stopSholen();
+      var t=document.getElementById('gw-tier-sel');if(t)t.remove();
+      var o=document.getElementById('gw-vip-overlay');if(o)o.remove();
+    }
   }
   new MutationObserver(function(){enhanceModal();checkModalClosed();}).observe(document.body,{childList:true,subtree:true});
 
