@@ -116,19 +116,26 @@ html body .s2c{font-size:9px!important;}
     st.appendChild(inn);
     var nb=document.querySelector('.navbar');
     if(nb)nb.parentNode.insertBefore(st,nb);
-    // Desktop: JS requestAnimationFrame ile pürüzsüz kaydırma
+    // Desktop: zaman tabanlı pürüzsüz kaydırma (atlama yok)
     if(isDesk){
-      var pos=0;
-      var spd=0.6;
-      var half=inn.scrollWidth/2;
-      function scroll(){
-        pos+=spd;
-        if(half>0&&pos>=half)pos=0;
-        inn.style.transform='translate3d(-'+pos+'px,0,0)';
+      var half=0;
+      var dist=0;
+      var lastT=null;
+      var PPS=50; // pixel/saniye
+      function scroll(ts){
+        if(!lastT)lastT=ts;
+        var dt=(ts-lastT)/1000;
+        lastT=ts;
+        if(dt>0.1)dt=0.1; // sekme arka plana geçerse spike olmasın
+        dist+=PPS*dt;
+        if(half>0&&dist>=half)dist=dist-half;
+        inn.style.transform='translate3d(-'+dist+'px,0,0)';
         requestAnimationFrame(scroll);
       }
-      // Genişlik yüklendikten sonra başlat
-      setTimeout(function(){half=inn.scrollWidth/2;scroll();},200);
+      setTimeout(function(){
+        half=inn.scrollWidth/2;
+        if(half>0)requestAnimationFrame(scroll);
+      },500);
     } else {
       inn.style.animation='s2r 22s linear infinite';
     }
