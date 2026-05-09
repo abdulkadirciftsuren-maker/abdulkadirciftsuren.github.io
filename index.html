@@ -208,15 +208,6 @@ html body .s2c{font-size:9px!important;}
 
   // Pırlanta Mührü — tepede tooltip + ışık bağı + 2.5sn delay modal
   var gwTipTimer=null;var gwModalTimer=null;var gwTipShowing=false;
-  function gwResetTip(){
-    gwTipShowing=false;
-    clearTimeout(gwTipTimer);clearTimeout(gwModalTimer);
-    document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
-    document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
-  }
-  // Yön değişince veya 8sn geçince bayrağı zorla sıfırla
-  window.addEventListener('orientationchange',gwResetTip);
-  setInterval(function(){if(gwTipShowing&&!document.getElementById('gw-tip'))gwTipShowing=false;},3000);
   function showGwTip(btn){
     if(gwTipShowing)return;
     gwTipShowing=true;
@@ -269,9 +260,9 @@ html body .s2c{font-size:9px!important;}
         setTimeout(function(){sp.remove();},1000);
       },i*100);})(i);
     }
-    // Sadece telefon dikey: daha uzun bekle
-    var isPhonePortrait=window.innerWidth<=768&&window.innerHeight>window.innerWidth;
-    var delay=window.innerWidth>768?2500:(isPhonePortrait?7000:4500);
+    // 2.5 sn sonra modal aç
+    // Tooltip'e dokunulunca hemen aç (mobil), masaüstünde 2.5sn
+    var delay=('ontouchstart' in window)?4500:2500;
     clearTimeout(gwModalTimer);
     gwModalTimer=setTimeout(function(){
       document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
@@ -291,7 +282,7 @@ html body .s2c{font-size:9px!important;}
       document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
       document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
       gwTipShowing=false;
-    },window.innerWidth>768?3000:(isPhonePortrait?12000:7000));
+    },window.innerWidth>768?3000:(window.innerHeight>window.innerWidth?4500:7000));
   }
   function enhanceBin(){
     document.querySelectorAll('.bin').forEach(function(btn){
@@ -412,7 +403,6 @@ html body .s2c{font-size:9px!important;}
     if(!document.querySelectorAll('input[type="email"],input[type="password"]').length){
       stopSholen();var e=document.getElementById('gw-extra');if(e)e.remove();
       gwUnlockBody();
-      gwResetTip();
     }
   }
   var gwObsBusy=false;
