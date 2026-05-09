@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v44</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v45</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -14,8 +14,12 @@ html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none
 /* ── VIP LOGIN MODAL ── */
 @keyframes gw-modal-in{0%{opacity:0;transform:scale(0.92) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes gw-border-glow{0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.4),0 0 60px rgba(201,162,39,0.1),inset 0 0 30px rgba(0,0,0,0.5)}50%{box-shadow:0 0 40px rgba(255,215,0,0.6),0 0 100px rgba(201,162,39,0.2),inset 0 0 30px rgba(0,0,0,0.5)}}
-/* Modal arka plan + yatay telefon scroll fix */
+/* Modal arka plan + tam kilit */
 html body [class*="modal"],[class*="Modal"]{backdrop-filter:blur(28px)!important;-webkit-backdrop-filter:blur(28px)!important;background:rgba(0,0,0,0.5)!important;overflow-y:auto!important;overflow-x:hidden!important;align-items:flex-start!important;justify-content:center!important;padding-top:20px!important;position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;touch-action:pan-y!important;overscroll-behavior:contain!important;}
+/* Kart açıkken arka zemin tamamen ölü alan */
+body.gw-modal-open{overflow:hidden!important;position:fixed!important;width:100%!important;touch-action:none!important;}
+/* Kart açıkken arka içerik dokunulamaz */
+body.gw-modal-open #root>*:not([class*="modal"]):not([class*="Modal"]){pointer-events:none!important;}
 /* Bilgisayar: kart tepeden tam görünür */
 @media screen and (min-width:769px){
   html body [class*="modal"],[class*="Modal"]{align-items:flex-start!important;padding-top:24px!important;}
@@ -321,6 +325,37 @@ html body .s2c{font-size:9px!important;}
     },300);
   }
   var gwTierActive='diamond';
+
+  // ── ZEMIN KİLİDİ ──────────────────────────────────
+  function gwLockBody(){
+    if(document.body.classList.contains('gw-modal-open'))return;
+    var sy=window.scrollY||document.documentElement.scrollTop||0;
+    document.body.dataset.gwSY=sy;
+    document.body.style.setProperty('top','-'+sy+'px','important');
+    document.body.classList.add('gw-modal-open');
+  }
+  function gwUnlockBody(){
+    if(!document.body.classList.contains('gw-modal-open'))return;
+    var sy=parseInt(document.body.dataset.gwSY||0);
+    document.body.classList.remove('gw-modal-open');
+    document.body.style.removeProperty('top');
+    window.scrollTo(0,sy);
+  }
+  // Kart açıkken arka plana sızan dokunuşları engelle
+  document.addEventListener('touchmove',function(e){
+    if(!document.body.classList.contains('gw-modal-open'))return;
+    var modal=document.querySelector('[class*="modal"],[class*="Modal"]');
+    if(modal&&modal.contains(e.target))return;
+    e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchstart',function(e){
+    if(!document.body.classList.contains('gw-modal-open'))return;
+    var modal=document.querySelector('[class*="modal"],[class*="Modal"]');
+    if(modal&&modal.contains(e.target))return;
+    e.preventDefault();e.stopPropagation();
+  },{passive:false});
+  // ── ZEMİN KİLİDİ SONU ─────────────────────────────
+
   // Modal: şölen efekti + Google butonundan sonra güzel ek bölüm
   function enhanceModal(){
     if(document.getElementById('gw-extra'))return;
@@ -361,11 +396,13 @@ html body .s2c{font-size:9px!important;}
     extra.querySelector('#gf').addEventListener('click',function(){gwToast('f Facebook '+t.soon);});
     var pNames=['💳 Kart','🍎 Apple Pay','📱 Mobil Ödeme','🏦 Banka Havalesi'];
     extra.querySelectorAll('div[style*="cursor:pointer"]').forEach(function(d,i){d.addEventListener('click',function(){gwToast(pNames[i]+' — '+t.soon);});});
+    gwLockBody();
     startSholen();
   }
   function checkModalClosed(){
     if(!document.querySelectorAll('input[type="email"],input[type="password"]').length){
       stopSholen();var e=document.getElementById('gw-extra');if(e)e.remove();
+      gwUnlockBody();
     }
   }
   var gwObsBusy=false;
