@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v23</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v24</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -11,6 +11,28 @@
 html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none!important;-webkit-user-select:none!important;-webkit-touch-callout:none!important;}
 #gw-cs{max-width:100vw!important;}
 *{-webkit-touch-callout:none!important;}
+/* ── VIP LOGIN MODAL ── */
+@keyframes gw-modal-in{0%{opacity:0;transform:scale(0.92) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes gw-border-glow{0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.4),0 0 60px rgba(201,162,39,0.1),inset 0 0 30px rgba(0,0,0,0.5)}50%{box-shadow:0 0 40px rgba(255,215,0,0.6),0 0 100px rgba(201,162,39,0.2),inset 0 0 30px rgba(0,0,0,0.5)}}
+/* Modal arka plan */
+html body [class*="modal"],[class*="Modal"]{backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;background:rgba(0,0,0,0.7)!important;}
+/* Modal kart glassmorphism */
+html body [class*="modal"] [style*="background:#"]:not(button),html body [class*="modal"] [style*="background: #"]:not(button){
+  background:linear-gradient(145deg,rgba(15,10,5,0.95),rgba(25,15,5,0.95))!important;
+  border:1.5px solid rgba(201,162,39,0.5)!important;
+  animation:gw-border-glow 3s ease-in-out infinite,gw-modal-in 0.4s ease forwards!important;
+  border-radius:24px!important;
+}
+/* Tier seçici */
+#gw-tier-sel{display:flex;gap:12px;padding:0 0 16px;border-bottom:1px solid rgba(201,162,39,0.2);margin-bottom:16px;}
+.gw-tier-btn{flex:1;padding:12px 8px;border-radius:16px;cursor:pointer;border:2px solid transparent;transition:all 0.3s;text-align:center;font-family:DM Sans,sans-serif;}
+.gw-tier-btn.silver{background:rgba(180,180,200,0.08);border-color:rgba(192,192,192,0.4);color:#c0c0c0;}
+.gw-tier-btn.silver.active{background:rgba(192,192,192,0.15);border-color:#c0c0c0;box-shadow:0 0 20px rgba(192,192,192,0.3);}
+.gw-tier-btn.diamond{background:rgba(201,162,39,0.08);border-color:rgba(201,162,39,0.4);color:#ffd700;}
+.gw-tier-btn.diamond.active{background:rgba(201,162,39,0.18);border-color:#ffd700;box-shadow:0 0 20px rgba(255,215,0,0.4);}
+.gw-tier-ico{font-size:22px;display:block;margin-bottom:4px;}
+.gw-tier-ttl{font-size:11px;font-weight:900;letter-spacing:1px;}
+.gw-tier-sub{font-size:9px;opacity:0.7;margin-top:2px;}
 /* ── PIRMANTA MÜHRÜ BUTONU ── */
 @keyframes gw-gold{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes gw-glow{0%,100%{box-shadow:0 0 8px rgba(201,162,39,0.4),0 0 20px rgba(201,162,39,0.2)}50%{box-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(201,162,39,0.5),0 0 60px rgba(255,215,0,0.3)}}
@@ -235,6 +257,40 @@ html body .s2c{font-size:9px!important;}
   }
   setTimeout(enhanceBin,400);
   setInterval(enhanceBin,2000);
+
+  // VIP Modal — Pırlanta vs Gümüş tier seçici
+  var gwTierActive='diamond';
+  function enhanceModal(){
+    var modal=document.querySelector('[class*="auth"],[class*="Auth"],[class*="modal"],[class*="Modal"]');
+    if(!modal||document.getElementById('gw-tier-sel'))return;
+    var card=modal.querySelector('[style*="background"]');
+    if(!card)return;
+    var sel=document.createElement('div');sel.id='gw-tier-sel';
+    sel.innerHTML='<div class="gw-tier-btn diamond active" data-tier="diamond"><span class="gw-tier-ico">💎</span><span class="gw-tier-ttl">PIRMANTA GİRİŞ</span><span class="gw-tier-sub">Profesyoneller İçin Ayrıcalıklı Alan</span></div>'
+      +'<div class="gw-tier-btn silver" data-tier="silver"><span class="gw-tier-ico">🥈</span><span class="gw-tier-ttl">GÜMÜŞ GİRİŞ</span><span class="gw-tier-sub">Misafir Kullanıcı Girişi</span></div>';
+    sel.querySelectorAll('.gw-tier-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        gwTierActive=this.dataset.tier;
+        sel.querySelectorAll('.gw-tier-btn').forEach(function(b){b.classList.remove('active');});
+        this.classList.add('active');
+        var info=document.getElementById('gw-tier-info');
+        if(info)info.remove();
+        if(gwTierActive==='silver'){
+          var inf=document.createElement('div');inf.id='gw-tier-info';
+          inf.style.cssText='background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:11px;color:#c0c0c0;text-align:center;';
+          inf.innerHTML='🥈 Misafir girişi — bazı özellikler kısıtlıdır.<br><span style="color:#ffd700;cursor:pointer;font-weight:800;font-size:10px;">💎 Pırlanta\'ya Yükselt →</span>';
+          inf.querySelector('span').addEventListener('click',function(){
+            sel.querySelectorAll('.gw-tier-btn').forEach(function(b){b.classList.remove('active');});
+            sel.querySelector('[data-tier="diamond"]').classList.add('active');
+            gwTierActive='diamond';inf.remove();
+          });
+          card.insertBefore(inf,card.querySelector('input')||card.firstChild);
+        }
+      });
+    });
+    card.insertBefore(sel,card.firstChild);
+  }
+  new MutationObserver(function(){enhanceModal();}).observe(document.body,{childList:true,subtree:true});
 
   // v17: Şehir şeridi - desktop + yatay telefon, portrait'te gizle
   var CITIES=[['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI'],['JP','TOKYO'],['CN','ŞANGAY'],['RU','MOSKOVA'],['ES','MADRİD'],['IT','ROMA'],['NL','AMSTERDAM'],['CH','ZÜRIH'],['AT','VİYANA'],['SE','STOCKHOLM'],['SG','SİNGAPUR'],['IN','MUMBAY'],['AU','SİDNEY'],['BR','RİO'],['CA','TORONTO'],['SA','RİYAD'],['KR','SEUL'],['GR','ATİNA'],['PT','LİZBON'],['TR','İSTANBUL'],['US','NEW YORK'],['FR','PARİS'],['GB','LONDRA'],['DE','BERLİN'],['AE','DUBAI']];
