@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v30</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v31</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -237,7 +237,7 @@ html body .s2c{font-size:9px!important;}
     }
     // 2.5 sn sonra modal aç
     // Tooltip'e dokunulunca hemen aç (mobil), masaüstünde 2.5sn
-    var delay=('ontouchstart' in window)?800:2500;
+    var delay=('ontouchstart' in window)?1500:4000;
     clearTimeout(gwModalTimer);
     gwModalTimer=setTimeout(function(){
       document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
@@ -246,18 +246,18 @@ html body .s2c{font-size:9px!important;}
       btn.dataset.gwAllow='1';
       btn.click();
     },delay);
-    // Tooltip'e tıklanınca da hemen aç
+    // Tooltip'e tıklanınca hemen aç
     var tipEl=document.getElementById('gw-tip');
     if(tipEl){tipEl.style.pointerEvents='auto';tipEl.style.cursor='pointer';
       tipEl.addEventListener('click',function(){clearTimeout(gwModalTimer);document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();gwTipShowing=false;btn.dataset.gwAllow='1';btn.click();},{once:true});
     }
-    // 3sn sonra temizle
+    // 5sn sonra temizle (daha uzun ekranda kalır)
     clearTimeout(gwTipTimer);
     gwTipTimer=setTimeout(function(){
       document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
       document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
       gwTipShowing=false;
-    },3200);
+    },5000);
   }
   function enhanceBin(){
     document.querySelectorAll('.bin').forEach(function(btn){
@@ -333,6 +333,25 @@ html body .s2c{font-size:9px!important;}
       });
     });
     card.insertBefore(sel,card.firstChild);
+    // Sosyal giriş + ödeme seçenekleri — her zaman görünür
+    if(!document.getElementById('gw-social')){
+      var soc=document.createElement('div');soc.id='gw-social';
+      soc.style.cssText='margin-top:14px;border-top:1px solid rgba(201,162,39,0.15);padding-top:14px;';
+      soc.innerHTML='<div style="font-size:9px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:10px;font-family:DM Sans,sans-serif;">VEYA HIZLI GİRİŞ</div>'
+        +'<div style="display:flex;gap:8px;margin-bottom:12px;">'
+        +'<button onclick="alert(\'Google ile giriş yakında!\')" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.06);color:#e8e0d0;font-size:12px;font-family:DM Sans,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;"><span style="font-size:14px;">G</span> Google</button>'
+        +'<button onclick="alert(\'Apple ile giriş yakında!\')" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(201,162,39,0.3);background:rgba(255,255,255,0.06);color:#e8e0d0;font-size:12px;font-family:DM Sans,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;"><span style="font-size:14px;">🍎</span> Apple</button>'
+        +'<button onclick="alert(\'Facebook ile giriş yakında!\')" style="flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid rgba(201,162,39,0.3);background:rgba(59,89,152,0.15);color:#e8e0d0;font-size:12px;font-family:DM Sans,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;"><span style="font-size:14px;">f</span> Facebook</button>'
+        +'</div>'
+        +'<div style="font-size:9px;color:rgba(201,162,39,0.5);text-align:center;letter-spacing:2px;margin-bottom:8px;font-family:DM Sans,sans-serif;">💳 ÖDEME SEÇENEKLERİ</div>'
+        +'<div style="display:flex;gap:6px;">'
+        +'<div style="flex:1;background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.35);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#ffd700;font-family:DM Sans,sans-serif;cursor:pointer;">💳 Kart</div>'
+        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#e8e0d0;font-family:DM Sans,sans-serif;cursor:pointer;">🍎 Pay</div>'
+        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#e8e0d0;font-family:DM Sans,sans-serif;cursor:pointer;">📱 Mobil</div>'
+        +'<div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#e8e0d0;font-family:DM Sans,sans-serif;cursor:pointer;">🏦 Banka</div>'
+        +'</div>';
+      card.appendChild(soc);
+    }
     // Kart ve modalı en üste scroll et
     setTimeout(function(){
       card.scrollTop=0;
