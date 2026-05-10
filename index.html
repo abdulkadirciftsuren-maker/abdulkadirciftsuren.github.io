@@ -185,12 +185,22 @@ html body .s2c{font-size:9px!important;}
 @media screen and (orientation:landscape) and (max-height:500px) and (max-width:768px){
   html body .menu-fab{top:42px!important;right:10px!important;width:36px!important;height:36px!important;border-radius:10px!important;}
 }
-@keyframes gw-cer-in{0%{opacity:0}100%{opacity:1}}
-@keyframes gw-cer-out{0%{opacity:1}100%{opacity:0}}
-@keyframes gw-cer-glow{0%,100%{text-shadow:0 0 40px #ffd700,0 0 80px rgba(201,162,39,0.6),0 0 120px rgba(255,215,0,0.3)}50%{text-shadow:0 0 80px #ffd700,0 0 160px rgba(201,162,39,0.9),0 0 240px rgba(255,215,0,0.5)}}
-@keyframes gw-cer-rise{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
-@keyframes gw-cer-seal{0%{opacity:0;transform:scale(5) rotate(-25deg)}70%{transform:scale(0.88) rotate(6deg)}100%{opacity:1;transform:scale(1) rotate(0deg)}}
-@keyframes gw-cer-stamp{0%{opacity:0;transform:scaleX(2.5) scaleY(0.3)}60%{transform:scaleX(0.95) scaleY(1.05)}100%{opacity:1;transform:scale(1)}}
+/* ── İÇ PANEL SİSTEMİ ── */
+@keyframes gw-pin{0%{opacity:0;transform:translateY(28px)}100%{opacity:1;transform:none}}
+@keyframes gw-pout{0%{opacity:1}100%{opacity:0}}
+@keyframes gw-scr{0%{opacity:0;transform:translateX(18px)}100%{opacity:1;transform:none}}
+#gw-panel{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;animation:gw-pin 0.35s ease forwards;}
+#gw-ptop{display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 20px;flex-shrink:0;}
+#gw-pcontent{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+#gw-pbot{display:flex;flex-shrink:0;padding-bottom:env(safe-area-inset-bottom,0);}
+.gw-pbi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:10px 4px;transition:color 0.2s;font-family:DM Sans,sans-serif;}
+.gw-pbi-i{font-size:20px;line-height:1;}
+.gw-pbi-l{font-size:8px;font-weight:700;letter-spacing:0.5px;}
+.gw-card{border-radius:14px;padding:16px;margin-bottom:12px;}
+.dia-card{background:rgba(201,162,39,0.05);border:1px solid rgba(201,162,39,0.18);}
+.sil-card{background:rgba(192,192,192,0.05);border:1px solid rgba(192,192,192,0.15);}
+.gw-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.gw-stat-box{border-radius:12px;padding:14px 10px;text-align:center;}
 </style>
 <script>
 (function(){
@@ -686,93 +696,221 @@ html body .s2c{font-size:9px!important;}
     }
   }).observe(document.body,{childList:true,subtree:true});
 
-  // ── PIRLANTA KABUL TÖRENİ ──────────────────────────────
-  var GW_WELCOME={
-    TR:'GLAMWORLD\'E HOŞ GELDİNİZ',EN:'WELCOME TO GLAMWORLD',
-    DE:'WILLKOMMEN BEI GLAMWORLD',ES:'BIENVENIDO A GLAMWORLD',
-    FR:'BIENVENUE CHEZ GLAMWORLD',RU:'ДОБРО ПОЖАЛОВАТЬ В GLAMWORLD',
-    UKR:'ЛАСКАВО ПРОСИМО ДО GLAMWORLD',AR:'مرحباً بك في GLAMWORLD'
-  };
-  var GW_APPROVED={TR:'✦ ONAYLANDI ✦',EN:'✦ APPROVED ✦',DE:'✦ BESTÄTIGT ✦',ES:'✦ APROBADO ✦',FR:'✦ APPROUVÉ ✦',RU:'✦ ПОДТВЕРЖДЕНО ✦',UKR:'✦ ПІДТВЕРДЖЕНО ✦',AR:'✦ تمت الموافقة ✦'};
-  var GW_MEMBER={TR:{d:'💎 PIRLANTA ÜYESİ',s:'🥈 GÜMÜŞ ÜYESİ'},EN:{d:'💎 DIAMOND MEMBER',s:'🥈 SILVER MEMBER'},DE:{d:'💎 DIAMANT-MITGLIED',s:'🥈 SILBER-MITGLIED'},ES:{d:'💎 MIEMBRO DIAMANTE',s:'🥈 MIEMBRO PLATA'},FR:{d:'💎 MEMBRE DIAMANT',s:'🥈 MEMBRE ARGENT'},RU:{d:'💎 БРИЛЛИАНТОВЫЙ ЧЛЕН',s:'🥈 СЕРЕБРЯНЫЙ ЧЛЕН'},UKR:{d:'💎 ДІАМАНТОВИЙ ЧЛЕН',s:'🥈 СРІБНИЙ ЧЛЕН'},AR:{d:'💎 عضو الماس',s:'🥈 عضو فضي'}};
+  // ══════════════════════════════════════════════
+  // İÇ PANEL SİSTEMİ — v54
+  // ══════════════════════════════════════════════
+  var gwP={tier:'diamond',scr:'home'};
 
-  function gwCeremonySound(){
-    try{
-      var ac=new(window.AudioContext||window.webkitAudioContext)();
-      [523,659,784,1047,1319,1568,2093,2637].forEach(function(f,i){
-        setTimeout(function(){
-          var o=ac.createOscillator(),g=ac.createGain();
-          o.connect(g);g.connect(ac.destination);
-          o.type='sine';o.frequency.setValueAtTime(f,ac.currentTime);
-          g.gain.setValueAtTime(0.18,ac.currentTime);
-          g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.8);
-          o.start();o.stop(ac.currentTime+0.8);
-        },i*100);
-      });
-    }catch(e){}
+  var GWP_DIA_NAV={
+    TR:[['home','🏠','Ana Sayfa'],['cal','📅','Takvim'],['inc','💰','Gelir'],['prof','👤','Profilim'],['set','⚙️','Ayarlar']],
+    EN:[['home','🏠','Home'],['cal','📅','Calendar'],['inc','💰','Income'],['prof','👤','Profile'],['set','⚙️','Settings']],
+    DE:[['home','🏠','Startseite'],['cal','📅','Kalender'],['inc','💰','Einnahmen'],['prof','👤','Profil'],['set','⚙️','Einstellungen']],
+    ES:[['home','🏠','Inicio'],['cal','📅','Calendario'],['inc','💰','Ingresos'],['prof','👤','Perfil'],['set','⚙️','Ajustes']],
+    FR:[['home','🏠','Accueil'],['cal','📅','Agenda'],['inc','💰','Revenus'],['prof','👤','Profil'],['set','⚙️','Paramètres']],
+    RU:[['home','🏠','Главная'],['cal','📅','Календарь'],['inc','💰','Доход'],['prof','👤','Профиль'],['set','⚙️','Настройки']],
+    UKR:[['home','🏠','Головна'],['cal','📅','Календар'],['inc','💰','Дохід'],['prof','👤','Профіль'],['set','⚙️','Налашт.']],
+    AR:[['home','🏠','الرئيسية'],['cal','📅','التقويم'],['inc','💰','الدخل'],['prof','👤','ملفي'],['set','⚙️','الإعدادات']]
+  };
+  var GWP_SIL_NAV={
+    TR:[['home','🔍','Keşfet'],['apt','📋','Randevularım'],['fav','❤️','Favoriler'],['prof','👤','Profilim']],
+    EN:[['home','🔍','Discover'],['apt','📋','Appointments'],['fav','❤️','Favorites'],['prof','👤','Profile']],
+    DE:[['home','🔍','Entdecken'],['apt','📋','Termine'],['fav','❤️','Favoriten'],['prof','👤','Profil']],
+    ES:[['home','🔍','Explorar'],['apt','📋','Citas'],['fav','❤️','Favoritos'],['prof','👤','Perfil']],
+    FR:[['home','🔍','Explorer'],['apt','📋','RDV'],['fav','❤️','Favoris'],['prof','👤','Profil']],
+    RU:[['home','🔍','Обзор'],['apt','📋','Записи'],['fav','❤️','Избранное'],['prof','👤','Профиль']],
+    UKR:[['home','🔍','Огляд'],['apt','📋','Записи'],['fav','❤️','Улюблені'],['prof','👤','Профіль']],
+    AR:[['home','🔍','استكشاف'],['apt','📋','مواعيد'],['fav','❤️','مفضلة'],['prof','👤','ملفي']]
+  };
+
+  // ── Takvim ──
+  function gwCalDay(d){
+    var det=document.getElementById('gw-cal-det');if(!det)return;
+    var slots=['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00'];
+    var booked=[0,2,5];
+    var h='<div style="margin-top:14px;border-top:1px solid rgba(201,162,39,0.15);padding-top:12px;"><div style="font-size:9px;color:rgba(201,162,39,0.5);letter-spacing:2px;margin-bottom:10px;">'+d+'. GÜN — SLOTLAR</div><div style="display:flex;flex-wrap:wrap;gap:8px;">';
+    slots.forEach(function(s,i){var b=booked.indexOf(i)>=0;h+='<div style="padding:7px 13px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;background:'+(b?'rgba(201,162,39,0.18)':'rgba(255,255,255,0.05)')+';border:1px solid '+(b?'rgba(201,162,39,0.6)':'rgba(255,255,255,0.12)')+';color:'+(b?'#ffd700':'rgba(255,255,255,0.5)')+';">'+s+(b?' ✓':'')+'</div>';});
+    h+='</div></div>';det.innerHTML=h;
   }
-  function gwCeremonyConfetti(){
-    var cols=['#ffd700','#fffacd','#c9a227','#ffffff','#b8860b','#f5deb3'];
-    var ico=['💎','✦','◆','✧','★','◇'];
-    for(var i=0;i<80;i++){
-      (function(n){
-        setTimeout(function(){
-          var p=document.createElement('div'),isIco=n%7<2;
-          var col=cols[n%cols.length];
-          var tx=(Math.random()-0.5)*window.innerWidth;
-          var ty=-(120+Math.random()*window.innerHeight*0.75);
-          p.style.cssText='position:fixed;left:50%;top:45%;pointer-events:none;z-index:1000002;transition:transform 2.2s cubic-bezier(.2,.8,.4,1),opacity 2.2s ease;transform:translate(-50%,-50%);opacity:1;'+(isIco?'font-size:'+(10+Math.random()*18)+'px;color:'+col+';':'width:'+(2+Math.random()*5)+'px;height:'+(5+Math.random()*14)+'px;background:'+col+';border-radius:2px;');
-          if(isIco)p.textContent=ico[Math.floor(Math.random()*ico.length)];
-          document.body.appendChild(p);
-          requestAnimationFrame(function(){requestAnimationFrame(function(){
-            p.style.transform='translate(calc(-50% + '+tx+'px),calc(-50% + '+ty+'px)) rotate('+(Math.random()*720-360)+'deg)';
-            p.style.opacity='0';
-          });});
-          setTimeout(function(){p.remove();},2400);
-        },n*16);
-      })(i);
+  window.gwCalDay=gwCalDay;
+
+  function gwBuildCal(){
+    var now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    var first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+    var MN=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+    var appts=[3,8,12,15,17,22,25];
+    var h='<div style="text-align:center;margin-bottom:14px;font-size:15px;font-weight:900;color:#ffd700;letter-spacing:2px;">'+MN[m]+' '+y+'</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:6px;">';
+    ['Pt','Sa','Ça','Pe','Cu','Ct','Pz'].forEach(function(d){h+='<div style="text-align:center;font-size:8px;color:rgba(201,162,39,0.4);padding:3px 0;">'+d+'</div>';});
+    h+='</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">';
+    for(var i=0;i<(first===0?6:first-1);i++)h+='<div></div>';
+    for(var d=1;d<=days;d++){
+      var today=d===now.getDate(),has=appts.indexOf(d)>=0;
+      h+='<div onclick="gwCalDay('+d+')" style="text-align:center;padding:7px 2px;border-radius:8px;font-size:11px;font-weight:'+(today?900:600)+';cursor:pointer;background:'+(today?'#ffd700':has?'rgba(201,162,39,0.12)':'transparent')+';color:'+(today?'#1a0a00':has?'#ffd700':'rgba(255,255,255,0.65)')+';border:1px solid '+(today?'transparent':has?'rgba(201,162,39,0.25)':'transparent')+';transition:background 0.2s;">'+d+'</div>';
     }
+    return h+'</div><div id="gw-cal-det"></div>';
   }
-  function gwStartCeremony(){
-    if(document.getElementById('gw-cer'))return;
-    var lang=gwGetLang()||'TR';
-    var tier=gwTierActive||'diamond';
-    var welcome=GW_WELCOME[lang]||GW_WELCOME.TR;
-    var approved=GW_APPROVED[lang]||GW_APPROVED.TR;
-    var member=(GW_MEMBER[lang]||GW_MEMBER.TR)[tier==='diamond'?'d':'s'];
-    gwCeremonySound();
-    gwCeremonyConfetti();
-    var ov=document.createElement('div');
-    ov.id='gw-cer';
-    ov.style.cssText='position:fixed;inset:0;z-index:1000000;background:linear-gradient(145deg,#050301,#0a0603,#050301);display:flex;align-items:center;justify-content:center;animation:gw-cer-in 0.4s ease forwards;';
-    ov.innerHTML='<div style="text-align:center;padding:24px 32px;max-width:90vw;">'
-      +'<div style="font-size:clamp(8px,1.8vw,12px);color:rgba(201,162,39,0.5);letter-spacing:8px;font-family:DM Sans,sans-serif;animation:gw-cer-rise 0.5s 0.1s ease both;">GLAMWORLD</div>'
-      +'<div style="font-size:clamp(16px,4.5vw,46px);font-weight:900;color:#ffd700;letter-spacing:2px;margin-top:14px;font-family:Cormorant Garamond,Georgia,serif;animation:gw-cer-glow 2s ease-in-out infinite,gw-cer-rise 0.6s 0.3s ease both;">'+welcome+'</div>'
-      +'<div style="font-size:clamp(9px,2vw,14px);color:rgba(201,162,39,0.55);letter-spacing:3px;margin-top:12px;font-family:DM Sans,sans-serif;animation:gw-cer-rise 0.5s 0.6s ease both;">'+member+'</div>'
-      +'<div style="font-size:clamp(52px,20vw,120px);animation:gw-cer-seal 0.8s 1s cubic-bezier(0.34,1.56,0.64,1) both;margin:20px 0 8px;filter:drop-shadow(0 0 30px rgba(255,215,0,0.8));">💎</div>'
-      +'<div style="display:inline-block;font-size:clamp(9px,2.2vw,15px);font-weight:900;letter-spacing:4px;color:#ffd700;border:2px solid rgba(201,162,39,0.8);padding:7px 22px;border-radius:4px;font-family:DM Sans,sans-serif;animation:gw-cer-stamp 0.5s 1.8s cubic-bezier(0.34,1.56,0.64,1) both;box-shadow:0 0 20px rgba(255,215,0,0.4);">'+approved+'</div>'
+
+  function gwBuildIncome(){
+    var months=['Oca','Şub','Mar','Nis','May','Haz'];
+    var vals=[4200,6800,5500,9200,7600,11400];
+    var max=Math.max.apply(null,vals);
+    var h='<div style="margin-bottom:18px;"><div style="font-size:26px;font-weight:900;color:#ffd700;letter-spacing:1px;">₺'+vals[5].toLocaleString('tr-TR')+'</div><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:3px;margin-top:3px;">BU AY TOPLAM</div></div>';
+    h+='<div style="display:flex;align-items:flex-end;gap:6px;height:90px;margin-bottom:12px;">';
+    vals.forEach(function(v,i){
+      var pct=Math.round(v/max*100),last=i===5;
+      h+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">'
+       +'<div style="width:100%;border-radius:3px 3px 0 0;height:'+pct+'%;background:'+(last?'linear-gradient(to top,#b8860b,#ffd700)':'rgba(201,162,39,0.22)')+';"></div>'
+       +'<div style="font-size:8px;color:rgba(201,162,39,0.45);">'+months[i]+'</div></div>';
+    });
+    h+='</div><div style="border-top:1px solid rgba(201,162,39,0.12);padding-top:12px;">';
+    [['✂️ Saç Kesimi','12 seans','₺3.600'],['🪒 Sakal','8 seans','₺2.400'],['💈 Komple','4 seans','₺5.400']].forEach(function(r){
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(201,162,39,0.07);">'
+       +'<div><div style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;">'+r[0]+'</div><div style="font-size:9px;color:rgba(201,162,39,0.4);margin-top:2px;">'+r[1]+'</div></div>'
+       +'<div style="font-size:13px;font-weight:900;color:#ffd700;">'+r[2]+'</div></div>';
+    });
+    return h+'</div>';
+  }
+
+  // ── Ekran içerikleri ──
+  function gwDiaScr(s){
+    var p20='style="padding:20px;"';
+    if(s==='home')return '<div '+p20+'>'
+      +'<div style="font-size:11px;color:rgba(201,162,39,0.4);letter-spacing:3px;margin-bottom:6px;">'+new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase()+'</div>'
+      +'<div style="font-size:19px;font-weight:900;color:#ffd700;margin-bottom:18px;">Hoş Geldiniz 💎</div>'
+      +'<div class="gw-stat-row">'
+      +[['5','BUGÜN','📅'],['₺11.4K','BU AY','💰'],['4.9','PUAN','⭐'],['42','MÜŞTERİ','👥']].map(function(x){return '<div class="gw-stat-box dia-card"><div style="font-size:20px;margin-bottom:4px;">'+x[2]+'</div><div style="font-size:15px;font-weight:900;color:#ffd700;">'+x[0]+'</div><div style="font-size:8px;color:rgba(201,162,39,0.4);letter-spacing:1px;margin-top:2px;">'+x[1]+'</div></div>';}).join('')
+      +'</div>'
+      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:10px;">BUGÜNKÜ RANDEVULAR</div>'
+      +[['09:00','Ahmet Y.','Saç Kesimi','₺300'],['11:00','Mehmet K.','Sakal+Saç','₺500'],['14:00','Ali D.','Komple','₺450'],['16:00','Can B.','Saç Kesimi','₺300']].map(function(r){return '<div class="gw-card dia-card" style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:11px;font-weight:900;color:#ffd700;min-width:42px;">'+r[0]+'</div><div style="flex:1;"><div style="font-size:12px;color:rgba(255,255,255,0.85);font-weight:700;">'+r[1]+'</div><div style="font-size:10px;color:rgba(201,162,39,0.45);margin-top:1px;">'+r[2]+'</div></div><div style="font-size:12px;font-weight:900;color:#ffd700;">'+r[3]+'</div></div>';}).join('')
       +'</div>';
-    document.body.appendChild(ov);
-    setTimeout(function(){
-      ov.style.animation='gw-cer-out 0.9s ease forwards';
-      setTimeout(function(){ov.remove();},900);
-    },3300);
+    if(s==='cal')return '<div '+p20+'>'+gwBuildCal()+'</div>';
+    if(s==='inc')return '<div '+p20+'>'+gwBuildIncome()+'</div>';
+    if(s==='prof')return '<div '+p20+'>'
+      +'<div style="text-align:center;margin-bottom:22px;"><div style="font-size:60px;margin-bottom:10px;">👨‍💼</div>'
+      +'<div style="font-size:18px;font-weight:900;color:#ffd700;letter-spacing:1px;">Mehmet Usta</div>'
+      +'<div style="font-size:10px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-top:4px;">💎 PIRLANTA ÜYE · İSTANBUL</div></div>'
+      +'<div class="gw-card dia-card"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">HİZMETLERİM</div>'
+      +[['✂️ Saç Kesimi','₺300'],['🪒 Sakal','₺200'],['💈 Komple','₺450'],['🎨 Boya','₺600']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(201,162,39,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+'</span><span style="font-size:12px;font-weight:900;color:#ffd700;">'+x[1]+'</span></div>';}).join('')+'</div>'
+      +'<div class="gw-card dia-card" style="margin-top:0;"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">İLETİŞİM</div>'
+      +[['📱 Telefon','0532 XXX XX XX'],['📧 E-posta','mehmet@glamworld.com'],['📍 Adres','Beşiktaş, İstanbul']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(201,162,39,0.08);"><span style="font-size:11px;color:rgba(201,162,39,0.5);">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.7);">'+x[1]+'</span></div>';}).join('')+'</div></div>';
+    if(s==='set')return '<div '+p20+'>'
+      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:14px;">AYARLAR</div>'
+      +[['🔔 Bildirimler','Açık','#4caf50'],['🌙 Koyu Tema','Açık','#4caf50'],['🔒 İki Faktörlü','Kapalı','#ff7043'],['📍 Konum','Açık','#4caf50'],['📊 Analitik','Açık','#4caf50']].map(function(x){return '<div class="gw-card dia-card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:14px 16px;"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+'</span><span style="font-size:10px;font-weight:900;color:'+x[2]+';background:'+x[2]+'18;padding:4px 10px;border-radius:20px;">'+x[1]+'</span></div>';}).join('')
+      +'<div onclick="gwHidePanel()" style="margin-top:8px;text-align:center;padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">ÇIKIŞ YAP</div></div>';
+    return '';
   }
-  var gwRegWords=['kayıt ol','sign up','register','create account','üye ol','hesap oluştur','anmelden','registrieren','registrarse','créer un compte','зарегистрироваться','зареєструватися','إنشاء حساب'];
+
+  function gwSilScr(s){
+    var p20='style="padding:20px;"';
+    if(s==='home')return '<div '+p20+'>'
+      +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:18px;">Merhaba 🥈</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">KATEGORİLER</div>'
+      +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">'
+      +[['✂️','Kuaför'],['🪒','Berber'],['💅','Tırnak'],['💆','Masaj'],['💄','Makyaj'],['🧖','Cilt']].map(function(c){return '<div class="gw-card sil-card" style="text-align:center;cursor:pointer;padding:14px 8px;margin-bottom:0;"><div style="font-size:24px;margin-bottom:6px;">'+c[0]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.7);font-weight:700;letter-spacing:1px;">'+c[1]+'</div></div>';}).join('')
+      +'</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">YAKINDAKILER</div>'
+      +[['👨‍🎨','Ahmet Usta','Berber · ⭐ 4.9','2 km','₺200'],['💇','Salon Elite','Kuaför · ⭐ 4.8','3.5 km','₺350'],['💅','Nail Studio','Tırnak · ⭐ 4.7','1.8 km','₺150']].map(function(u){return '<div class="gw-card sil-card" style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:30px;">'+u[0]+'</div><div style="flex:1;"><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+u[1]+'</div><div style="font-size:10px;color:rgba(192,192,192,0.45);margin-top:2px;">'+u[2]+'</div></div><div style="text-align:right;"><div style="font-size:11px;font-weight:900;color:#c0c0c0;">'+u[4]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.35);">'+u[3]+'</div></div></div>';}).join('')
+      +'</div>';
+    if(s==='apt')return '<div '+p20+'>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">RANDEVULARIM</div>'
+      +[['Yarın 14:00','Ahmet Usta','Saç Kesimi','Onaylandı','#4caf50'],['15 Haz 10:00','Salon Elite','Boya+Kesim','Bekliyor','#ffd700'],['20 Haz 09:00','Nail Studio','Manikür','Bekliyor','#ffd700']].map(function(r){return '<div class="gw-card sil-card" style="padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+r[1]+'</span><span style="font-size:9px;font-weight:900;color:'+r[4]+';background:'+r[4]+'15;padding:3px 9px;border-radius:20px;">'+r[3]+'</span></div><div style="font-size:10px;color:rgba(192,192,192,0.45);">'+r[0]+' · '+r[2]+'</div></div>';}).join('')
+      +'</div>';
+    if(s==='fav')return '<div '+p20+'>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">FAVORİLERİM</div>'
+      +[['👨‍🎨','Ahmet Usta','Berber · İstanbul','⭐ 4.9'],['💇','Salon Elite','Kuaför · Ankara','⭐ 4.8'],['💅','Nail Studio','Tırnak · İzmir','⭐ 4.7']].map(function(f){return '<div class="gw-card sil-card" style="display:flex;align-items:center;gap:14px;padding:14px;margin-bottom:10px;"><div style="font-size:34px;">'+f[0]+'</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);">'+f[1]+'</div><div style="font-size:10px;color:rgba(192,192,192,0.45);margin-top:2px;">'+f[2]+'</div></div><div style="font-size:11px;color:#c0c0c0;font-weight:700;">'+f[3]+'</div></div>';}).join('')
+      +'</div>';
+    if(s==='prof')return '<div '+p20+' style="text-align:center;">'
+      +'<div style="font-size:56px;margin-bottom:12px;">👤</div>'
+      +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:4px;">Misafir Üye</div>'
+      +'<div style="font-size:10px;color:rgba(192,192,192,0.35);letter-spacing:2px;margin-bottom:24px;">🥈 GÜMÜŞ ÜYE</div>'
+      +'<div class="gw-card sil-card" style="text-align:left;margin-bottom:12px;">'
+      +[['📱 Telefon','––'],['📧 E-posta','misafir@glamworld.com']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(192,192,192,0.07);"><span style="font-size:11px;color:rgba(192,192,192,0.45);">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.65);">'+x[1]+'</span></div>';}).join('')
+      +'</div>'
+      +'<div onclick="gwHidePanel()" style="padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">ÇIKIŞ YAP</div></div>';
+    return '';
+  }
+
+  // ── Panel navigasyon ──
+  function gwPanelNav(scr){
+    gwP.scr=scr;
+    var cont=document.getElementById('gw-pcontent');
+    if(!cont)return;
+    cont.innerHTML=gwP.tier==='diamond'?gwDiaScr(scr):gwSilScr(scr);
+    cont.style.animation='none';
+    requestAnimationFrame(function(){cont.style.animation='gw-scr 0.28s ease forwards';});
+    var isDia=gwP.tier==='diamond';
+    var ac=isDia?'#ffd700':'#c0c0c0';
+    var in1=isDia?'rgba(201,162,39,0.3)':'rgba(192,192,192,0.3)';
+    document.querySelectorAll('.gw-pbi').forEach(function(b){
+      b.style.color=b.dataset.s===scr?ac:in1;
+    });
+  }
+  window.gwPanelNav=gwPanelNav;
+
+  function gwHidePanel(){
+    var p=document.getElementById('gw-panel');if(!p)return;
+    p.style.animation='gw-pout 0.35s ease forwards';
+    setTimeout(function(){p.remove();},350);
+  }
+  window.gwHidePanel=gwHidePanel;
+
+  // ── Panel oluştur ──
+  function gwShowPanel(tier){
+    if(document.getElementById('gw-panel'))return;
+    gwP.tier=tier||gwTierActive||'diamond';
+    gwP.scr='home';
+    var lang=gwGetLang()||'TR';
+    var isDia=gwP.tier==='diamond';
+    var nav=isDia?(GWP_DIA_NAV[lang]||GWP_DIA_NAV.TR):(GWP_SIL_NAV[lang]||GWP_SIL_NAV.TR);
+    var ac=isDia?'#ffd700':'#c0c0c0';
+    var dim=isDia?'rgba(201,162,39,':'rgba(192,192,192,';
+    var bg=isDia?'linear-gradient(145deg,#050302,#080503)':'linear-gradient(145deg,#060608,#08080c)';
+    var botBg=isDia?'rgba(4,2,1,0.97)':'rgba(5,5,7,0.97)';
+
+    var pnl=document.createElement('div');
+    pnl.id='gw-panel';
+    pnl.style.cssText='position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;background:'+bg+';animation:gw-pin 0.35s ease forwards;';
+
+    // Üst bar
+    pnl.innerHTML='<div id="gw-ptop" style="display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 20px;border-bottom:1px solid '+dim+'0.15);flex-shrink:0;background:'+botBg+';">'
+      +'<div style="font-size:14px;font-weight:900;color:'+ac+';letter-spacing:3px;font-family:Cormorant Garamond,Georgia,serif;">GLAMWORLD</div>'
+      +'<div style="font-size:10px;color:'+dim+'0.5);letter-spacing:2px;">'+(isDia?'💎 PIRLANTA':'🥈 GÜMÜŞ')+'</div>'
+      +'</div>'
+    // İçerik alanı
+      +'<div id="gw-pcontent" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">'+(isDia?gwDiaScr('home'):gwSilScr('home'))+'</div>'
+    // Alt nav
+      +'<div id="gw-pbot" style="display:flex;border-top:1px solid '+dim+'0.12);background:'+botBg+';flex-shrink:0;padding-bottom:env(safe-area-inset-bottom,0);">'
+      +nav.map(function(n){return '<div class="gw-pbi" data-s="'+n[0]+'" onclick="gwPanelNav(\''+n[0]+'\')" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:10px 4px;color:'+(n[0]==='home'?ac:dim+'0.3)')+';transition:color 0.2s;font-family:DM Sans,sans-serif;"><div style="font-size:19px;line-height:1;">'+n[1]+'</div><div style="font-size:8px;font-weight:700;letter-spacing:0.5px;">'+n[2]+'</div></div>';}).join('')
+      +'</div>';
+
+    document.body.appendChild(pnl);
+    gwUnlockBody();
+  }
+  window.gwShowPanel=gwShowPanel;
+
+  // ── Giriş algılama → panel aç ──
+  var gwLoginKw=['giriş yap','sign in','login','anmelden','iniciar','connexion','войти','увійти','تسجيل'];
   document.addEventListener('click',function(e){
     var el=e.target;
     for(var i=0;i<6;i++){
       if(!el||el===document.body)break;
       if(el.tagName==='BUTTON'||el.tagName==='INPUT'){
-        var txt=(el.textContent||el.value||'').toLowerCase();
-        for(var j=0;j<gwRegWords.length;j++){
-          if(txt.indexOf(gwRegWords[j])>=0){setTimeout(gwStartCeremony,300);return;}
+        var modal=document.querySelector('[class*="modal"],[class*="Modal"]');
+        if(modal&&modal.contains(el)){
+          var txt=(el.textContent||el.value||'').toLowerCase();
+          for(var j=0;j<gwLoginKw.length;j++){
+            if(txt.indexOf(gwLoginKw[j])>=0){
+              var t=gwTierActive||'diamond';
+              setTimeout(function(){gwShowPanel(t);},900);
+              return;
+            }
+          }
         }
       }
       el=el.parentNode;
     }
   },true);
-  // ── TÖREN SONU ─────────────────────────────────────────
+  // ══════════════════════════════════════════════
 })();
 </script>
 </body></html>
