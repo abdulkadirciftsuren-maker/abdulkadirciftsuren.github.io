@@ -1,7 +1,7 @@
-﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v68</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v67</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -197,8 +197,7 @@ html body .s2c{font-size:9px!important;}
 .gw-pbi-i{font-size:20px;line-height:1;}
 .gw-pbi-l{font-size:8px;font-weight:700;letter-spacing:0.5px;}
 .gw-card{border-radius:14px;padding:16px;margin-bottom:12px;}
-.dia-card{background:rgba(201,162,39,0.08);border:1px solid rgba(201,162,39,0.22);backdrop-filter:blur(8px);}
-.sil-card{background:rgba(100,160,255,0.07);border:1px solid rgba(100,160,255,0.18);}
+.dia-card{background:rgba(201,162,39,0.05);border:1px solid rgba(201,162,39,0.18);}
 .sil-card{background:rgba(192,192,192,0.05);border:1px solid rgba(192,192,192,0.15);}
 .gw-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
 .gw-stat-box{border-radius:12px;padding:14px 10px;text-align:center;}
@@ -338,21 +337,17 @@ html body .s2c{font-size:9px!important;}
     if(lang===gwBinLangCur)return;
     gwBinLangCur=lang;
     var newTxt=gwBinTr[lang]||gwBinTr.TR;
-    function gwReplTxt(root){
+    document.querySelectorAll('.bin').forEach(function(btn){
       (function walk(el){
         el.childNodes.forEach(function(n){
           if(n.nodeType===3){
             gwBinAllTxt.forEach(function(t){
               if(n.textContent.indexOf(t)>=0){n.textContent=n.textContent.replace(t,newTxt);}
             });
-          } else if(n.childNodes&&n.childNodes.length&&n.id!=='gw-extra'){walk(n);}
+          } else if(n.childNodes&&n.childNodes.length){walk(n);}
         });
-      })(root);
-    }
-    document.querySelectorAll('.bin').forEach(gwReplTxt);
-    // Modal içindeki Pırlanta Mührü yazılarını da çevir
-    var modal=document.querySelector('[class*="modal"],[class*="Modal"]');
-    if(modal)gwReplTxt(modal);
+      })(btn);
+    });
   },600);
 
   var gwBinParent=null,gwBinNext=null;
@@ -442,7 +437,7 @@ html body .s2c{font-size:9px!important;}
     if(!gBtn)return;
     // Dil desteği
     var cl=gwGetLang();
-    var MLG={TR:{d:'PIRLANTA',ds:'Profesyonel',s:'GÜMÜŞ',ss:'Misafir',q:'VEYA HIZLI GİRİŞ',p:'💳 ÖDEME SEÇENEKLERİ',soon:'yakında aktif!'},EN:{d:'DIAMOND',ds:'Professional',s:'SILVER',ss:'Guest',q:'OR QUICK LOGIN',p:'💳 PAYMENT OPTIONS',soon:'coming soon!'},DE:{d:'DIAMANT',ds:'Professionell',s:'SILBER',ss:'Gast',q:'ODER SCHNELL',p:'💳 ZAHLUNGSOPTIONEN',soon:'bald verfügbar!'},FR:{d:'DIAMANT',ds:'Professionnel',s:'ARGENT',ss:'Invité',q:'OU CONNEXION RAPIDE',p:'💳 OPTIONS DE PAIEMENT',soon:'bientôt disponible!'},ES:{d:'DIAMANTE',ds:'Profesional',s:'PLATA',ss:'Invitado',q:'O ACCESO RÁPIDO',p:'💳 OPCIONES DE PAGO',soon:'¡próximamente!'},RU:{d:'БРИЛЛИАНТ',ds:'Профессионал',s:'СЕРЕБРО',ss:'Гость',q:'ИЛИ БЫСТРЫЙ ВХОД',p:'💳 СПОСОБЫ ОПЛАТЫ',soon:'скоро!'},AR:{d:'الماس',ds:'محترف',s:'فضي',ss:'ضيف',q:'أو دخول سريع',p:'💳 خيارات الدفع',soon:'قريباً!'}};
+    var MLG={TR:{d:'PIRLANTA',ds:'Profesyonel',s:'GÜMÜŞ',ss:'Misafir',q:'VEYA HIZLI GİRİŞ',p:'💳 ÖDEME SEÇENEKLERİ',soon:'yakında aktif!'},EN:{d:'DIAMOND',ds:'Professional',s:'SILVER',ss:'Guest',q:'OR QUICK LOGIN',p:'💳 PAYMENT OPTIONS',soon:'coming soon!'},DE:{d:'DIAMANT',ds:'Professionell',s:'SILBER',ss:'Gast',q:'ODER SCHNELL',p:'💳 ZAHLUNGSOPTIONEN',soon:'bald verfügbar!'},FR:{d:'DIAMANT',ds:'Professionnel',s:'ARGENT',ss:'Invité',q:'OU CONNEXION RAPIDE',p:'💳 OPTIONS DE PAIEMENT',soon:'bientôt disponible!'},ES:{d:'DIAMANTE',ds:'Profesional',s:'PLATA',ss:'Invitado',q:'O ACCESO RÁPIDO',p:'💳 OPCIONES DE PAGO',soon:'¡próximamente!'},RU:{d:'БРИЛЛИАНТ',ds:'Профессионал',s:'СЕРЕБРО',ss:'Гость',q:'ИЛИ БЫСТРЫЙ ВХОД',p:'💳 СПОСОБЫ ОПЛАТЫ',soon:'скоро!'}};
     var t=MLG[cl]||MLG['TR'];
     var extra=document.createElement('div');extra.id='gw-extra';
     extra.style.cssText='font-family:DM Sans,sans-serif;width:100%;box-sizing:border-box;';
@@ -478,21 +473,20 @@ html body .s2c{font-size:9px!important;}
     extra.querySelectorAll('div[style*="cursor:pointer"]').forEach(function(d,i){d.addEventListener('click',function(){gwToast(pNames[i]+' — '+t.soon);});});
     gwLockBody();
     startSholen();
-    // Modal içi Pırlanta Mührü → dile çevir
     setTimeout(function(){
       var lang=gwGetLang()||'TR';
       if(lang==='TR')return;
-      var newTxt=gwBinTr[lang]||gwBinTr.TR;
+      var newTxt=gwBinTr[lang]||'Pırlanta Mührü';
       var modal=document.querySelector('[class*="modal"],[class*="Modal"]');
       if(!modal)return;
-      (function walk(el){
-        el.childNodes.forEach(function(n){
-          if(n.nodeType===3){
-            gwBinAllTxt.forEach(function(t){if(n.textContent.indexOf(t)>=0){n.textContent=n.textContent.replace(t,newTxt);}});
-          } else if(n.childNodes&&n.childNodes.length&&n.id!=='gw-extra'){walk(n);}
-        });
-      })(modal);
-    },400);
+      var walker=document.createTreeWalker(modal,NodeFilter.SHOW_TEXT,null,false);
+      var node;
+      while((node=walker.nextNode())){
+        if(node.textContent.indexOf('Pırlanta')>=0||node.textContent.indexOf('Mührü')>=0){
+          node.textContent=node.textContent.replace(/Pırlanta Mührü/g,newTxt);
+        }
+      }
+    },600);
   }
   function checkModalClosed(){
     if(!document.querySelectorAll('input[type="email"],input[type="password"]').length){
@@ -672,14 +666,13 @@ html body .s2c{font-size:9px!important;}
   };
   var GW_CURRLANG='TR';
   function gwGetLang(){
-    // Arapça manuel seçildiyse koru
-    if(GW_CURRLANG==='AR')return 'AR';
+    // Navbar'daki dil butonundan kodu oku
     var spans=document.querySelectorAll('.navbar span');
     for(var i=0;i<spans.length;i++){
       var t=spans[i].textContent.trim();
-      if(GW_LABELS[t]){GW_CURRLANG=t;return t;}
+      if(GW_LABELS[t])return t;
     }
-    return GW_CURRLANG||'TR';
+    return GW_CURRLANG;
   }
   function gwRefreshLabels(){
     var bar=document.getElementById('gw-hbar');
@@ -760,22 +753,6 @@ html body .s2c{font-size:9px!important;}
       window._langOpen=true;
       overlay.style.display='block';
       history.pushState(null,'',location.href);
-      // Arapça butonu yoksa ekle
-      if(!dd.querySelector('[data-gw-ar]')){
-        var arBtn=document.createElement('div');
-        arBtn.setAttribute('data-gw-ar','1');
-        arBtn.style.cssText='display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;';
-        arBtn.innerHTML='<img src="https://flagcdn.com/w40/sa.png" style="width:24px;height:16px;border-radius:2px;object-fit:cover;"> <span style="color:#33BB66;font-weight:900;font-size:13px;letter-spacing:1px;">AR</span> <span style="color:rgba(201,162,39,0.8);font-size:12px;">العربية</span>';
-        arBtn.addEventListener('click',function(){
-          GW_CURRLANG='AR';
-          closeLangMenu();
-          // Paneli hemen Arapça güncelle
-          gwBinLangCur='';
-          var cont=document.getElementById('gw-pcontent');
-          if(cont)cont.innerHTML=gwP.tier==='diamond'?gwDiaScr(gwP.scr||'home'):gwSilScr(gwP.scr||'home');
-        });
-        dd.appendChild(arBtn);
-      }
     } else if(!dd&&window._langOpen){
       window._langOpen=false;
       overlay.style.display='none';
@@ -1028,7 +1005,7 @@ html body .s2c{font-size:9px!important;}
     var nav=isDia?(GWP_DIA_NAV[lang]||GWP_DIA_NAV.TR):(GWP_SIL_NAV[lang]||GWP_SIL_NAV.TR);
     var ac=isDia?'#ffd700':'#c0c0c0';
     var dim=isDia?'rgba(201,162,39,':'rgba(192,192,192,';
-    var bg=isDia?'linear-gradient(135deg,#150830 0%,#2a1055 50%,#150830 100%)':'linear-gradient(135deg,#081525 0%,#102540 50%,#081525 100%)';
+    var bg=isDia?'linear-gradient(145deg,#050302,#080503)':'linear-gradient(145deg,#060608,#08080c)';
     var botBg=isDia?'rgba(4,2,1,0.97)':'rgba(5,5,7,0.97)';
 
     var pnl=document.createElement('div');
