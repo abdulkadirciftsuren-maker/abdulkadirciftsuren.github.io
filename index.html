@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v81</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v82</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -180,10 +180,11 @@ html body .s2c{font-size:9px!important;}
   html body .bin{height:34px!important;padding:0 12px!important;font-size:11px!important;border-radius:20px!important;display:inline-flex!important;align-items:center!important;gap:4px!important;max-width:130px!important;white-space:nowrap!important;}
   html body .lsub{display:block!important;font-size:8px!important;letter-spacing:2px!important;opacity:0.65!important;margin-top:2px!important;}
   html body .menu-fab{top:40px!important;right:12px!important;width:36px!important;height:36px!important;border-radius:10px!important;}
-  /* Google profil butonu portrait — sadece yuvarlak ikon, metin yok */
-  #gw-bin-fb{width:34px!important;height:34px!important;min-width:34px!important;max-width:34px!important;padding:0!important;border-radius:50%!important;gap:0!important;background:#fff!important;animation:none!important;box-shadow:0 1px 6px rgba(0,0,0,0.3)!important;border:2px solid rgba(66,133,244,0.5)!important;justify-content:center!important;}
+  /* Google profil butonu portrait — pill, fotoğraf + Google G */
+  #gw-bin-fb{padding:3px 8px 3px 3px!important;height:34px!important;max-width:75px!important;border-radius:50px!important;background:rgba(0,0,0,0.3)!important;border:1.5px solid rgba(201,162,39,0.7)!important;animation:none!important;gap:4px!important;}
   #gw-bin-fb>span#gw-gpl{display:none!important;}
-  #gw-bin-fb>div:first-child{width:24px!important;height:24px!important;font-size:14px!important;flex-shrink:0!important;background:#fff!important;border-radius:50%!important;color:#4285F4!important;font-weight:900!important;border:none!important;}
+  #gw-bin-fb>#gw-g-avatar{width:28px!important;height:28px!important;flex-shrink:0!important;}
+  #gw-bin-fb>svg{flex-shrink:0!important;}
 }
 /* Landscape hamburger - en son, kesin öncelik */
 @media screen and (orientation:landscape) and (max-height:500px) and (max-width:768px){
@@ -366,9 +367,10 @@ html body .s2c{font-size:9px!important;}
     if(!bin&&gwBinParent&&!fb){
       var prof=document.createElement('div');
       prof.id='gw-bin-fb';
-      prof.style.cssText='display:inline-flex;align-items:center;gap:7px;cursor:pointer;padding:7px 16px;border-radius:50px;background:linear-gradient(270deg,#b8860b,#ffd700,#fffacd,#c9a227,#ffd700,#b8860b);background-size:400% 400%;animation:gw-gold 3s ease infinite,gw-glow 2.5s ease-in-out infinite;color:#1a0a00;font-weight:900;font-size:12px;letter-spacing:0.5px;border:none;';
+      prof.style.cssText='display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:3px 10px 3px 3px;border-radius:50px;background:rgba(0,0,0,0.3);border:1.5px solid rgba(201,162,39,0.7);color:#ffd700;font-weight:900;font-size:11px;letter-spacing:0.3px;height:36px;box-sizing:border-box;';
       var gpl=gwGpL[gwGetLang()||'TR']||'Google Profili';
-      prof.innerHTML='<div style="width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#4285F4;flex-shrink:0;">G</div><span id="gw-gpl">'+gpl+'</span>';
+      var googleSVG='<svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
+      prof.innerHTML='<div id="gw-g-avatar" style="width:30px;height:30px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#4285F4;flex-shrink:0;overflow:hidden;border:1px solid rgba(201,162,39,0.4);"><img id="gw-g-photo" src="" style="width:100%;height:100%;object-fit:cover;display:none;"><span id="gw-g-init" style="font-size:13px;font-weight:900;color:#4285F4;">G</span></div>'+googleSVG+'<span id="gw-gpl">'+gpl+'</span>';
       prof.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
       prof.addEventListener('touchend',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
       prof.addEventListener('click',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
@@ -378,6 +380,13 @@ html body .s2c{font-size:9px!important;}
     if(bin&&fb)fb.remove();
     var gplEl=document.getElementById('gw-gpl');
     if(gplEl){var nl=gwGpL[gwGetLang()||'TR']||'Google Profili';if(gplEl.textContent!==nl)gplEl.textContent=nl;}
+    // Google fotoğrafını bul ve göster
+    var gPhoto=document.getElementById('gw-g-photo');
+    var gInit=document.getElementById('gw-g-init');
+    if(gPhoto&&!gPhoto.src){
+      var gImg=document.querySelector('img[src*="googleusercontent"],img[src*="lh3.google"],img[src*="lh4.google"],img[src*="lh5.google"]');
+      if(gImg&&gImg.src){gPhoto.src=gImg.src;gPhoto.style.display='block';if(gInit)gInit.style.display='none';}
+    }
   },500);
 
   // VIP Modal — sade, güzel, çalışan
