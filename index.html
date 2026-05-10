@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v71</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v72</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -475,6 +475,7 @@ html body .s2c{font-size:9px!important;}
     extra.querySelectorAll('div[style*="cursor:pointer"]').forEach(function(d,i){d.addEventListener('click',function(){gwToast(pNames[i]+' — '+t.soon);});});
     gwLockBody();
     startSholen();
+    if(!document.body.dataset.gwVipH){document.body.dataset.gwVipH='1';history.pushState({gwVip:true},'',location.href);}
     
     setTimeout(function(){
       var lang=gwGetLang()||'TR';
@@ -746,8 +747,25 @@ html body .s2c{font-size:9px!important;}
 
   overlay.addEventListener('click',function(){closeLangMenu();});
 
-  window.addEventListener('popstate',function(){
-    if(window._langOpen){closeLangMenu();}
+  window.addEventListener('popstate',function(e){
+    var st=e.state;
+    if(gwClosingPanel)return;
+    if(st&&st.gwPanel){
+      if(document.getElementById('gw-panel')){
+        if(gwNavStack.length>0){gwPnlShowScr(gwNavStack.pop());history.pushState({gwPanel:true},'',location.href);}
+        else{gwHidePanel(true);}
+      }
+      return;
+    }
+    if(document.getElementById('gw-panel')){gwHidePanel(true);return;}
+    if(window._langOpen){closeLangMenu();return;}
+    if(st&&st.gwVip){
+      delete document.body.dataset.gwVipH;
+      var xBtn=document.querySelector('[class*="modal"] button:last-of-type,[class*="Modal"] button:last-of-type');
+      if(xBtn)xBtn.click();
+      else{var modal=document.querySelector('[class*="modal"],[class*="Modal"]');if(modal)modal.style.display='none';}
+      return;
+    }
   });
 
   new MutationObserver(function(){
