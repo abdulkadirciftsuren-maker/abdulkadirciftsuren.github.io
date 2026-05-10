@@ -436,32 +436,53 @@ html body .s2c{font-size:9px!important;}
         var av=rImg&&rImg.src?'<div style="width:30px;height:30px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(201,162,39,0.4);"><img src="'+rImg.src+'" style="width:100%;height:100%;object-fit:cover;"></div>':'<div style="width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#ffd700;"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="8" r="4" fill="#ffd700"/><path d="M4 20c0-4 3.58-6 8-6s8 2 8 6" fill="#ffd700"/></svg></div>';
         pf.innerHTML=av+'<span style="font-size:11px;font-weight:900;color:#ffd700;letter-spacing:1px;">'+initials+'</span>';
         pf.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-        function gwClickReactProf(){
-          // Sidebar'daki "Profilim" menü öğesini bul ve tıkla (en güvenilir yol)
-          var sbiItems=document.querySelectorAll('.sbi');
-          var profItem=null;
-          var profWords=['profil','profile','profil','профил','профіл','ملف'];
-          sbiItems.forEach(function(item){
-            if(profItem)return;
-            var txt=(item.textContent||'').toLowerCase();
-            profWords.forEach(function(w){if(txt.indexOf(w)>=0)profItem=item;});
+        function gwFindSbi(words){
+          var sbi=document.querySelectorAll('.sbi'),found=null;
+          sbi.forEach(function(el){if(found)return;var t=(el.textContent||'').toLowerCase();words.forEach(function(w){if(t.indexOf(w)>=0)found=el;});});
+          return found;
+        }
+        function gwCloseProfMenu(){var m=document.getElementById('gw-pmenu');if(m)m.remove();}
+        function gwShowProfMenu(btn){
+          if(document.getElementById('gw-panel')){gwHidePanel();return;}
+          var existing=document.getElementById('gw-pmenu');
+          if(existing){gwCloseProfMenu();return;}
+          var r=btn.getBoundingClientRect();
+          var m=document.createElement('div');m.id='gw-pmenu';
+          m.style.cssText='position:fixed;z-index:100010;background:linear-gradient(145deg,rgba(10,5,20,0.97),rgba(18,8,35,0.97));border:1.5px solid rgba(201,162,39,0.7);border-radius:14px;padding:6px;min-width:170px;box-shadow:0 8px 32px rgba(0,0,0,0.85);top:'+(r.bottom+8)+'px;left:'+Math.min(r.left,window.innerWidth-185)+'px;';
+          var items=[
+            {i:'👤',l:'Profilim',w:['profil','profile','профіл','ملف']},
+            {i:'📅',l:'Randevularım',w:['randevu','appoint','записи','مواعيد']},
+            {i:'⚙️',l:gwT('settings')||'Ayarlar',w:['ayar','setting','настрой','إعداد']},
+            {i:'🚪',l:gwT('logout')||'Çıkış',w:[]}
+          ];
+          items.forEach(function(item,idx){
+            var d=document.createElement('div');
+            d.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,0.88);font-size:13px;font-weight:600;font-family:DM Sans,sans-serif;';
+            d.innerHTML='<span style="font-size:16px;">'+item.i+'</span><span>'+item.l+'</span>';
+            d.addEventListener('mouseover',function(){this.style.background='rgba(201,162,39,0.12)';});
+            d.addEventListener('mouseout',function(){this.style.background='';});
+            if(idx<3){
+              d.addEventListener('click',(function(w){return function(){
+                gwCloseProfMenu();
+                var sbi=gwFindSbi(w);
+                if(sbi){sbi.click();return;}
+                var fab2=document.querySelector('.menu-fab');
+                if(fab2){fab2.click();setTimeout(function(){var s=gwFindSbi(w);if(s)s.click();},300);}
+              };})(item.w));
+            } else {
+              d.addEventListener('click',function(){gwCloseProfMenu();setTimeout(function(){location.reload();},400);});
+            }
+            m.appendChild(d);
           });
-          if(profItem){profItem.click();return;}
-          // Sidebar bulunamazsa sidebar'ı aç
-          var fab=document.querySelector('.menu-fab');
-          if(fab){fab.click();setTimeout(function(){
-            sbiItems=document.querySelectorAll('.sbi');
-            sbiItems.forEach(function(item){
-              if(profItem)return;
-              var txt=(item.textContent||'').toLowerCase();
-              profWords.forEach(function(w){if(txt.indexOf(w)>=0)profItem=item;});
-            });
-            if(profItem)profItem.click();
-          },300);}
+          document.body.appendChild(m);
+          setTimeout(function(){
+            var closeH=function(e){if(!m.contains(e.target)){gwCloseProfMenu();document.removeEventListener('click',closeH);}};
+            document.addEventListener('click',closeH);
+          },150);
         }
         pf.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-        pf.addEventListener('touchend',gwClickReactProf);
-        pf.addEventListener('click',gwClickReactProf);
+        pf.addEventListener('touchend',function(){setTimeout(function(){gwShowProfMenu(pf);},50);});
+        pf.addEventListener('click',function(){gwShowProfMenu(pf);});
         // SOLA koy (Google'ın soluna)
         if(gwBf&&gwBf.parentNode)gwBf.parentNode.insertBefore(pf,gwBf);
         else child.parentNode.insertBefore(pf,child);
