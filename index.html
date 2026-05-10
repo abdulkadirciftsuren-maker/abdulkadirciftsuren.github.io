@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v89</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v90</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -407,31 +407,52 @@ html body .s2c{font-size:9px!important;}
     if(bin&&fb)fb.remove();
     var gplEl=document.getElementById('gw-gpl');
     if(gplEl){var nl=gwGpL[gwGetLang()||'TR']||'Google Profili';if(gplEl.textContent!==nl)gplEl.textContent=nl;}
-    // Giriş sonrası işaretsiz (yeni) lbar çocukları = React'ın profil butonu
+    // Giriş sonrası işaretsiz çocuk = React profil butonu
     if(fb&&gwBinParent&&!document.getElementById('gw-prof-fb')){
       Array.from(gwBinParent.children).forEach(function(child){
         if(child.id==='gw-bin-fb'||child.id==='gw-prof-fb'||child.dataset.gwOrig)return;
-        // Bu yeni çocuk React'ın eklediği profil butonu
-        child.style.setProperty('display','none','important');
+        var reactProfEl=child;
+        // Baş harfleri al
+        var nameText=(child.textContent||'').trim();
+        var parts=nameText.split(/\s+/);
+        var initials=parts.slice(0,2).map(function(p){return p[0]?p[0].toUpperCase():'';}).join('');
+        if(!initials)initials='👤';
+        // Gizle (opacity:0 → tıklanabilir kalsın)
+        child.style.setProperty('position','absolute','important');
+        child.style.setProperty('opacity','0','important');
+        child.style.setProperty('pointer-events','none','important');
+        child.style.setProperty('width','1px','important');
+        child.style.setProperty('height','1px','important');
+        child.style.setProperty('overflow','hidden','important');
+        // Butonumuzu oluştur - aynı Google butonu gibi
         var gwBf=document.getElementById('gw-bin-fb');
         var pf=document.createElement('div');
         pf.id='gw-prof-fb';
-        pf.style.cssText='display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:3px 8px 3px 3px;border-radius:50px;background:rgba(0,0,0,0.3);border:2px solid rgba(201,162,39,0.8);color:#ffd700;font-weight:900;font-size:11px;height:38px;box-sizing:border-box;box-shadow:0 2px 10px rgba(201,162,39,0.3);flex-shrink:0;';
+        pf.style.cssText='display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:3px 10px 3px 3px;border-radius:50px;background:rgba(0,0,0,0.3);border:2px solid rgba(201,162,39,0.8);height:38px;box-sizing:border-box;box-shadow:0 2px 10px rgba(201,162,39,0.3);flex-shrink:0;';
         var rImg=child.querySelector('img');
-        var av=rImg&&rImg.src?'<div style="width:30px;height:30px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(201,162,39,0.4);"><img src="'+rImg.src+'" style="width:100%;height:100%;object-fit:cover;"></div>':'<div style="width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="8" r="4" fill="#ffd700"/><path d="M4 20c0-4 3.58-6 8-6s8 2 8 6" fill="#ffd700"/></svg></div>';
-        pf.innerHTML=av+'<span id="gw-prof-lbl">Profil</span>';
+        var av=rImg&&rImg.src?'<div style="width:30px;height:30px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(201,162,39,0.4);"><img src="'+rImg.src+'" style="width:100%;height:100%;object-fit:cover;"></div>':'<div style="width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#ffd700;"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="8" r="4" fill="#ffd700"/><path d="M4 20c0-4 3.58-6 8-6s8 2 8 6" fill="#ffd700"/></svg></div>';
+        pf.innerHTML=av+'<span style="font-size:11px;font-weight:900;color:#ffd700;letter-spacing:1px;">'+initials+'</span>';
         pf.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-        pf.addEventListener('touchend',function(){gwShowPanel(gwTierActive||'diamond');});
-        pf.addEventListener('click',function(){gwShowPanel(gwTierActive||'diamond');});
-        if(gwBf&&gwBf.parentNode)gwBf.parentNode.insertBefore(pf,gwBf.nextSibling);
-        else child.parentNode.appendChild(pf);
+        pf.addEventListener('touchend',function(){
+          // React'ın kendi profil butonunu çalıştır
+          reactProfEl.style.removeProperty('pointer-events');
+          reactProfEl.style.removeProperty('opacity');
+          reactProfEl.click();
+          setTimeout(function(){
+            reactProfEl.style.setProperty('pointer-events','none','important');
+            reactProfEl.style.setProperty('opacity','0','important');
+          },100);
+        });
+        pf.addEventListener('click',function(){
+          reactProfEl.style.removeProperty('pointer-events');
+          reactProfEl.click();
+          setTimeout(function(){reactProfEl.style.setProperty('pointer-events','none','important');},100);
+        });
+        // SOLA koy (Google'ın soluna)
+        if(gwBf&&gwBf.parentNode)gwBf.parentNode.insertBefore(pf,gwBf);
+        else child.parentNode.insertBefore(pf,child);
       });
     }
-    // React profil tekrar görünürse gizle
-    if(fb&&gwBinParent){Array.from(gwBinParent.children).forEach(function(c){
-      if(c.id==='gw-bin-fb'||c.id==='gw-prof-fb'||c.dataset.gwOrig)return;
-      c.style.setProperty('display','none','important');
-    });}
     // Google fotoğrafını bul ve göster
     var gPhoto=document.getElementById('gw-g-photo');
     var gInit=document.getElementById('gw-g-init');
