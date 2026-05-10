@@ -12,7 +12,7 @@ html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none
 #gw-cs{max-width:100vw!important;}
 *{-webkit-touch-callout:none!important;}
 /* ── VIP LOGIN MODAL ── */
-@keyframes gw-modal-in{0%{opacity:0;transform:scale(0.96) translateY(10px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes gw-modal-in{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
 @keyframes gw-border-glow{0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.4),0 0 60px rgba(201,162,39,0.1),inset 0 0 30px rgba(0,0,0,0.5)}50%{box-shadow:0 0 40px rgba(255,215,0,0.6),0 0 100px rgba(201,162,39,0.2),inset 0 0 30px rgba(0,0,0,0.5)}}
 /* Modal arka plan + tam kilit */
 html body [class*="modal"],[class*="Modal"]{backdrop-filter:blur(28px)!important;-webkit-backdrop-filter:blur(28px)!important;background:rgba(0,0,0,0.5)!important;overflow-y:auto!important;overflow-x:hidden!important;align-items:flex-start!important;justify-content:center!important;padding-top:20px!important;position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;touch-action:pan-y!important;overscroll-behavior:contain!important;}
@@ -39,7 +39,7 @@ body.gw-modal-open #root>*:not([class*="modal"]):not([class*="Modal"]){pointer-e
 html body [class*="modal"] [style*="background:#"]:not(button),html body [class*="modal"] [style*="background: #"]:not(button){
   background:linear-gradient(145deg,rgba(15,10,5,0.78),rgba(25,15,5,0.78))!important;
   border:1.5px solid rgba(201,162,39,0.5)!important;
-  animation:gw-border-glow 3s ease-in-out infinite,gw-modal-in 0.4s ease forwards!important;
+  animation:gw-modal-in 0.4s ease forwards!important;
   border-radius:24px!important;
   max-height:90vh!important;
   overflow-y:auto!important;
@@ -235,10 +235,6 @@ html body .s2c{font-size:9px!important;}
 @keyframes gw-seal-sil{0%,100%{filter:drop-shadow(0 0 6px rgba(200,200,200,0.9))}50%{filter:drop-shadow(0 0 16px #e0e0e0)}}
 body.gw-tier-silver #gw-bin-fb{border-color:rgba(192,192,192,0.9)!important;box-shadow:0 2px 12px rgba(192,192,192,0.4)!important;background:rgba(0,0,0,0.3)!important;animation:none!important;}
 body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box-shadow:0 2px 12px rgba(192,192,192,0.4)!important;}
-@keyframes gw-celeb-in{from{opacity:0}to{opacity:1}}
-@keyframes gw-celeb-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.05)}}
-@keyframes gw-celeb-seal{0%{opacity:0;transform:scale(0.2) rotate(-20deg)}65%{transform:scale(1.12) rotate(5deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
-@keyframes gw-celeb-txt{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 </style>
 <script>
 (function(){
@@ -265,80 +261,17 @@ body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box
   function showGwTip(btn){
     if(gwTipShowing)return;
     gwTipShowing=true;
-    document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
-    document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
-    document.querySelectorAll('.gw-spark').forEach(function(s){s.remove();});
-    var r=btn.getBoundingClientRect();
-    var bx=r.left+r.width/2;var by=r.top;
-    var tipTop=80;
-    // Işık bağı (ışın)
-    var beam=document.createElement('div');beam.id='gw-beam';
-    var beamH=by-tipTop-60;
-    beam.style.cssText='top:'+(tipTop+60)+'px;height:0;--beam-h:'+beamH+'px;';
-    document.body.appendChild(beam);
-    // Tooltip tepede
-    var tip=document.createElement('div');tip.id='gw-tip';
-    var GWT={TR:['💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎','Ayrıcalıklı üyeliğiniz sizi bekliyor...'],EN:['💎 ENTER THE EXCLUSIVE WORLD 💎','Your exclusive membership awaits...'],DE:['💎 EXKLUSIVE WELT BETRETEN 💎','Ihre exklusive Mitgliedschaft wartet...'],ES:['💎 ENTRAR AL MUNDO EXCLUSIVO 💎','Tu membresía exclusiva te espera...'],FR:['💎 ENTRER DANS LE MONDE EXCLUSIF 💎','Votre adhésion exclusive vous attend...'],RU:['💎 ВОЙТИ В МИР ПРИВИЛЕГИЙ 💎','Ваше эксклюзивное членство ждёт...'],UKR:['💎 ЕКСКЛЮЗИВНИЙ ВХІД 💎','Ваше ексклюзивне членство чекає...'],CN:['💎 进入尊享世界 💎','您的尊享会员资格正在等待...'],AR:['💎 ادخل إلى العالم الحصري 💎','عضويتك الحصرية بانتظارك...']};
-    var cl=gwGetLang();var gwtx=GWT[cl]||GWT['TR'];
-    tip.innerHTML='<div id="gw-tip-txt">'+gwtx[0]+'</div><div id="gw-tip-sub">'+gwtx[1]+'</div>';
-    document.body.appendChild(tip);
-    // Altın aura
-    document.getElementById('gw-aura')&&document.getElementById('gw-aura').remove();
-    var aura=document.createElement('div');aura.id='gw-aura';document.body.appendChild(aura);
-    setTimeout(function(){aura.remove();},1000);
-    // Pırlanta sesi (Web Audio API)
-    try{
-      var ac=new(window.AudioContext||window.webkitAudioContext)();
-      var freqs=[2093,2637,3136,4186];
-      freqs.forEach(function(f,i){
-        setTimeout(function(){
-          var o=ac.createOscillator();var g=ac.createGain();
-          o.connect(g);g.connect(ac.destination);
-          o.type='sine';o.frequency.setValueAtTime(f,ac.currentTime);
-          g.gain.setValueAtTime(0.15,ac.currentTime);
-          g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.4);
-          o.start();o.stop(ac.currentTime+0.4);
-        },i*60);
-      });
-    }catch(e){}
-    // Kıvılcımlar tepede
-    var sparks=['💎','✦','◆','✧','◇','★'];
-    for(var i=0;i<8;i++){
-      (function(i){setTimeout(function(){
-        var sp=document.createElement('div');sp.className='gw-spark';
-        sp.textContent=sparks[i%sparks.length];
-        var sx=window.innerWidth/2+(Math.random()-0.5)*200;
-        var sy=60+Math.random()*60;
-        sp.style.cssText='left:'+sx+'px;top:'+sy+'px;font-size:'+(8+Math.random()*10)+'px;color:#ffd700;text-shadow:0 0 8px #ffd700;';
-        document.body.appendChild(sp);
-        setTimeout(function(){sp.remove();},1000);
-      },i*100);})(i);
-    }
-    // 2.5 sn sonra modal aç
-    // Tooltip'e dokunulunca hemen aç (mobil), masaüstünde 2.5sn
-    var delay=window.innerWidth>768?2500:(window.innerHeight>window.innerWidth?3000:4500);
+    // Animasyon yok, ses yok - direkt modal aç
+    var isPortrait=window.innerWidth<=768&&window.innerHeight>window.innerWidth;
+    var delay=window.innerWidth>768?2000:(isPortrait?3000:2500);
     clearTimeout(gwModalTimer);
     gwModalTimer=setTimeout(function(){
-      document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
-      document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
       gwTipShowing=false;
       btn.dataset.gwAllow='1';
       btn.click();
     },delay);
-    // Tooltip'e tıklanınca hemen aç
-    var tipEl=document.getElementById('gw-tip');
-    if(tipEl){tipEl.style.pointerEvents='auto';tipEl.style.cursor='pointer';
-      tipEl.addEventListener('click',function(){clearTimeout(gwModalTimer);document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();gwTipShowing=false;btn.dataset.gwAllow='1';btn.click();},{once:true});
-    }
-    // 5sn sonra temizle (daha uzun ekranda kalır)
-    clearTimeout(gwTipTimer);
-    gwTipTimer=setTimeout(function(){
-      document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
-      document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
-      gwTipShowing=false;
-    },window.innerWidth>768?3000:(window.innerHeight>window.innerWidth?4000:7000));
   }
-  function enhanceBin(){
+    function enhanceBin(){
     document.querySelectorAll('.bin').forEach(function(btn){
       if(btn.dataset.gwDone)return;
       btn.dataset.gwDone='1';
@@ -1314,40 +1247,6 @@ body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box
     });
   })();
   // ── FAB SONU ───────────────────────────────────────────
-
-  // ── ÜYE OL KUTLAMA TÖRENİ ─────────────────────────────
-  function gwShowCelebration(){
-    if(document.getElementById('gw-celeb'))return;
-    var lang=gwGetLang()||'TR';
-    var msg={TR:'HOŞ GELDİNİZ',EN:'WELCOME',DE:'WILLKOMMEN',ES:'BIENVENIDO',FR:'BIENVENUE',RU:'ДОБРО ПОЖАЛОВАТЬ',UKR:'ЛАСКАВО ПРОСИМО',AR:'أهلاً وسهلاً'};
-    var ov=document.createElement('div');ov.id='gw-celeb';
-    ov.style.cssText='position:fixed;inset:0;z-index:999999;background:linear-gradient(145deg,rgba(0,0,0,0.95),rgba(6,4,1,0.97));display:flex;align-items:center;justify-content:center;animation:gw-celeb-in 0.4s ease forwards;';
-    ov.innerHTML='<div style="text-align:center;padding:30px;">'
-      +'<div style="font-size:clamp(72px,22vw,130px);display:block;animation:gw-celeb-seal 0.7s 0.15s cubic-bezier(0.34,1.56,0.64,1) both;filter:drop-shadow(0 0 30px rgba(255,215,0,0.8));">💎</div>'
-      +'<div style="font-size:clamp(16px,4.5vw,32px);font-weight:900;color:#ffd700;letter-spacing:5px;font-family:Cormorant Garamond,Georgia,serif;margin-top:18px;animation:gw-celeb-txt 0.5s 0.55s ease both;opacity:0;text-shadow:0 0 30px rgba(255,215,0,0.6);">'+(msg[lang]||msg.TR)+'</div>'
-      +'<div style="font-size:clamp(9px,2.2vw,14px);color:rgba(201,162,39,0.55);letter-spacing:5px;margin-top:10px;animation:gw-celeb-txt 0.5s 0.85s ease both;opacity:0;font-family:DM Sans,sans-serif;">GLAMWORLD</div>'
-      +'</div>';
-    document.body.appendChild(ov);
-    setTimeout(function(){
-      ov.style.animation='gw-celeb-out 0.7s ease forwards';
-      setTimeout(function(){ov.remove();},700);
-    },2800);
-  }
-  var gwRegKw=['kayıt ol','üye ol','sign up','register','hesap oluştur','créer','registrar','зарегистр','зареєст'];
-  document.addEventListener('click',function(e){
-    var el=e.target;
-    for(var i=0;i<6;i++){
-      if(!el||el===document.body)break;
-      if(el.tagName==='BUTTON'||el.tagName==='INPUT'){
-        var txt=(el.textContent||el.value||'').toLowerCase();
-        for(var j=0;j<gwRegKw.length;j++){
-          if(txt.indexOf(gwRegKw[j])>=0){setTimeout(gwShowCelebration,350);return;}
-        }
-      }
-      el=el.parentNode;
-    }
-  },true);
-  // ── KUTLAMA SONU ───────────────────────────────────────
 })();
 </script>
 </body></html>
