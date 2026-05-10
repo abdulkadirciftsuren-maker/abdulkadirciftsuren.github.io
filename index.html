@@ -1061,6 +1061,7 @@ html body .s2c{font-size:9px!important;}
     p.style.transform='translateY(18px)';
     var sy=parseInt(document.body.dataset.gwPnlSY||0);
     setTimeout(function(){
+      var gf=document.getElementById('gw-fab');if(gf){gf.style.removeProperty('top');gf.style.removeProperty('left');gf.style.bottom='28px';gf.style.right='20px';}
       var el=document.getElementById('gw-panel');
       if(el)el.remove();
       var gwFabEl=document.getElementById('gw-fab');if(gwFabEl)gwFabEl.style.removeProperty('display');
@@ -1149,6 +1150,7 @@ html body .s2c{font-size:9px!important;}
     },{passive:false});
 
     document.body.appendChild(pnl);
+    if(!('ontouchstart' in window)){var gf=document.getElementById('gw-fab');if(gf){gf.style.bottom='auto';gf.style.right='auto';gf.style.top='20px';gf.style.left='20px';}}
     if(window.innerWidth>768){var gwFabEl=document.getElementById('gw-fab');if(gwFabEl)gwFabEl.style.setProperty('display','none','important');}
     gwUnlockBody();
     document.body.dataset.gwPnlSY=window.scrollY||0;
