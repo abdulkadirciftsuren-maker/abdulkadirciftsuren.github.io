@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v63</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v64</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -328,6 +328,7 @@ html body .s2c{font-size:9px!important;}
   setTimeout(enhanceBin,300);
   setInterval(enhanceBin,800);
   var gwBinParent=null,gwBinNext=null;
+  var gwGpL={TR:'Google Profili',EN:'Google Profile',DE:'Google Profil',ES:'Perfil Google',FR:'Profil Google',RU:'Профиль Google',UKR:'Профіль Google',AR:'ملف Google'};
   setInterval(function(){
     if(document.getElementById('gw-panel'))return;
     var bin=document.querySelector('.bin');
@@ -337,9 +338,8 @@ html body .s2c{font-size:9px!important;}
       var prof=document.createElement('div');
       prof.id='gw-bin-fb';
       prof.style.cssText='display:inline-flex;align-items:center;gap:7px;cursor:pointer;padding:7px 16px;border-radius:50px;background:linear-gradient(270deg,#b8860b,#ffd700,#fffacd,#c9a227,#ffd700,#b8860b);background-size:400% 400%;animation:gw-gold 3s ease infinite,gw-glow 2.5s ease-in-out infinite;color:#1a0a00;font-weight:900;font-size:12px;letter-spacing:0.5px;border:none;';
-      var gpLabel={TR:'Google Profili',EN:'Google Profile',DE:'Google Profil',ES:'Perfil Google',FR:'Profil Google',RU:'Профиль Google',UKR:'Профіль Google',AR:'ملف Google'};
-      var gpl=gpLabel[gwGetLang()||'TR']||'Google Profili';
-      prof.innerHTML='<div style="width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#4285F4;flex-shrink:0;">G</div><span>'+gpl+'</span>';
+      var gpl=gwGpL[gwGetLang()||'TR']||'Google Profili';
+      prof.innerHTML='<div style="width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#4285F4;flex-shrink:0;">G</div><span id="gw-gpl">'+gpl+'</span>';
       prof.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
       prof.addEventListener('touchend',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
       prof.addEventListener('click',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
@@ -347,6 +347,8 @@ html body .s2c{font-size:9px!important;}
       else gwBinParent.appendChild(prof);
     }
     if(bin&&fb)fb.remove();
+    var gplEl=document.getElementById('gw-gpl');
+    if(gplEl){var nl=gwGpL[gwGetLang()||'TR']||'Google Profili';if(gplEl.textContent!==nl)gplEl.textContent=nl;}
   },500);
 
   // VIP Modal — sade, güzel, çalışan
@@ -910,11 +912,11 @@ html body .s2c{font-size:9px!important;}
   }
   window.gwPanelNav=gwPanelNav;
 
-  function gwHidePanel(){
+  function gwHidePanel(fromPopstate){
     if(gwClosingPanel)return;
     var p=document.getElementById('gw-panel');if(!p)return;
     gwClosingPanel=true;
-    var cnt=gwPushCount;
+    var cnt=fromPopstate?0:gwPushCount;
     gwNavStack=[];gwPushCount=0;
     p.style.animation='gw-pout 0.35s ease forwards';
     var sy=parseInt(document.body.dataset.gwPnlSY||0);
@@ -938,18 +940,21 @@ html body .s2c{font-size:9px!important;}
   }
   window.gwGoBack=gwGoBack;
 
-  // Android geri — ekran ekran geri
+  // Android geri — panel icinde ekran ekran, sonra kapat
   window.addEventListener('popstate',function(e){
     if(gwClosingPanel)return;
-    var st=e.state;
-    if(st&&st.gwPanel){
-      if(document.getElementById('gw-panel')){
-        if(gwNavStack.length>0){gwPnlShowScr(gwNavStack.pop());}
-        else{gwHidePanel();}
+    if(document.getElementById('gw-panel')){
+      if(gwNavStack.length>0){
+        // Bir ekran geri git
+        gwPnlShowScr(gwNavStack.pop());
+        // History'i tekrar push et - bir sonraki geri adim icin
+        history.pushState({gwPanel:true},'',location.href);
+      } else {
+        // Artik home ekranindayiz - paneli kapat
+        gwHidePanel(true);
       }
       return;
     }
-    if(document.getElementById('gw-panel')){gwHidePanel();return;}
     if(window._langOpen){closeLangMenu();}
   });
 
