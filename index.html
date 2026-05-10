@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v60</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v61</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -723,6 +723,19 @@ html body .s2c{font-size:9px!important;}
   // ══════════════════════════════════════════════
   var gwP={tier:'diamond',scr:'home'};
 
+  // Panel içerik dil tablosu
+  var GWP_T={
+    TR:{hi:'Hoş Geldiniz',today:'Bugün',month:'Bu Ay',rating:'Puan',cust:'Müşteri',todayApts:'BUGÜNKÜ RANDEVULAR',services:'HİZMETLERİM',contact:'İLETİŞİM',settings:'AYARLAR',logout:'ÇIKIŞ YAP',income:'BU AY TOPLAM',cats:'KATEGORİLER',nearby:'YAKINDAKILER',myApts:'RANDEVULARIM',favs:'FAVORİLERİM',confirmed:'Onaylandı',pending:'Bekliyor',back:'GERİ',slots:'RANDEVU SLOTLARI'},
+    EN:{hi:'Welcome',today:'Today',month:'This Month',rating:'Rating',cust:'Clients',todayApts:"TODAY'S APPOINTMENTS",services:'MY SERVICES',contact:'CONTACT',settings:'SETTINGS',logout:'SIGN OUT',income:'MONTHLY TOTAL',cats:'CATEGORIES',nearby:'NEARBY',myApts:'MY APPOINTMENTS',favs:'FAVORITES',confirmed:'Confirmed',pending:'Pending',back:'BACK',slots:'APPOINTMENT SLOTS'},
+    DE:{hi:'Willkommen',today:'Heute',month:'Diesen Monat',rating:'Bewertung',cust:'Kunden',todayApts:'HEUTIGE TERMINE',services:'MEINE DIENSTE',contact:'KONTAKT',settings:'EINSTELLUNGEN',logout:'ABMELDEN',income:'MONATLICH GESAMT',cats:'KATEGORIEN',nearby:'IN DER NÄHE',myApts:'MEINE TERMINE',favs:'FAVORITEN',confirmed:'Bestätigt',pending:'Ausstehend',back:'ZURÜCK',slots:'TERMIN-SLOTS'},
+    ES:{hi:'Bienvenido',today:'Hoy',month:'Este Mes',rating:'Puntuación',cust:'Clientes',todayApts:'CITAS DE HOY',services:'MIS SERVICIOS',contact:'CONTACTO',settings:'AJUSTES',logout:'CERRAR SESIÓN',income:'TOTAL MENSUAL',cats:'CATEGORÍAS',nearby:'CERCANOS',myApts:'MIS CITAS',favs:'FAVORITOS',confirmed:'Confirmado',pending:'Pendiente',back:'VOLVER',slots:'HORARIOS'},
+    FR:{hi:'Bienvenue',today:"Aujourd'hui",month:'Ce Mois',rating:'Note',cust:'Clients',todayApts:"RDV D'AUJOURD'HUI",services:'MES SERVICES',contact:'CONTACT',settings:'PARAMÈTRES',logout:'DÉCONNEXION',income:'TOTAL MENSUEL',cats:'CATÉGORIES',nearby:'À PROXIMITÉ',myApts:'MES RDV',favs:'FAVORIS',confirmed:'Confirmé',pending:'En attente',back:'RETOUR',slots:'CRÉNEAUX'},
+    RU:{hi:'Добро пожаловать',today:'Сегодня',month:'В этом месяце',rating:'Рейтинг',cust:'Клиенты',todayApts:'СЕГОДНЯШНИЕ ЗАПИСИ',services:'МОИ УСЛУГИ',contact:'КОНТАКТЫ',settings:'НАСТРОЙКИ',logout:'ВЫЙТИ',income:'ИТОГО ЗА МЕСЯЦ',cats:'КАТЕГОРИИ',nearby:'РЯДОМ',myApts:'МОИ ЗАПИСИ',favs:'ИЗБРАННОЕ',confirmed:'Подтверждено',pending:'Ожидание',back:'НАЗАД',slots:'ВРЕМЕННЫЕ СЛОТЫ'},
+    UKR:{hi:'Ласкаво просимо',today:'Сьогодні',month:'Цього місяця',rating:'Рейтинг',cust:'Клієнти',todayApts:'СЬОГОДНІШНІ ЗАПИСИ',services:'МОЇ ПОСЛУГИ',contact:'КОНТАКТИ',settings:'НАЛАШТУВАННЯ',logout:'ВИЙТИ',income:'РАЗОМ ЗА МІСЯЦЬ',cats:'КАТЕГОРІЇ',nearby:'ПОРУЧ',myApts:'МОЇ ЗАПИСИ',favs:'УЛЮБЛЕНІ',confirmed:'Підтверджено',pending:'Очікування',back:'НАЗАД',slots:'ЧАСОВІ СЛОТИ'},
+    AR:{hi:'أهلاً وسهلاً',today:'اليوم',month:'هذا الشهر',rating:'التقييم',cust:'العملاء',todayApts:'مواعيد اليوم',services:'خدماتي',contact:'التواصل',settings:'الإعدادات',logout:'تسجيل الخروج',income:'إجمالي الشهر',cats:'الفئات',nearby:'القريبون',myApts:'مواعيدي',favs:'المفضلة',confirmed:'مؤكد',pending:'قيد الانتظار',back:'رجوع',slots:'المواعيد المتاحة'}
+  };
+  function gwT(k){var l=gwGetLang()||'TR';return(GWP_T[l]||GWP_T.TR)[k]||GWP_T.TR[k];}
+
   var GWP_DIA_NAV={
     TR:[['home','🏠','Ana Sayfa'],['cal','📅','Takvim'],['inc','💰','Gelir'],['prof','👤','Profilim'],['set','⚙️','Ayarlar']],
     EN:[['home','🏠','Home'],['cal','📅','Calendar'],['inc','💰','Income'],['prof','👤','Profile'],['set','⚙️','Settings']],
@@ -798,11 +811,11 @@ html body .s2c{font-size:9px!important;}
     var p20='style="padding:20px;"';
     if(s==='home')return '<div '+p20+'>'
       +'<div style="font-size:11px;color:rgba(201,162,39,0.4);letter-spacing:3px;margin-bottom:6px;">'+new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase()+'</div>'
-      +'<div style="font-size:19px;font-weight:900;color:#ffd700;margin-bottom:18px;">Hoş Geldiniz 💎</div>'
+      +'<div style="font-size:19px;font-weight:900;color:#ffd700;margin-bottom:18px;">'+gwT('hi')+' 💎</div>'
       +'<div class="gw-stat-row">'
-      +[['5','BUGÜN','📅'],['₺11.4K','BU AY','💰'],['4.9','PUAN','⭐'],['42','MÜŞTERİ','👥']].map(function(x){return '<div class="gw-stat-box dia-card"><div style="font-size:20px;margin-bottom:4px;">'+x[2]+'</div><div style="font-size:15px;font-weight:900;color:#ffd700;">'+x[0]+'</div><div style="font-size:8px;color:rgba(201,162,39,0.4);letter-spacing:1px;margin-top:2px;">'+x[1]+'</div></div>';}).join('')
+      +[['5',gwT('today').toUpperCase(),'📅'],['₺11.4K',gwT('month').toUpperCase(),'💰'],['4.9',gwT('rating').toUpperCase(),'⭐'],['42',gwT('cust').toUpperCase(),'👥']].map(function(x){return '<div class="gw-stat-box dia-card"><div style="font-size:20px;margin-bottom:4px;">'+x[2]+'</div><div style="font-size:15px;font-weight:900;color:#ffd700;">'+x[0]+'</div><div style="font-size:8px;color:rgba(201,162,39,0.4);letter-spacing:1px;margin-top:2px;">'+x[1]+'</div></div>';}).join('')
       +'</div>'
-      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:10px;">BUGÜNKÜ RANDEVULAR</div>'
+      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:10px;">'+gwT('todayApts')+'</div>'
       +[['09:00','Ahmet Y.','Saç Kesimi','₺300'],['11:00','Mehmet K.','Sakal+Saç','₺500'],['14:00','Ali D.','Komple','₺450'],['16:00','Can B.','Saç Kesimi','₺300']].map(function(r){return '<div class="gw-card dia-card" style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:11px;font-weight:900;color:#ffd700;min-width:42px;">'+r[0]+'</div><div style="flex:1;"><div style="font-size:12px;color:rgba(255,255,255,0.85);font-weight:700;">'+r[1]+'</div><div style="font-size:10px;color:rgba(201,162,39,0.45);margin-top:1px;">'+r[2]+'</div></div><div style="font-size:12px;font-weight:900;color:#ffd700;">'+r[3]+'</div></div>';}).join('')
       +'</div>';
     if(s==='cal')return '<div '+p20+'>'+gwBuildCal()+'</div>';
@@ -810,45 +823,45 @@ html body .s2c{font-size:9px!important;}
     if(s==='prof')return '<div '+p20+'>'
       +'<div style="text-align:center;margin-bottom:22px;"><div style="font-size:60px;margin-bottom:10px;">👨‍💼</div>'
       +'<div style="font-size:18px;font-weight:900;color:#ffd700;letter-spacing:1px;">Mehmet Usta</div>'
-      +'<div style="font-size:10px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-top:4px;">💎 PIRLANTA ÜYE · İSTANBUL</div></div>'
-      +'<div class="gw-card dia-card"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">HİZMETLERİM</div>'
+      +'<div style="font-size:10px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-top:4px;">💎 PIRLANTA · İSTANBUL</div></div>'
+      +'<div class="gw-card dia-card"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('services')+'</div>'
       +[['✂️ Saç Kesimi','₺300'],['🪒 Sakal','₺200'],['💈 Komple','₺450'],['🎨 Boya','₺600']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(201,162,39,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+'</span><span style="font-size:12px;font-weight:900;color:#ffd700;">'+x[1]+'</span></div>';}).join('')+'</div>'
-      +'<div class="gw-card dia-card" style="margin-top:0;"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">İLETİŞİM</div>'
-      +[['📱 Telefon','0532 XXX XX XX'],['📧 E-posta','mehmet@glamworld.com'],['📍 Adres','Beşiktaş, İstanbul']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(201,162,39,0.08);"><span style="font-size:11px;color:rgba(201,162,39,0.5);">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.7);">'+x[1]+'</span></div>';}).join('')+'</div></div>';
+      +'<div class="gw-card dia-card" style="margin-top:0;"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('contact')+'</div>'
+      +[['📱','0532 XXX XX XX'],['📧','mehmet@glamworld.com'],['📍','Beşiktaş, İstanbul']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(201,162,39,0.08);"><span style="font-size:14px;">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.7);">'+x[1]+'</span></div>';}).join('')+'</div></div>';
     if(s==='set')return '<div '+p20+'>'
-      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:14px;">AYARLAR</div>'
-      +[['🔔 Bildirimler','Açık','#4caf50'],['🌙 Koyu Tema','Açık','#4caf50'],['🔒 İki Faktörlü','Kapalı','#ff7043'],['📍 Konum','Açık','#4caf50'],['📊 Analitik','Açık','#4caf50']].map(function(x){return '<div class="gw-card dia-card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:14px 16px;"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+'</span><span style="font-size:10px;font-weight:900;color:'+x[2]+';background:'+x[2]+'18;padding:4px 10px;border-radius:20px;">'+x[1]+'</span></div>';}).join('')
-      +'<div onclick="gwHidePanel()" style="margin-top:8px;text-align:center;padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">ÇIKIŞ YAP</div></div>';
+      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:14px;">'+gwT('settings')+'</div>'
+      +[['🔔','Bildirimler / Notifications','#4caf50','ON'],['🌙','Koyu Tema / Dark Mode','#4caf50','ON'],['🔒','2FA Güvenlik / Security','#ff7043','OFF'],['📍','Konum / Location','#4caf50','ON']].map(function(x){return '<div class="gw-card dia-card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:14px 16px;"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+' '+x[1]+'</span><span style="font-size:10px;font-weight:900;color:'+x[2]+';background:'+x[2]+'18;padding:4px 10px;border-radius:20px;">'+x[3]+'</span></div>';}).join('')
+      +'<div onclick="gwHidePanel()" style="margin-top:8px;text-align:center;padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">'+gwT('logout')+'</div></div>';
     return '';
   }
 
   function gwSilScr(s){
     var p20='style="padding:20px;"';
     if(s==='home')return '<div '+p20+'>'
-      +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:18px;">Merhaba 🥈</div>'
-      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">KATEGORİLER</div>'
+      +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:18px;">'+gwT('hi')+' 🥈</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('cats')+'</div>'
       +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">'
       +[['✂️','Kuaför'],['🪒','Berber'],['💅','Tırnak'],['💆','Masaj'],['💄','Makyaj'],['🧖','Cilt']].map(function(c){return '<div class="gw-card sil-card" style="text-align:center;cursor:pointer;padding:14px 8px;margin-bottom:0;"><div style="font-size:24px;margin-bottom:6px;">'+c[0]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.7);font-weight:700;letter-spacing:1px;">'+c[1]+'</div></div>';}).join('')
       +'</div>'
-      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">YAKINDAKILER</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('nearby')+'</div>'
       +[['👨‍🎨','Ahmet Usta','Berber · ⭐ 4.9','2 km','₺200'],['💇','Salon Elite','Kuaför · ⭐ 4.8','3.5 km','₺350'],['💅','Nail Studio','Tırnak · ⭐ 4.7','1.8 km','₺150']].map(function(u){return '<div class="gw-card sil-card" style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:30px;">'+u[0]+'</div><div style="flex:1;"><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+u[1]+'</div><div style="font-size:10px;color:rgba(192,192,192,0.45);margin-top:2px;">'+u[2]+'</div></div><div style="text-align:right;"><div style="font-size:11px;font-weight:900;color:#c0c0c0;">'+u[4]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.35);">'+u[3]+'</div></div></div>';}).join('')
       +'</div>';
     if(s==='apt')return '<div '+p20+'>'
-      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">RANDEVULARIM</div>'
-      +[['Yarın 14:00','Ahmet Usta','Saç Kesimi','Onaylandı','#4caf50'],['15 Haz 10:00','Salon Elite','Boya+Kesim','Bekliyor','#ffd700'],['20 Haz 09:00','Nail Studio','Manikür','Bekliyor','#ffd700']].map(function(r){return '<div class="gw-card sil-card" style="padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+r[1]+'</span><span style="font-size:9px;font-weight:900;color:'+r[4]+';background:'+r[4]+'15;padding:3px 9px;border-radius:20px;">'+r[3]+'</span></div><div style="font-size:10px;color:rgba(192,192,192,0.45);">'+r[0]+' · '+r[2]+'</div></div>';}).join('')
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">'+gwT('myApts')+'</div>'
+      +[['Yarın 14:00','Ahmet Usta','Saç Kesimi',gwT('confirmed'),'#4caf50'],['15 Haz 10:00','Salon Elite','Boya+Kesim',gwT('pending'),'#ffd700'],['20 Haz 09:00','Nail Studio','Manikür',gwT('pending'),'#ffd700']].map(function(r){return '<div class="gw-card sil-card" style="padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+r[1]+'</span><span style="font-size:9px;font-weight:900;color:'+r[4]+';background:'+r[4]+'15;padding:3px 9px;border-radius:20px;">'+r[3]+'</span></div><div style="font-size:10px;color:rgba(192,192,192,0.45);">'+r[0]+' · '+r[2]+'</div></div>';}).join('')
       +'</div>';
     if(s==='fav')return '<div '+p20+'>'
-      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">FAVORİLERİM</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">'+gwT('favs')+'</div>'
       +[['👨‍🎨','Ahmet Usta','Berber · İstanbul','⭐ 4.9'],['💇','Salon Elite','Kuaför · Ankara','⭐ 4.8'],['💅','Nail Studio','Tırnak · İzmir','⭐ 4.7']].map(function(f){return '<div class="gw-card sil-card" style="display:flex;align-items:center;gap:14px;padding:14px;margin-bottom:10px;"><div style="font-size:34px;">'+f[0]+'</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);">'+f[1]+'</div><div style="font-size:10px;color:rgba(192,192,192,0.45);margin-top:2px;">'+f[2]+'</div></div><div style="font-size:11px;color:#c0c0c0;font-weight:700;">'+f[3]+'</div></div>';}).join('')
       +'</div>';
     if(s==='prof')return '<div '+p20+' style="text-align:center;">'
       +'<div style="font-size:56px;margin-bottom:12px;">👤</div>'
-      +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:4px;">Misafir Üye</div>'
-      +'<div style="font-size:10px;color:rgba(192,192,192,0.35);letter-spacing:2px;margin-bottom:24px;">🥈 GÜMÜŞ ÜYE</div>'
+      +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:4px;">'+gwT('hi')+'</div>'
+      +'<div style="font-size:10px;color:rgba(192,192,192,0.35);letter-spacing:2px;margin-bottom:24px;">🥈 GÜMÜŞ</div>'
       +'<div class="gw-card sil-card" style="text-align:left;margin-bottom:12px;">'
-      +[['📱 Telefon','––'],['📧 E-posta','misafir@glamworld.com']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(192,192,192,0.07);"><span style="font-size:11px;color:rgba(192,192,192,0.45);">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.65);">'+x[1]+'</span></div>';}).join('')
+      +[['📱','––'],['📧','misafir@glamworld.com']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(192,192,192,0.07);"><span style="font-size:14px;">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.65);">'+x[1]+'</span></div>';}).join('')
       +'</div>'
-      +'<div onclick="gwHidePanel()" style="padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">ÇIKIŞ YAP</div></div>';
+      +'<div onclick="gwHidePanel()" style="padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">'+gwT('logout')+'</div></div>';
     return '';
   }
 
@@ -913,6 +926,20 @@ html body .s2c{font-size:9px!important;}
   }
   window.gwGoBack=gwGoBack;
 
+  // Dil değişince paneli yenile
+  var gwPnlLang='';
+  setInterval(function(){
+    var l=gwGetLang()||'TR';
+    if(l!==gwPnlLang&&document.getElementById('gw-panel')){
+      gwPnlLang=l;
+      var cont=document.getElementById('gw-pcontent');
+      if(cont)cont.innerHTML=gwP.tier==='diamond'?gwDiaScr(gwP.scr):gwSilScr(gwP.scr);
+      var nav=gwP.tier==='diamond'?(GWP_DIA_NAV[l]||GWP_DIA_NAV.TR):(GWP_SIL_NAV[l]||GWP_SIL_NAV.TR);
+      document.querySelectorAll('.gw-pbi').forEach(function(b,i){if(nav[i])b.querySelector('.gw-pbi-l')&&(b.querySelector('.gw-pbi-l').textContent=nav[i][2]);});
+    }
+    if(!document.getElementById('gw-panel'))gwPnlLang='';
+  },800);
+
   // Android geri butonu — history.pushState ile
   window.addEventListener('popstate',function(){
     if(document.getElementById('gw-panel')){gwHidePanel();return;}
@@ -937,10 +964,10 @@ html body .s2c{font-size:9px!important;}
     pnl.style.cssText='position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;background:'+bg+';animation:gw-pin 0.35s ease forwards;overscroll-behavior:contain;';
 
     // Üst bar
-    pnl.innerHTML='<div id="gw-ptop" style="display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 16px;border-bottom:1px solid '+dim+'0.15);flex-shrink:0;background:'+botBg+';">'
-      +'<div style="font-size:14px;font-weight:900;color:'+ac+';letter-spacing:3px;font-family:Cormorant Garamond,Georgia,serif;">GLAMWORLD</div>'
-      +'<div style="font-size:10px;color:'+dim+'0.5);letter-spacing:2px;">'+(isDia?'💎 PIRLANTA':'🥈 GÜMÜŞ')+'</div>'
-      +'<div onclick="gwHidePanel()" style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid '+dim+'0.3);color:'+ac+';font-size:16px;flex-shrink:0;">✕</div>'
+    pnl.innerHTML='<div id="gw-ptop" style="display:flex;align-items:center;gap:10px;height:54px;padding:0 14px;border-bottom:1px solid '+dim+'0.15);flex-shrink:0;background:'+botBg+';">'
+      +'<div onclick="gwGoBack()" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid '+dim+'0.35);color:'+ac+';font-size:18px;flex-shrink:0;background:'+dim+'0.06);">←</div>'
+      +'<div style="flex:1;text-align:center;font-size:14px;font-weight:900;color:'+ac+';letter-spacing:3px;font-family:Cormorant Garamond,Georgia,serif;">GLAMWORLD</div>'
+      +'<div onclick="gwHidePanel()" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,80,80,0.35);color:rgba(255,100,100,0.8);font-size:16px;flex-shrink:0;background:rgba(255,50,50,0.06);">✕</div>'
       +'</div>'
     // İçerik alanı
       +'<div id="gw-pcontent" style="flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;">'+(isDia?gwDiaScr('home'):gwSilScr('home'))+'</div>'
