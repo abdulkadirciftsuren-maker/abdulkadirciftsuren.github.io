@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v96</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v97</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -12,7 +12,12 @@ html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none
 #gw-cs{max-width:100vw!important;}
 *{-webkit-touch-callout:none!important;}
 /* ── VIP LOGIN MODAL ── */
-@keyframes gw-modal-in{0%{opacity:0;transform:scale(0.92) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes gw-modal-in{
+  0%{opacity:0;transform:perspective(900px) scale(0.45) translateY(80px) rotateX(28deg);filter:blur(12px) brightness(2.5);box-shadow:0 0 120px rgba(255,215,0,0.9);}
+  45%{opacity:0.9;transform:perspective(900px) scale(1.06) translateY(-10px) rotateX(-4deg);filter:blur(1px) brightness(1.4);}
+  72%{transform:perspective(900px) scale(0.97) translateY(4px) rotateX(1.5deg);filter:blur(0) brightness(1.1);}
+  100%{opacity:1;transform:perspective(900px) scale(1) translateY(0) rotateX(0);filter:blur(0) brightness(1);}
+}
 @keyframes gw-border-glow{0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.4),0 0 60px rgba(201,162,39,0.1),inset 0 0 30px rgba(0,0,0,0.5)}50%{box-shadow:0 0 40px rgba(255,215,0,0.6),0 0 100px rgba(201,162,39,0.2),inset 0 0 30px rgba(0,0,0,0.5)}}
 /* Modal arka plan + tam kilit */
 html body [class*="modal"],[class*="Modal"]{backdrop-filter:blur(28px)!important;-webkit-backdrop-filter:blur(28px)!important;background:rgba(0,0,0,0.5)!important;overflow-y:auto!important;overflow-x:hidden!important;align-items:flex-start!important;justify-content:center!important;padding-top:20px!important;position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;touch-action:pan-y!important;overscroll-behavior:contain!important;}
@@ -39,7 +44,7 @@ body.gw-modal-open #root>*:not([class*="modal"]):not([class*="Modal"]){pointer-e
 html body [class*="modal"] [style*="background:#"]:not(button),html body [class*="modal"] [style*="background: #"]:not(button){
   background:linear-gradient(145deg,rgba(15,10,5,0.78),rgba(25,15,5,0.78))!important;
   border:1.5px solid rgba(201,162,39,0.5)!important;
-  animation:gw-border-glow 3s ease-in-out infinite,gw-modal-in 0.4s ease forwards!important;
+  animation:gw-border-glow 3s ease-in-out infinite,gw-modal-in 0.7s cubic-bezier(0.34,1.4,0.64,1) forwards!important;
   border-radius:24px!important;
   max-height:90vh!important;
   overflow-y:auto!important;
@@ -235,6 +240,7 @@ html body .s2c{font-size:9px!important;}
 @keyframes gw-seal-sil{0%,100%{filter:drop-shadow(0 0 6px rgba(200,200,200,0.9))}50%{filter:drop-shadow(0 0 16px #e0e0e0)}}
 body.gw-tier-silver #gw-bin-fb{border-color:rgba(192,192,192,0.9)!important;box-shadow:0 2px 12px rgba(192,192,192,0.4)!important;background:rgba(0,0,0,0.3)!important;animation:none!important;}
 body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box-shadow:0 2px 12px rgba(192,192,192,0.4)!important;}
+@keyframes gw-modal-spark{0%{opacity:1;transform:translate(-50%,-50%) scale(0);box-shadow:0 0 0 0 rgba(255,215,0,1);}60%{opacity:1;transform:translate(-50%,-50%) scale(1);box-shadow:0 0 20px 8px rgba(255,215,0,0.4);}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5);box-shadow:0 0 0 0 rgba(255,215,0,0);}}
 </style>
 <script>
 (function(){
@@ -591,6 +597,19 @@ body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box
     extra.querySelectorAll('div[style*="cursor:pointer"]').forEach(function(d,i){d.addEventListener('click',function(){gwToast(pNames[i]+' — '+t.soon);});});
     gwLockBody();
     startSholen();
+    // Mücevher kutusu açılış kıvılcımları
+    setTimeout(function(){
+      var card=document.querySelector('[class*="modal"] [style*="background:#"],[class*="Modal"] [style*="background:#"]');
+      if(!card)return;
+      var r=card.getBoundingClientRect();
+      [[r.left,r.top],[r.right,r.top],[r.left,r.bottom],[r.right,r.bottom]].forEach(function(p,i){
+        setTimeout(function(){
+          var sp=document.createElement('div');
+          sp.style.cssText='position:fixed;left:'+p[0]+'px;top:'+p[1]+'px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#fff 0%,#ffd700 50%,transparent 100%);pointer-events:none;z-index:99999;animation:gw-modal-spark 0.9s ease forwards;';
+          document.body.appendChild(sp);setTimeout(function(){sp.remove();},900);
+        },i*80);
+      });
+    },150);
     
     
     setTimeout(function(){
