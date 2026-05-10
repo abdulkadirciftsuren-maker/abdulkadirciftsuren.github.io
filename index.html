@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v90</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v91</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -180,16 +180,15 @@ html body .s2c{font-size:9px!important;}
   html body .bin{height:34px!important;padding:0 12px!important;font-size:11px!important;border-radius:20px!important;display:inline-flex!important;align-items:center!important;gap:4px!important;max-width:130px!important;white-space:nowrap!important;}
   html body .lsub{display:block!important;font-size:8px!important;letter-spacing:2px!important;opacity:0.65!important;margin-top:2px!important;}
   html body .menu-fab{top:40px!important;right:12px!important;width:36px!important;height:36px!important;border-radius:10px!important;}
-  /* Sadece React Profil butonu portrait — 38px daire, metin gizli */
+  /* Profil butonu portrait — Google gibi pill */
   @media screen and (max-width:768px) and (orientation:portrait){
     #gw-prof-fb{
-      width:38px!important;height:38px!important;
-      min-width:38px!important;max-width:38px!important;
-      padding:4px!important;border-radius:50%!important;
-      overflow:hidden!important;flex-shrink:0!important;gap:0!important;
+      height:38px!important;max-width:80px!important;
+      padding:3px 10px 3px 3px!important;
+      border-radius:50px!important;gap:5px!important;
+      flex-shrink:0!important;overflow:visible!important;
     }
-    #gw-prof-lbl{display:none!important;}
-    #gw-prof-fb>div:first-child{width:30px!important;height:30px!important;flex-shrink:0!important;margin:auto!important;}
+    #gw-prof-fb>div:first-child{width:30px!important;height:30px!important;flex-shrink:0!important;}
   }
   @media screen and (min-width:769px){
     #gw-prof-fb{height:44px!important;padding:4px 14px 4px 4px!important;gap:8px!important;}
@@ -415,8 +414,8 @@ html body .s2c{font-size:9px!important;}
         // Baş harfleri al
         var nameText=(child.textContent||'').trim();
         var parts=nameText.split(/\s+/);
-        var initials=parts.slice(0,2).map(function(p){return p[0]?p[0].toUpperCase():'';}).join('');
-        if(!initials)initials='👤';
+        var initials=parts.slice(0,2).map(function(p){return p[0]?p[0].toUpperCase():'';}).join(' ');
+        if(!initials.trim())initials='👤';
         // Gizle (opacity:0 → tıklanabilir kalsın)
         child.style.setProperty('position','absolute','important');
         child.style.setProperty('opacity','0','important');
@@ -433,21 +432,23 @@ html body .s2c{font-size:9px!important;}
         var av=rImg&&rImg.src?'<div style="width:30px;height:30px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(201,162,39,0.4);"><img src="'+rImg.src+'" style="width:100%;height:100%;object-fit:cover;"></div>':'<div style="width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#ffd700;"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="8" r="4" fill="#ffd700"/><path d="M4 20c0-4 3.58-6 8-6s8 2 8 6" fill="#ffd700"/></svg></div>';
         pf.innerHTML=av+'<span style="font-size:11px;font-weight:900;color:#ffd700;letter-spacing:1px;">'+initials+'</span>';
         pf.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-        pf.addEventListener('touchend',function(){
-          // React'ın kendi profil butonunu çalıştır
-          reactProfEl.style.removeProperty('pointer-events');
-          reactProfEl.style.removeProperty('opacity');
-          reactProfEl.click();
+        function gwClickReactProf(){
+          // Görünür yap, tıkla, gizle
+          reactProfEl.style.setProperty('position','fixed','important');
+          reactProfEl.style.setProperty('opacity','0.01','important');
+          reactProfEl.style.setProperty('pointer-events','auto','important');
+          reactProfEl.style.setProperty('width','1px','important');
+          reactProfEl.style.setProperty('height','1px','important');
+          var evt=new MouseEvent('click',{bubbles:true,cancelable:true,view:window});
+          reactProfEl.dispatchEvent(evt);
           setTimeout(function(){
-            reactProfEl.style.setProperty('pointer-events','none','important');
             reactProfEl.style.setProperty('opacity','0','important');
-          },100);
-        });
-        pf.addEventListener('click',function(){
-          reactProfEl.style.removeProperty('pointer-events');
-          reactProfEl.click();
-          setTimeout(function(){reactProfEl.style.setProperty('pointer-events','none','important');},100);
-        });
+            reactProfEl.style.setProperty('pointer-events','none','important');
+          },200);
+        }
+        pf.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
+        pf.addEventListener('touchend',gwClickReactProf);
+        pf.addEventListener('click',gwClickReactProf);
         // SOLA koy (Google'ın soluna)
         if(gwBf&&gwBf.parentNode)gwBf.parentNode.insertBefore(pf,gwBf);
         else child.parentNode.insertBefore(pf,child);
