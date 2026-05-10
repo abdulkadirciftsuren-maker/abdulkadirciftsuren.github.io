@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v68</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v69</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -188,7 +188,7 @@ html body .s2c{font-size:9px!important;}
 /* ── İÇ PANEL SİSTEMİ ── */
 @keyframes gw-pin{0%{opacity:0;transform:translateY(28px)}100%{opacity:1;transform:none}}
 @keyframes gw-fab-glow{0%,100%{box-shadow:0 4px 18px rgba(201,162,39,0.5),0 0 0 0 rgba(255,215,0,0.25)}50%{box-shadow:0 4px 28px rgba(201,162,39,0.9),0 0 0 10px rgba(255,215,0,0)}}
-#gw-fab{position:fixed;bottom:28px;right:20px;z-index:100003;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#ffd700,#fffacd,#c9a227);color:#1a0a00;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:grab;animation:gw-fab-glow 2.5s ease-in-out infinite;touch-action:none;user-select:none;-webkit-user-select:none;border:2px solid rgba(255,255,255,0.3);}
+#gw-fab{position:fixed;bottom:28px;right:20px;z-index:100003;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,0.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#ffd700;font-size:19px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:grab;animation:gw-fab-glow 2.5s ease-in-out infinite;touch-action:none;user-select:none;-webkit-user-select:none;border:2px solid rgba(201,162,39,0.85);line-height:1;}
 @keyframes gw-pout{0%{opacity:1}100%{opacity:0}}
 @keyframes gw-scr{0%{opacity:0;transform:translateX(18px)}100%{opacity:1;transform:none}}
 #gw-panel{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;animation:gw-pin 0.35s ease forwards;}
@@ -1079,6 +1079,42 @@ html body .s2c{font-size:9px!important;}
     var fab=document.createElement('div');
     fab.id='gw-fab';fab.innerHTML='&#8592;';
     document.body.appendChild(fab);
+    // Glami butonunu sürüklenebilir yap
+    function gwMakeGlamiDrag(){
+      var glami=document.querySelector('[class*="glami"],[class*="Glami"]');
+      if(!glami||glami.dataset.gwDraggable)return;
+      glami.dataset.gwDraggable='1';
+      glami.style.setProperty('cursor','grab','important');
+      glami.style.setProperty('touch-action','none','important');
+      var gd=false,gm=false,gox=0,goy=0,gsx=0,gsy=0,gst=0;
+      glami.addEventListener('touchstart',function(e){
+        var t=e.touches[0];gd=true;gm=false;gst=Date.now();
+        var r=glami.getBoundingClientRect();
+        gox=t.clientX-r.left;goy=t.clientY-r.top;
+        gsx=t.clientX;gsy=t.clientY;
+        glami.style.animationPlayState='paused';
+      },{passive:true});
+      document.addEventListener('touchmove',function(e){
+        if(!gd)return;
+        var t=e.touches[0];
+        if(Math.abs(t.clientX-gsx)>8||Math.abs(t.clientY-gsy)>8){gm=true;}
+        if(gm){
+          glami.style.setProperty('position','fixed','important');
+          glami.style.setProperty('right','auto','important');
+          glami.style.setProperty('bottom','auto','important');
+          glami.style.setProperty('left',Math.max(0,Math.min(window.innerWidth-50,t.clientX-gox))+'px','important');
+          glami.style.setProperty('top',Math.max(0,Math.min(window.innerHeight-50,t.clientY-goy))+'px','important');
+        }
+      },{passive:true});
+      document.addEventListener('touchend',function(){
+        if(!gd)return;
+        gd=false;
+        glami.style.animationPlayState='running';
+        glami.style.setProperty('cursor','grab','important');
+        gm=false;
+      });
+    }
+    setInterval(gwMakeGlamiDrag,1000);
     var drag=false,moved=false,startT=0,ox=0,oy=0,sx=0,sy=0;
     fab.addEventListener('touchstart',function(e){
       var t=e.touches[0];
