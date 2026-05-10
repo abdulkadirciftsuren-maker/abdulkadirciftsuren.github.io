@@ -1052,6 +1052,7 @@ html body .s2c{font-size:9px!important;}
     var sy=parseInt(document.body.dataset.gwPnlSY||0);
     setTimeout(function(){
       if(p.parentNode)p.remove();
+      var gwFab=document.getElementById('gw-fab');if(gwFab)gwFab.style.removeProperty('display');
       document.body.style.removeProperty('overflow');
       window.scrollTo(0,sy);
       delete document.body.dataset.gwPnlSY;
@@ -1137,6 +1138,7 @@ html body .s2c{font-size:9px!important;}
     },{passive:false});
 
     document.body.appendChild(pnl);
+    var gwFab=document.getElementById('gw-fab');if(gwFab)gwFab.style.setProperty('display','none','important');
     // Mobil için touch handler - onclick yerine
     pnl.querySelectorAll('.gw-pbi').forEach(function(btn){
       var scr=btn.dataset.s;
