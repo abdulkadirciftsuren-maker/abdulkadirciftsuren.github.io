@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v61</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v62</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -725,14 +725,30 @@ html body .s2c{font-size:9px!important;}
 
   // Panel içerik dil tablosu
   var GWP_T={
-    TR:{hi:'Hoş Geldiniz',today:'Bugün',month:'Bu Ay',rating:'Puan',cust:'Müşteri',todayApts:'BUGÜNKÜ RANDEVULAR',services:'HİZMETLERİM',contact:'İLETİŞİM',settings:'AYARLAR',logout:'ÇIKIŞ YAP',income:'BU AY TOPLAM',cats:'KATEGORİLER',nearby:'YAKINDAKILER',myApts:'RANDEVULARIM',favs:'FAVORİLERİM',confirmed:'Onaylandı',pending:'Bekliyor',back:'GERİ',slots:'RANDEVU SLOTLARI'},
-    EN:{hi:'Welcome',today:'Today',month:'This Month',rating:'Rating',cust:'Clients',todayApts:"TODAY'S APPOINTMENTS",services:'MY SERVICES',contact:'CONTACT',settings:'SETTINGS',logout:'SIGN OUT',income:'MONTHLY TOTAL',cats:'CATEGORIES',nearby:'NEARBY',myApts:'MY APPOINTMENTS',favs:'FAVORITES',confirmed:'Confirmed',pending:'Pending',back:'BACK',slots:'APPOINTMENT SLOTS'},
-    DE:{hi:'Willkommen',today:'Heute',month:'Diesen Monat',rating:'Bewertung',cust:'Kunden',todayApts:'HEUTIGE TERMINE',services:'MEINE DIENSTE',contact:'KONTAKT',settings:'EINSTELLUNGEN',logout:'ABMELDEN',income:'MONATLICH GESAMT',cats:'KATEGORIEN',nearby:'IN DER NÄHE',myApts:'MEINE TERMINE',favs:'FAVORITEN',confirmed:'Bestätigt',pending:'Ausstehend',back:'ZURÜCK',slots:'TERMIN-SLOTS'},
-    ES:{hi:'Bienvenido',today:'Hoy',month:'Este Mes',rating:'Puntuación',cust:'Clientes',todayApts:'CITAS DE HOY',services:'MIS SERVICIOS',contact:'CONTACTO',settings:'AJUSTES',logout:'CERRAR SESIÓN',income:'TOTAL MENSUAL',cats:'CATEGORÍAS',nearby:'CERCANOS',myApts:'MIS CITAS',favs:'FAVORITOS',confirmed:'Confirmado',pending:'Pendiente',back:'VOLVER',slots:'HORARIOS'},
-    FR:{hi:'Bienvenue',today:"Aujourd'hui",month:'Ce Mois',rating:'Note',cust:'Clients',todayApts:"RDV D'AUJOURD'HUI",services:'MES SERVICES',contact:'CONTACT',settings:'PARAMÈTRES',logout:'DÉCONNEXION',income:'TOTAL MENSUEL',cats:'CATÉGORIES',nearby:'À PROXIMITÉ',myApts:'MES RDV',favs:'FAVORIS',confirmed:'Confirmé',pending:'En attente',back:'RETOUR',slots:'CRÉNEAUX'},
-    RU:{hi:'Добро пожаловать',today:'Сегодня',month:'В этом месяце',rating:'Рейтинг',cust:'Клиенты',todayApts:'СЕГОДНЯШНИЕ ЗАПИСИ',services:'МОИ УСЛУГИ',contact:'КОНТАКТЫ',settings:'НАСТРОЙКИ',logout:'ВЫЙТИ',income:'ИТОГО ЗА МЕСЯЦ',cats:'КАТЕГОРИИ',nearby:'РЯДОМ',myApts:'МОИ ЗАПИСИ',favs:'ИЗБРАННОЕ',confirmed:'Подтверждено',pending:'Ожидание',back:'НАЗАД',slots:'ВРЕМЕННЫЕ СЛОТЫ'},
-    UKR:{hi:'Ласкаво просимо',today:'Сьогодні',month:'Цього місяця',rating:'Рейтинг',cust:'Клієнти',todayApts:'СЬОГОДНІШНІ ЗАПИСИ',services:'МОЇ ПОСЛУГИ',contact:'КОНТАКТИ',settings:'НАЛАШТУВАННЯ',logout:'ВИЙТИ',income:'РАЗОМ ЗА МІСЯЦЬ',cats:'КАТЕГОРІЇ',nearby:'ПОРУЧ',myApts:'МОЇ ЗАПИСИ',favs:'УЛЮБЛЕНІ',confirmed:'Підтверджено',pending:'Очікування',back:'НАЗАД',slots:'ЧАСОВІ СЛОТИ'},
-    AR:{hi:'أهلاً وسهلاً',today:'اليوم',month:'هذا الشهر',rating:'التقييم',cust:'العملاء',todayApts:'مواعيد اليوم',services:'خدماتي',contact:'التواصل',settings:'الإعدادات',logout:'تسجيل الخروج',income:'إجمالي الشهر',cats:'الفئات',nearby:'القريبون',myApts:'مواعيدي',favs:'المفضلة',confirmed:'مؤكد',pending:'قيد الانتظار',back:'رجوع',slots:'المواعيد المتاحة'}
+    TR:{hi:'Hoş Geldiniz',today:'Bugün',month:'Bu Ay',rating:'Puan',cust:'Müşteri',todayApts:'BUGÜNKÜ RANDEVULAR',services:'HİZMETLERİM',contact:'İLETİŞİM',settings:'AYARLAR',logout:'ÇIKIŞ YAP',income:'BU AY TOPLAM',cats:'KATEGORİLER',nearby:'YAKINDAKILER',myApts:'RANDEVULARIM',favs:'FAVORİLERİM',confirmed:'Onaylandı',pending:'Bekliyor',back:'GERİ',slots:'RANDEVU SLOTLARI',
+      days:['Pt','Sa','Ça','Pe','Cu','Ct','Pz'],months:['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
+      svcCats:['Kuaför','Berber','Tırnak','Masaj','Makyaj','Cilt']},
+    EN:{hi:'Welcome',today:'Today',month:'This Month',rating:'Rating',cust:'Clients',todayApts:"TODAY'S APPOINTMENTS",services:'MY SERVICES',contact:'CONTACT',settings:'SETTINGS',logout:'SIGN OUT',income:'MONTHLY TOTAL',cats:'CATEGORIES',nearby:'NEARBY',myApts:'MY APPOINTMENTS',favs:'FAVORITES',confirmed:'Confirmed',pending:'Pending',back:'BACK',slots:'APPOINTMENT SLOTS',
+      days:['Mo','Tu','We','Th','Fr','Sa','Su'],months:['January','February','March','April','May','June','July','August','September','October','November','December'],
+      svcCats:['Hairdresser','Barber','Nails','Massage','Makeup','Skin']},
+    DE:{hi:'Willkommen',today:'Heute',month:'Diesen Monat',rating:'Bewertung',cust:'Kunden',todayApts:'HEUTIGE TERMINE',services:'MEINE DIENSTE',contact:'KONTAKT',settings:'EINSTELLUNGEN',logout:'ABMELDEN',income:'MONATLICH GESAMT',cats:'KATEGORIEN',nearby:'IN DER NÄHE',myApts:'MEINE TERMINE',favs:'FAVORITEN',confirmed:'Bestätigt',pending:'Ausstehend',back:'ZURÜCK',slots:'TERMIN-SLOTS',
+      days:['Mo','Di','Mi','Do','Fr','Sa','So'],months:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+      svcCats:['Friseur','Barbier','Nägel','Massage','Make-up','Haut']},
+    ES:{hi:'Bienvenido',today:'Hoy',month:'Este Mes',rating:'Puntuación',cust:'Clientes',todayApts:'CITAS DE HOY',services:'MIS SERVICIOS',contact:'CONTACTO',settings:'AJUSTES',logout:'CERRAR SESIÓN',income:'TOTAL MENSUAL',cats:'CATEGORÍAS',nearby:'CERCANOS',myApts:'MIS CITAS',favs:'FAVORITOS',confirmed:'Confirmado',pending:'Pendiente',back:'VOLVER',slots:'HORARIOS',
+      days:['Lu','Ma','Mi','Ju','Vi','Sá','Do'],months:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+      svcCats:['Peluquero','Barbero','Uñas','Masaje','Maquillaje','Piel']},
+    FR:{hi:'Bienvenue',today:"Aujourd'hui",month:'Ce Mois',rating:'Note',cust:'Clients',todayApts:"RDV D'AUJOURD'HUI",services:'MES SERVICES',contact:'CONTACT',settings:'PARAMÈTRES',logout:'DÉCONNEXION',income:'TOTAL MENSUEL',cats:'CATÉGORIES',nearby:'À PROXIMITÉ',myApts:'MES RDV',favs:'FAVORIS',confirmed:'Confirmé',pending:'En attente',back:'RETOUR',slots:'CRÉNEAUX',
+      days:['Lu','Ma','Me','Je','Ve','Sa','Di'],months:['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+      svcCats:['Coiffeur','Barbier','Ongles','Massage','Maquillage','Peau']},
+    RU:{hi:'Добро пожаловать',today:'Сегодня',month:'В этом месяце',rating:'Рейтинг',cust:'Клиенты',todayApts:'СЕГОДНЯШНИЕ ЗАПИСИ',services:'МОИ УСЛУГИ',contact:'КОНТАКТЫ',settings:'НАСТРОЙКИ',logout:'ВЫЙТИ',income:'ИТОГО ЗА МЕСЯЦ',cats:'КАТЕГОРИИ',nearby:'РЯДОМ',myApts:'МОИ ЗАПИСИ',favs:'ИЗБРАННОЕ',confirmed:'Подтверждено',pending:'Ожидание',back:'НАЗАД',slots:'ВРЕМЕННЫЕ СЛОТЫ',
+      days:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],months:['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+      svcCats:['Парикмахер','Барбер','Ногти','Массаж','Макияж','Кожа']},
+    UKR:{hi:'Ласкаво просимо',today:'Сьогодні',month:'Цього місяця',rating:'Рейтинг',cust:'Клієнти',todayApts:'СЬОГОДНІШНІ ЗАПИСИ',services:'МОЇ ПОСЛУГИ',contact:'КОНТАКТИ',settings:'НАЛАШТУВАННЯ',logout:'ВИЙТИ',income:'РАЗОМ ЗА МІСЯЦЬ',cats:'КАТЕГОРІЇ',nearby:'ПОРУЧ',myApts:'МОЇ ЗАПИСИ',favs:'УЛЮБЛЕНІ',confirmed:'Підтверджено',pending:'Очікування',back:'НАЗАД',slots:'ЧАСОВІ СЛОТИ',
+      days:['Пн','Вт','Ср','Чт','Пт','Сб','Нд'],months:['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'],
+      svcCats:['Перукар','Барбер','Нігті','Масаж','Макіяж','Шкіра']},
+    AR:{hi:'أهلاً وسهلاً',today:'اليوم',month:'هذا الشهر',rating:'التقييم',cust:'العملاء',todayApts:'مواعيد اليوم',services:'خدماتي',contact:'التواصل',settings:'الإعدادات',logout:'تسجيل الخروج',income:'إجمالي الشهر',cats:'الفئات',nearby:'القريبون',myApts:'مواعيدي',favs:'المفضلة',confirmed:'مؤكد',pending:'قيد الانتظار',back:'رجوع',slots:'المواعيد المتاحة',
+      days:['إث','ثل','أر','خم','جم','سب','أح'],months:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+      svcCats:['مصفف','حلاق','أظافر','مساج','مكياج','بشرة']}
   };
   function gwT(k){var l=gwGetLang()||'TR';return(GWP_T[l]||GWP_T.TR)[k]||GWP_T.TR[k];}
 
@@ -762,20 +778,20 @@ html body .s2c{font-size:9px!important;}
     var det=document.getElementById('gw-cal-det');if(!det)return;
     var slots=['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00'];
     var booked=[0,2,5];
-    var h='<div style="margin-top:14px;border-top:1px solid rgba(201,162,39,0.15);padding-top:12px;"><div style="font-size:9px;color:rgba(201,162,39,0.5);letter-spacing:2px;margin-bottom:10px;">'+d+'. GÜN — SLOTLAR</div><div style="display:flex;flex-wrap:wrap;gap:8px;">';
+    var h='<div style="margin-top:14px;border-top:1px solid rgba(201,162,39,0.15);padding-top:12px;"><div style="font-size:9px;color:rgba(201,162,39,0.5);letter-spacing:2px;margin-bottom:10px;">'+d+' — '+gwT('slots')+'</div><div style="display:flex;flex-wrap:wrap;gap:8px;">';
     slots.forEach(function(s,i){var b=booked.indexOf(i)>=0;h+='<div style="padding:7px 13px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;background:'+(b?'rgba(201,162,39,0.18)':'rgba(255,255,255,0.05)')+';border:1px solid '+(b?'rgba(201,162,39,0.6)':'rgba(255,255,255,0.12)')+';color:'+(b?'#ffd700':'rgba(255,255,255,0.5)')+';">'+s+(b?' ✓':'')+'</div>';});
     h+='</div></div>';det.innerHTML=h;
   }
   window.gwCalDay=gwCalDay;
 
   function gwBuildCal(){
+    var l=gwGetLang()||'TR';var t=GWP_T[l]||GWP_T.TR;
     var now=new Date(),y=now.getFullYear(),m=now.getMonth();
     var first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
-    var MN=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
     var appts=[3,8,12,15,17,22,25];
-    var h='<div style="text-align:center;margin-bottom:14px;font-size:15px;font-weight:900;color:#ffd700;letter-spacing:2px;">'+MN[m]+' '+y+'</div>';
+    var h='<div style="text-align:center;margin-bottom:14px;font-size:15px;font-weight:900;color:#ffd700;letter-spacing:2px;">'+t.months[m]+' '+y+'</div>';
     h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:6px;">';
-    ['Pt','Sa','Ça','Pe','Cu','Ct','Pz'].forEach(function(d){h+='<div style="text-align:center;font-size:8px;color:rgba(201,162,39,0.4);padding:3px 0;">'+d+'</div>';});
+    t.days.forEach(function(d){h+='<div style="text-align:center;font-size:8px;color:rgba(201,162,39,0.4);padding:3px 0;">'+d+'</div>';});
     h+='</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">';
     for(var i=0;i<(first===0?6:first-1);i++)h+='<div></div>';
     for(var d=1;d<=days;d++){
@@ -786,16 +802,17 @@ html body .s2c{font-size:9px!important;}
   }
 
   function gwBuildIncome(){
-    var months=['Oca','Şub','Mar','Nis','May','Haz'];
+    var l=gwGetLang()||'TR';var t=GWP_T[l]||GWP_T.TR;
+    var shortM=t.months.slice(0,6).map(function(m){return m.slice(0,3);});
     var vals=[4200,6800,5500,9200,7600,11400];
     var max=Math.max.apply(null,vals);
-    var h='<div style="margin-bottom:18px;"><div style="font-size:26px;font-weight:900;color:#ffd700;letter-spacing:1px;">₺'+vals[5].toLocaleString('tr-TR')+'</div><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:3px;margin-top:3px;">BU AY TOPLAM</div></div>';
+    var h='<div style="margin-bottom:18px;"><div style="font-size:26px;font-weight:900;color:#ffd700;letter-spacing:1px;">₺'+vals[5].toLocaleString()+'</div><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:3px;margin-top:3px;">'+t.income+'</div></div>';
     h+='<div style="display:flex;align-items:flex-end;gap:6px;height:90px;margin-bottom:12px;">';
     vals.forEach(function(v,i){
       var pct=Math.round(v/max*100),last=i===5;
       h+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">'
        +'<div style="width:100%;border-radius:3px 3px 0 0;height:'+pct+'%;background:'+(last?'linear-gradient(to top,#b8860b,#ffd700)':'rgba(201,162,39,0.22)')+';"></div>'
-       +'<div style="font-size:8px;color:rgba(201,162,39,0.45);">'+months[i]+'</div></div>';
+       +'<div style="font-size:8px;color:rgba(201,162,39,0.45);">'+shortM[i]+'</div></div>';
     });
     h+='</div><div style="border-top:1px solid rgba(201,162,39,0.12);padding-top:12px;">';
     [['✂️ Saç Kesimi','12 seans','₺3.600'],['🪒 Sakal','8 seans','₺2.400'],['💈 Komple','4 seans','₺5.400']].forEach(function(r){
@@ -841,7 +858,8 @@ html body .s2c{font-size:9px!important;}
       +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:18px;">'+gwT('hi')+' 🥈</div>'
       +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('cats')+'</div>'
       +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">'
-      +[['✂️','Kuaför'],['🪒','Berber'],['💅','Tırnak'],['💆','Masaj'],['💄','Makyaj'],['🧖','Cilt']].map(function(c){return '<div class="gw-card sil-card" style="text-align:center;cursor:pointer;padding:14px 8px;margin-bottom:0;"><div style="font-size:24px;margin-bottom:6px;">'+c[0]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.7);font-weight:700;letter-spacing:1px;">'+c[1]+'</div></div>';}).join('')
+      +(function(){var l=gwGetLang()||'TR';var cats=(GWP_T[l]||GWP_T.TR).svcCats;return[['✂️',cats[0]],['🪒',cats[1]],['💅',cats[2]],['💆',cats[3]],['💄',cats[4]],['🧖',cats[5]]].map(function(c){return '<div class="gw-card sil-card" style="text-align:center;cursor:pointer;padding:14px 8px;margin-bottom:0;"><div style="font-size:24px;margin-bottom:6px;">'+c[0]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.7);font-weight:700;letter-spacing:1px;">'+c[1]+'</div></div>';}).join('');})()
+
       +'</div>'
       +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('nearby')+'</div>'
       +[['👨‍🎨','Ahmet Usta','Berber · ⭐ 4.9','2 km','₺200'],['💇','Salon Elite','Kuaför · ⭐ 4.8','3.5 km','₺350'],['💅','Nail Studio','Tırnak · ⭐ 4.7','1.8 km','₺150']].map(function(u){return '<div class="gw-card sil-card" style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:30px;">'+u[0]+'</div><div style="flex:1;"><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+u[1]+'</div><div style="font-size:10px;color:rgba(192,192,192,0.45);margin-top:2px;">'+u[2]+'</div></div><div style="text-align:right;"><div style="font-size:11px;font-weight:900;color:#c0c0c0;">'+u[4]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.35);">'+u[3]+'</div></div></div>';}).join('')
