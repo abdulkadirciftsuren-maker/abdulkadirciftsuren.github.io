@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v76</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v77</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -9,7 +9,7 @@
 <style>
 /* Eski basit partiküller kapat */
 @keyframes goldDrop{0%,100%{opacity:0;transform:none}}
-#gw-particles{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:1;}
+#gw-particles{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:3;pointer-events:none;}
 /* Yatay kaydırma + metin seçimi engelle */
 html,body{overflow-x:hidden!important;max-width:100vw!important;user-select:none!important;-webkit-user-select:none!important;-webkit-touch-callout:none!important;}
 #gw-cs{max-width:100vw!important;}
@@ -1251,7 +1251,7 @@ html body .s2c{font-size:9px!important;}
       var d=Math.pow(Math.random(),1.5);
       P.push({
         x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
-        z:d,size:(1.2+Math.random()*6)*(.35+d*.65),
+        z:d,size:(2.5+Math.random()*9)*(.4+d*.6),
         vy:-(0.12+Math.random()*.45*(.4+d)),vx:(Math.random()-.5)*.18,
         rot:Math.random()*6.28,vr:(Math.random()-.5)*.014,
         glow:0,glowDir:1,nextGlow:Math.random()*300+40,
@@ -1278,7 +1278,7 @@ html body .s2c{font-size:9px!important;}
         }
         if(p.y<-18){p.y=H+8;p.x=Math.random()*W;}
         if(p.x<-18)p.x=W+8;if(p.x>W+18)p.x=-8;
-        var al=.1+p.z*.52+p.glow*.28;
+        var al=.25+p.z*.6+p.glow*.35;
         var blur=p.z<.38?((.38-p.z)*2.8):0;
         if(blur>0)ctx.filter='blur('+blur.toFixed(1)+'px)';else ctx.filter='none';
         if(p.type==='gem')drawGem(p.x,p.y,p.size,p.rot,al,p.glow);
