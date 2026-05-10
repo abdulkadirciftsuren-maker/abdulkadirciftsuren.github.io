@@ -233,6 +233,15 @@ html body .s2c{font-size:9px!important;}
 </style>
 <script>
 (function(){
+  // Service Worker cache temizle - anlık güncelleme
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(regs){
+      regs.forEach(function(r){r.unregister();});
+    });
+    navigator.serviceWorker.register&&caches&&caches.keys().then(function(keys){
+      keys.forEach(function(k){caches.delete(k);});
+    });
+  }
   function pad(n){return n<10?'0'+n:''+n;}
   function tick(){
     var now=new Date();
