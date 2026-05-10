@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v95</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v96</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -230,6 +230,11 @@ html body .s2c{font-size:9px!important;}
 .sil-card{background:rgba(192,192,192,0.05);border:1px solid rgba(192,192,192,0.15);}
 .gw-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
 .gw-stat-box{border-radius:12px;padding:14px 10px;text-align:center;}
+/* Silver/Diamond tema */
+@keyframes gw-seal-dia{0%,100%{filter:drop-shadow(0 0 6px rgba(255,215,0,0.9))}50%{filter:drop-shadow(0 0 16px #ffd700)}}
+@keyframes gw-seal-sil{0%,100%{filter:drop-shadow(0 0 6px rgba(200,200,200,0.9))}50%{filter:drop-shadow(0 0 16px #e0e0e0)}}
+body.gw-tier-silver #gw-bin-fb{border-color:rgba(192,192,192,0.9)!important;box-shadow:0 2px 12px rgba(192,192,192,0.4)!important;background:rgba(0,0,0,0.3)!important;animation:none!important;}
+body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box-shadow:0 2px 12px rgba(192,192,192,0.4)!important;}
 </style>
 <script>
 (function(){
@@ -1070,6 +1075,8 @@ html body .s2c{font-size:9px!important;}
     p.style.animation='gw-pout 0.35s ease forwards';
     var sy=parseInt(document.body.dataset.gwPnlSY||0);
     setTimeout(function(){
+      document.body.classList.remove('gw-tier-diamond','gw-tier-silver');
+      var sb=document.getElementById('gw-seal-badge');if(sb)sb.remove();
       if(p.parentNode)p.remove();
       document.body.style.removeProperty('overflow');
       window.scrollTo(0,sy);
@@ -1155,6 +1162,15 @@ html body .s2c{font-size:9px!important;}
     },{passive:false});
 
     document.body.appendChild(pnl);
+    // Tier class ve mühür
+    document.body.classList.remove('gw-tier-diamond','gw-tier-silver');
+    document.body.classList.add(isDia?'gw-tier-diamond':'gw-tier-silver');
+    var sealEl=document.getElementById('gw-seal-badge');
+    if(sealEl)sealEl.remove();
+    var seal=document.createElement('div');seal.id='gw-seal-badge';
+    seal.style.cssText='position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100001;font-size:'+(window.innerWidth>768?'13px':'10px')+';font-weight:900;letter-spacing:2px;color:'+(isDia?'#ffd700':'#c0c0c0')+';pointer-events:none;animation:'+(isDia?'gw-seal-dia':'gw-seal-sil')+' 2s ease-in-out infinite;font-family:DM Sans,sans-serif;';
+    seal.textContent=isDia?'💎 PIRLANTA ÜYE':'🥈 GÜMÜŞ ÜYE';
+    document.body.appendChild(seal);
     gwUnlockBody();
     document.body.dataset.gwPnlSY=window.scrollY||0;
     document.body.style.setProperty('overflow','hidden','important');
