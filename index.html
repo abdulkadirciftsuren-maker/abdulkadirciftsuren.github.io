@@ -475,7 +475,7 @@ html body .s2c{font-size:9px!important;}
     extra.querySelectorAll('div[style*="cursor:pointer"]').forEach(function(d,i){d.addEventListener('click',function(){gwToast(pNames[i]+' — '+t.soon);});});
     gwLockBody();
     startSholen();
-    if(!document.body.dataset.gwVipH){document.body.dataset.gwVipH='1';history.pushState({gwVip:true},'',location.href);}
+    
     
     setTimeout(function(){
       var lang=gwGetLang()||'TR';
@@ -747,33 +747,8 @@ html body .s2c{font-size:9px!important;}
 
   overlay.addEventListener('click',function(){closeLangMenu();});
 
-  window.addEventListener('popstate',function(e){
-    var st=e.state;
-    if(gwClosingPanel)return;
-    if(st&&st.gwPanel){
-      if(document.getElementById('gw-panel')){
-        if(gwNavStack.length>0){gwPnlShowScr(gwNavStack.pop());history.pushState({gwPanel:true},'',location.href);}
-        else{gwHidePanel(true);}
-      }
-      return;
-    }
-    if(document.getElementById('gw-panel')){gwHidePanel(true);return;}
-    if(window._langOpen){closeLangMenu();return;}
-    if((st&&st.gwVip)||document.body.dataset.gwVipH){
-      delete document.body.dataset.gwVipH;
-      // Modal'ı kapat - Escape ile
-      delete document.body.dataset.gwVipH;
-      document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',keyCode:27,bubbles:true,cancelable:true}));
-      var modal=document.querySelector('[class*="modal"],[class*="Modal"]');
-      if(modal){var ov=new MouseEvent('click',{bubbles:true,clientX:5,clientY:5});modal.dispatchEvent(ov);}
-      // Birinci karta dön: tooltip tekrar göster
-      var bin=document.querySelector('.bin');
-      if(bin){setTimeout(function(){
-        var stillModal=document.querySelectorAll('input[type="email"],input[type="password"]').length;
-        if(!stillModal){gwTipShowing=false;clearTimeout(gwTipTimer);clearTimeout(gwModalTimer);showGwTip(bin);}
-      },400);}
-      return;
-    }
+  window.addEventListener('popstate',function(){
+    if(window._langOpen){closeLangMenu();}
   });
 
   new MutationObserver(function(){
@@ -954,7 +929,7 @@ html body .s2c{font-size:9px!important;}
   }
 
   // ── Panel navigasyon ──
-  var gwNavStack=[];var gwPushCount=0;var gwClosingPanel=false;
+  var gwNavStack=[];
 
   function gwPnlShowScr(scr){
     gwP.scr=scr;
@@ -981,7 +956,7 @@ html body .s2c{font-size:9px!important;}
   function gwHidePanel(fromPopstate){
     if(gwClosingPanel)return;
     var p=document.getElementById('gw-panel');if(!p)return;
-    gwClosingPanel=true;
+
     var cnt=fromPopstate?0:gwPushCount;
     gwNavStack=[];gwPushCount=0;
     p.style.animation='gw-pout 0.35s ease forwards';
@@ -994,16 +969,13 @@ html body .s2c{font-size:9px!important;}
       document.body.style.removeProperty('top');
       window.scrollTo(0,sy);
       delete document.body.dataset.gwPnlSY;
-      gwClosingPanel=false;
     },350);
-    if(cnt>0)history.go(-cnt);
   }
   window.gwHidePanel=gwHidePanel;
 
   function gwGoBack(){
     if(document.getElementById('gw-panel')){history.back();return;}
     if(window._langOpen){closeLangMenu();return;}
-    if(document.body.dataset.gwVipH){history.back();return;}
   }
   window.gwGoBack=gwGoBack;
 
@@ -1078,8 +1050,7 @@ html body .s2c{font-size:9px!important;}
     document.body.style.setProperty('width','100%','important');
     document.body.style.setProperty('top','-'+sy+'px','important');
 
-    // Android geri butonu için history
-    history.pushState({gwPanel:true},'',location.href);
+
   }
   window.gwShowPanel=gwShowPanel;
 
