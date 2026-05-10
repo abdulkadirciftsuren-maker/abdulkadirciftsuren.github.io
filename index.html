@@ -187,8 +187,8 @@ html body .s2c{font-size:9px!important;}
 }
 /* ── İÇ PANEL SİSTEMİ ── */
 @keyframes gw-pin{0%{opacity:0;transform:translateY(28px)}100%{opacity:1;transform:none}}
-@keyframes gw-fab-pulse{0%,100%{box-shadow:0 4px 20px rgba(201,162,39,0.5),0 0 0 0 rgba(255,215,0,0.2)}50%{box-shadow:0 6px 30px rgba(201,162,39,0.8),0 0 0 10px rgba(255,215,0,0)}}
-#gw-fab{position:fixed;bottom:28px;right:20px;z-index:100003;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#ffd700,#fffacd,#c9a227);color:#1a0a00;font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:grab;animation:gw-fab-pulse 2.5s ease-in-out infinite;touch-action:none;user-select:none;-webkit-user-select:none;}
+@keyframes gw-fab-glow{0%,100%{box-shadow:0 4px 18px rgba(201,162,39,0.5),0 0 0 0 rgba(255,215,0,0.25)}50%{box-shadow:0 4px 28px rgba(201,162,39,0.9),0 0 0 10px rgba(255,215,0,0)}}
+#gw-fab{position:fixed;bottom:28px;right:20px;z-index:100003;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#b8860b,#ffd700,#fffacd,#c9a227);color:#1a0a00;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:grab;animation:gw-fab-glow 2.5s ease-in-out infinite;touch-action:none;user-select:none;-webkit-user-select:none;border:2px solid rgba(255,255,255,0.3);}
 @keyframes gw-pout{0%{opacity:1}100%{opacity:0}}
 @keyframes gw-scr{0%{opacity:0;transform:translateX(18px)}100%{opacity:1;transform:none}}
 #gw-panel{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;animation:gw-pin 0.35s ease forwards;}
@@ -1074,46 +1074,76 @@ html body .s2c{font-size:9px!important;}
   },true);
   // ══════════════════════════════════════════════
 
-  // ── SÜRÜKLENEBILIR ALTIN GERİ BUTONU ─────────────────
+  // ── SÜRÜKLENEBILIR ALTIN GERİ FAB ─────────────────────
   (function(){
     var fab=document.createElement('div');
-    fab.id='gw-fab';
-    fab.innerHTML='&#8592;';
+    fab.id='gw-fab';fab.innerHTML='&#8592;';
     document.body.appendChild(fab);
-    var drag=false,moved=false,ox=0,oy=0,startX=0,startY=0;
-    function getPos(){
-      var r=fab.getBoundingClientRect();
-      return {left:r.left,top:r.top};
-    }
-    function onStart(cx,cy){
-      drag=true;moved=false;
-      startX=cx;startY=cy;
-      ox=cx-fab.offsetLeft;
-      oy=cy-fab.offsetTop;
-      fab.style.cursor='grabbing';
+    var drag=false,moved=false,startT=0,ox=0,oy=0,sx=0,sy=0;
+    fab.addEventListener('touchstart',function(e){
+      var t=e.touches[0];
+      drag=true;moved=false;startT=Date.now();
+      ox=t.clientX-fab.getBoundingClientRect().left;
+      oy=t.clientY-fab.getBoundingClientRect().top;
+      sx=t.clientX;sy=t.clientY;
       fab.style.animationPlayState='paused';
-      fab.style.right='auto';fab.style.bottom='auto';
-    }
-    function onMove(cx,cy){
+      e.preventDefault();
+    },{passive:false});
+    fab.addEventListener('mousedown',function(e){
+      drag=true;moved=false;startT=Date.now();
+      ox=e.clientX-fab.getBoundingClientRect().left;
+      oy=e.clientY-fab.getBoundingClientRect().top;
+      sx=e.clientX;sy=e.clientY;
+      fab.style.animationPlayState='paused';
+      e.preventDefault();
+    });
+    document.addEventListener('touchmove',function(e){
       if(!drag)return;
-      if(Math.abs(cx-startX)>5||Math.abs(cy-startY)>5)moved=true;
-      fab.style.left=Math.max(0,Math.min(window.innerWidth-54,cx-ox))+'px';
-      fab.style.top=Math.max(0,Math.min(window.innerHeight-54,cy-oy))+'px';
+      var t=e.touches[0];
+      if(Math.abs(t.clientX-sx)>8||Math.abs(t.clientY-sy)>8){moved=true;}
+      if(moved){
+        fab.style.right='auto';fab.style.bottom='auto';
+        fab.style.left=Math.max(0,Math.min(window.innerWidth-52,t.clientX-ox))+'px';
+        fab.style.top=Math.max(0,Math.min(window.innerHeight-52,t.clientY-oy))+'px';
+        e.preventDefault();
+      }
+    },{passive:false});
+    document.addEventListener('mousemove',function(e){
+      if(!drag)return;
+      if(Math.abs(e.clientX-sx)>8||Math.abs(e.clientY-sy)>8){moved=true;}
+      if(moved){
+        fab.style.right='auto';fab.style.bottom='auto';
+        fab.style.left=Math.max(0,Math.min(window.innerWidth-52,e.clientX-ox))+'px';
+        fab.style.top=Math.max(0,Math.min(window.innerHeight-52,e.clientY-oy))+'px';
+      }
+    });
+    function doClick(){
+      fab.style.transform='scale(0.88)';
+      setTimeout(function(){fab.style.transform='';},200);
+      if(document.getElementById('gw-panel')){
+        if(gwNavStack.length>0){gwPnlShowScr(gwNavStack.pop());}
+        else{gwHidePanel(true);}
+      } else if(window._langOpen){
+        closeLangMenu();
+      } else {
+        history.back();
+      }
     }
-    function onEnd(){
-      if(!moved){gwGoBack();}
+    document.addEventListener('touchend',function(){
+      if(!drag)return;
+      fab.style.animationPlayState='running';
+      if(!moved||Date.now()-startT<180){doClick();}
+      drag=false;moved=false;
+    });
+    document.addEventListener('mouseup',function(){
+      if(!drag)return;
+      fab.style.animationPlayState='running';
+      if(!moved||Date.now()-startT<180){doClick();}
       drag=false;moved=false;
       fab.style.cursor='grab';
-      fab.style.animationPlayState='running';
-    }
-    fab.addEventListener('mousedown',function(e){onStart(e.clientX,e.clientY);e.preventDefault();});
-    fab.addEventListener('touchstart',function(e){onStart(e.touches[0].clientX,e.touches[0].clientY);e.preventDefault();},{passive:false});
-    document.addEventListener('mousemove',function(e){if(drag)onMove(e.clientX,e.clientY);});
-    document.addEventListener('touchmove',function(e){if(drag){onMove(e.touches[0].clientX,e.touches[0].clientY);e.preventDefault();}},{passive:false});
-    document.addEventListener('mouseup',function(){if(drag)onEnd();});
-    document.addEventListener('touchend',function(){if(drag)onEnd();});
+    });
   })();
-  // ── FAB SONU ──────────────────────────────────────────
+  // ── FAB SONU ───────────────────────────────────────────
 })();
 </script>
 </body></html>
