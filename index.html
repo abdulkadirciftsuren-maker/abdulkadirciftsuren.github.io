@@ -1137,6 +1137,21 @@ html body .s2c{font-size:9px!important;}
     },{passive:false});
 
     document.body.appendChild(pnl);
+    // Mobil için touch handler - onclick yerine
+    pnl.querySelectorAll('.gw-pbi').forEach(function(btn){
+      var scr=btn.dataset.s;
+      btn.addEventListener('touchstart',function(){this.style.opacity='0.6';},{passive:true});
+      btn.addEventListener('touchend',function(e){this.style.opacity='';e.preventDefault();gwPanelNav(scr);});
+      btn.addEventListener('click',function(){gwPanelNav(scr);});
+    });
+    pnl.querySelectorAll('[onclick*="gwHidePanel"]').forEach(function(b){
+      b.addEventListener('touchstart',function(){},{passive:true});
+      b.addEventListener('touchend',function(e){e.preventDefault();gwHidePanel();});
+    });
+    pnl.querySelectorAll('[onclick*="gwGoBack"]').forEach(function(b){
+      b.addEventListener('touchstart',function(){},{passive:true});
+      b.addEventListener('touchend',function(e){e.preventDefault();gwGoBack();});
+    });
     gwUnlockBody();
     document.body.dataset.gwPnlSY=window.scrollY||0;
     document.body.style.setProperty('overflow','hidden','important');
