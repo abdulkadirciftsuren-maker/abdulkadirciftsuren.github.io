@@ -1,7 +1,7 @@
 ﻿<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v56</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v57</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -330,19 +330,21 @@ html body .s2c{font-size:9px!important;}
   setInterval(function(){
     if(document.getElementById('gw-panel'))return;
     var bin=document.querySelector('.bin');
-    if(!bin&&!document.getElementById('gw-bin-fb')){
-      var fb=document.createElement('button');
-      fb.id='gw-bin-fb';
-      fb.textContent='💎 Giriş Yap';
-      fb.style.cssText='position:fixed;bottom:24px;right:16px;z-index:99998;padding:10px 22px;border-radius:50px;border:none;cursor:pointer;font-weight:900;font-size:13px;letter-spacing:0.5px;color:#1a0a00;background:linear-gradient(270deg,#b8860b,#ffd700,#fffacd,#c9a227,#ffd700,#b8860b);background-size:400% 400%;animation:gw-gold 3s ease infinite,gw-glow 2.5s ease-in-out infinite;box-shadow:0 4px 20px rgba(201,162,39,0.5);';
-      fb.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-      fb.addEventListener('touchend',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
-      fb.addEventListener('click',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
-      document.body.appendChild(fb);
+    var fb=document.getElementById('gw-bin-fb');
+    if(!bin&&!fb){
+      var lbar=document.querySelector('.lbar');
+      if(!lbar)return;
+      var prof=document.createElement('div');
+      prof.id='gw-bin-fb';
+      prof.style.cssText='display:inline-flex;align-items:center;gap:8px;cursor:pointer;padding:7px 16px;border-radius:50px;background:linear-gradient(270deg,#b8860b,#ffd700,#fffacd,#c9a227,#ffd700,#b8860b);background-size:400% 400%;animation:gw-gold 3s ease infinite,gw-glow 2.5s ease-in-out infinite;color:#1a0a00;font-weight:900;font-size:12px;letter-spacing:0.5px;';
+      prof.innerHTML='<div style="width:24px;height:24px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#4285F4;flex-shrink:0;">G</div>'
+        +'<span>Google Profili</span>';
+      prof.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
+      prof.addEventListener('touchend',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
+      prof.addEventListener('click',function(){gwShowPanel(document.body.dataset.gwLoginPending||gwTierActive||'diamond');});
+      lbar.appendChild(prof);
     }
-    if(bin&&document.getElementById('gw-bin-fb')){
-      document.getElementById('gw-bin-fb').remove();
-    }
+    if(bin&&fb)fb.remove();
   },500);
 
   // VIP Modal — sade, güzel, çalışan
