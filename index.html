@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v84</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">v85</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -180,6 +180,17 @@ html body .s2c{font-size:9px!important;}
   html body .bin{height:34px!important;padding:0 12px!important;font-size:11px!important;border-radius:20px!important;display:inline-flex!important;align-items:center!important;gap:4px!important;max-width:130px!important;white-space:nowrap!important;}
   html body .lsub{display:block!important;font-size:8px!important;letter-spacing:2px!important;opacity:0.65!important;margin-top:2px!important;}
   html body .menu-fab{top:40px!important;right:12px!important;width:36px!important;height:36px!important;border-radius:10px!important;}
+  /* Profilim butonu portrait — kompakt, metin yok */
+  #gw-prof-fb{flex-shrink:0!important;}
+  @media screen and (max-width:768px) and (orientation:portrait){
+    #gw-prof-lbl{display:none!important;}
+    #gw-prof-fb{max-width:46px!important;padding:4px!important;}
+  }
+  @media screen and (min-width:769px){
+    #gw-prof-fb{height:44px!important;padding:4px 14px 4px 4px!important;gap:8px!important;}
+    #gw-prof-fb>div:first-child{width:36px!important;height:36px!important;}
+    #gw-prof-lbl{font-size:12px!important;}
+  }
   /* Google profil butonu portrait — pill, fotoğraf + Google G */
   #gw-bin-fb{padding:3px 8px 3px 3px!important;height:38px!important;max-width:80px!important;border-radius:50px!important;background:rgba(0,0,0,0.3)!important;border:2px solid rgba(201,162,39,0.8)!important;animation:none!important;gap:5px!important;box-shadow:0 2px 10px rgba(201,162,39,0.3)!important;}
   #gw-bin-fb>span#gw-gpl{display:none!important;}
@@ -387,54 +398,35 @@ html body .s2c{font-size:9px!important;}
     if(bin&&fb)fb.remove();
     var gplEl=document.getElementById('gw-gpl');
     if(gplEl){var nl=gwGpL[gwGetLang()||'TR']||'Google Profili';if(gplEl.textContent!==nl)gplEl.textContent=nl;}
-    // React'ın "Profilim" butonunu bul, #gw-bin-fb gibi stilleyip panele bağla
+    // React'ın "Profilim" butonunu gizle, yerine bizim butonumuzu koy
     var lbar=document.querySelector('.lbar');
-    if(lbar){
+    if(lbar&&!document.getElementById('gw-prof-fb')){
+      var reactProf=null;
       lbar.querySelectorAll('button,a,[role="button"]').forEach(function(el){
-        if(el===fb||el.contains&&el.contains(fb)||el.closest&&el.closest('#gw-bin-fb')||el.dataset.gwPSty)return;
-        var txt=(el.textContent||'').trim();
-        if(txt.length>3){
-          el.dataset.gwPSty='1';
-          // Tüm metin içeren alt elemanları gizle
-          el.querySelectorAll('span,p,div,label').forEach(function(s){
-            if(!s.querySelector('img,svg'))s.style.setProperty('display','none','important');
-          });
-          // Avatar fotoğrafı varsa göster
-          var img=el.querySelector('img');
-          if(img){img.style.cssText='width:30px!important;height:30px!important;border-radius:50%!important;object-fit:cover!important;display:block!important;';}
-          else{
-            // Kişi ikonu SVG ekle
-            if(!el.querySelector('svg[data-gw-pi]')){
-              var sv=document.createElementNS('http://www.w3.org/2000/svg','svg');
-              sv.setAttribute('data-gw-pi','1');sv.setAttribute('viewBox','0 0 24 24');sv.setAttribute('width','24');sv.setAttribute('height','24');
-              sv.innerHTML='<circle cx="12" cy="8" r="4" fill="#ffd700"/><path d="M4 20c0-4 3.58-6 8-6s8 2 8 6" fill="#ffd700"/>';
-              el.appendChild(sv);
-            }
-          }
-          // #gw-bin-fb ile aynı stil
-          el.style.setProperty('display','inline-flex','important');
-          el.style.setProperty('align-items','center','important');
-          el.style.setProperty('justify-content','center','important');
-          el.style.setProperty('padding','4px','important');
-          el.style.setProperty('border-radius','50px','important');
-          el.style.setProperty('background','rgba(0,0,0,0.3)','important');
-          el.style.setProperty('border','2px solid rgba(201,162,39,0.8)','important');
-          el.style.setProperty('height','38px','important');
-          el.style.setProperty('min-width','38px','important');
-          el.style.setProperty('max-width','46px','important');
-          el.style.setProperty('box-shadow','0 2px 10px rgba(201,162,39,0.3)','important');
-          el.style.setProperty('cursor','pointer','important');
-          el.style.setProperty('box-sizing','border-box','important');
-          // Paneli aç
-          if(!el.dataset.gwPClick){
-            el.dataset.gwPClick='1';
-            el.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-            el.addEventListener('touchend',function(){gwShowPanel(gwTierActive||'diamond');});
-            el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();gwShowPanel(gwTierActive||'diamond');},true);
-          }
-        }
+        if(reactProf||el.id==='gw-bin-fb'||el.closest&&el.closest('#gw-bin-fb')) return;
+        if((el.textContent||'').trim().length>2) reactProf=el;
       });
+      if(reactProf){
+        reactProf.style.setProperty('display','none','important');
+        var gwBf=document.getElementById('gw-bin-fb');
+        var pf=document.createElement('div');
+        pf.id='gw-prof-fb';
+        pf.style.cssText='display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:3px 8px 3px 3px;border-radius:50px;background:rgba(0,0,0,0.3);border:2px solid rgba(201,162,39,0.8);color:#ffd700;font-weight:900;font-size:11px;height:38px;box-sizing:border-box;box-shadow:0 2px 10px rgba(201,162,39,0.3);flex-shrink:0;';
+        var rImg=reactProf.querySelector('img');
+        var av=rImg&&rImg.src?'<div style="width:30px;height:30px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(201,162,39,0.4);"><img src="'+rImg.src+'" style="width:100%;height:100%;object-fit:cover;"></div>':'<div style="width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="8" r="4" fill="#ffd700"/><path d="M4 20c0-4 3.58-6 8-6s8 2 8 6" fill="#ffd700"/></svg></div>';
+        pf.innerHTML=av+'<span id="gw-prof-lbl" style="letter-spacing:0.3px;">Profil</span>';
+        pf.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
+        pf.addEventListener('touchend',function(){gwShowPanel(gwTierActive||'diamond');});
+        pf.addEventListener('click',function(){gwShowPanel(gwTierActive||'diamond');});
+        if(gwBf&&gwBf.parentNode)gwBf.parentNode.insertBefore(pf,gwBf.nextSibling);
+        else reactProf.parentNode.insertBefore(pf,reactProf);
+      }
     }
+    // React profil butonu tekrar görünürse gizle
+    if(lbar){lbar.querySelectorAll('button,a,[role="button"]').forEach(function(el){
+      if(el.id==='gw-bin-fb'||el.id==='gw-prof-fb'||el.closest&&(el.closest('#gw-bin-fb')||el.closest('#gw-prof-fb')))return;
+      if((el.textContent||'').trim().length>2)el.style.setProperty('display','none','important');
+    });}
     // Google fotoğrafını bul ve göster
     var gPhoto=document.getElementById('gw-g-photo');
     var gInit=document.getElementById('gw-g-init');
