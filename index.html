@@ -1047,15 +1047,19 @@ html body .s2c{font-size:9px!important;}
   function gwHidePanel(){
     var p=document.getElementById('gw-panel');if(!p)return;
     gwNavStack=[];gwPushCount=0;
-    p.style.animation='gw-pout 0.35s ease forwards';
+    p.style.transition='opacity 0.28s ease,transform 0.28s ease';
+    p.style.opacity='0';
+    p.style.transform='translateY(18px)';
     var sy=parseInt(document.body.dataset.gwPnlSY||0);
     setTimeout(function(){
-      if(p.parentNode)p.remove();
+      var el=document.getElementById('gw-panel');
+      if(el)el.remove();
       var gwFabEl=document.getElementById('gw-fab');if(gwFabEl)gwFabEl.style.removeProperty('display');
       document.body.style.removeProperty('overflow');
       window.scrollTo(0,sy);
       delete document.body.dataset.gwPnlSY;
-    },360);
+    },300);
+  },360);
   }
   window.gwHidePanel=gwHidePanel;
 
