@@ -1025,120 +1025,62 @@ html body [class*='modal'] [style*='background:#'].gw-enhanced:not(button),html 
 
   // ── Ekran içerikleri ──
   function gwDiaScr(s){
-    var p='padding:20px;';
-    var gold='#ffd700';var goldDim='rgba(201,162,39,0.4)';var goldCard='background:rgba(201,162,39,0.05);border:1px solid rgba(201,162,39,0.18);border-radius:14px;padding:16px;margin-bottom:12px;';
-    var row='display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(201,162,39,0.07);align-items:center;';
-    var label='font-size:9px;color:'+goldDim+';letter-spacing:2px;font-weight:700;margin-bottom:12px;';
-    var now=new Date();var dn=[gwT('days')[now.getDay()]||'',now.getDate(),gwT('months')[now.getMonth()]||'',now.getFullYear()].join(' ');
-    if(s==='home'){var h='<div style="'+p+'">';
-      h+='<div style="font-size:10px;color:'+goldDim+';letter-spacing:3px;margin-bottom:4px;">'+dn.toUpperCase()+'</div>';
-      h+='<div style="font-size:20px;font-weight:900;color:'+gold+';margin-bottom:20px;letter-spacing:1px;">'+gwT('hi')+'</div>';
-      h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">';
-      [['5',gwT('today')],['₺11.4K',gwT('month')],['4.9',gwT('rating')],['42',gwT('cust')]].forEach(function(x){
-        h+='<div style="'+goldCard+'text-align:center;padding:14px 8px;"><div style="font-size:20px;font-weight:900;color:'+gold+';margin-bottom:3px;">'+x[0]+'</div><div style="font-size:8px;color:'+goldDim+';letter-spacing:2px;">'+x[1].toUpperCase()+'</div></div>';
-      });
-      h+='</div>';
-      h+='<div style="'+label+'">'+gwT('todayApts')+'</div>';
-      [['09:00','Ahmet Y.','Saç Kesimi','₺300'],['11:00','Mehmet K.','Traş + Saç','₺500'],['14:00','Ali D.','Komple','₺450'],['16:00','Can B.','Saç Kesimi','₺300']].forEach(function(r){
-        h+='<div style="'+goldCard+'display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;">';
-        h+='<div style="font-size:11px;font-weight:900;color:'+gold+';min-width:44px;letter-spacing:0.5px;">'+r[0]+'</div>';
-        h+='<div style="flex:1;"><div style="font-size:12px;color:rgba(255,255,255,0.85);font-weight:700;">'+r[1]+'</div><div style="font-size:10px;color:'+goldDim+';margin-top:2px;">'+r[2]+'</div></div>';
-        h+='<div style="font-size:12px;font-weight:900;color:'+gold+';">'+r[3]+'</div>';
-        h+='</div>';
-      });
-      return h+'</div>';}
-    if(s==='cal')return '<div style="'+p+'">'+gwBuildCal()+'</div>';
-    if(s==='inc')return '<div style="'+p+'">'+gwBuildIncome()+'</div>';
-    if(s==='prof'){var h='<div style="'+p+'">';
-      h+='<div style="text-align:center;margin-bottom:24px;padding:24px;'+goldCard+'background:linear-gradient(145deg,rgba(20,12,2,0.6),rgba(30,18,4,0.6));">';
-      h+='<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(201,162,39,0.2),rgba(201,162,39,0.05));border:2px solid rgba(201,162,39,0.4);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:'+gold+';">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>.Replace('14','28')+'</div>';
-      h+='<div style="font-size:17px;font-weight:900;color:'+gold+';letter-spacing:1px;">Mehmet Usta</div>';
-      h+='<div style="font-size:9px;color:'+goldDim+';letter-spacing:3px;margin-top:4px;">'+gwT('diamond')+'  ·  ISTANBUL</div>';
-      h+='</div>';
-      h+='<div style="'+goldCard+'">';
-      h+='<div style="'+label+'">'+gwT('services')+'</div>';
-      [['Saç Kesimi','₺300'],['Traş','₺200'],['Saç + Traş','₺450'],['Boya','₺600']].forEach(function(x){
-        h+='<div style="'+row+'"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+'</span><span style="font-size:12px;font-weight:900;color:'+gold+';">'+x[1]+'</span></div>';
-      });
-      h+='</div>';
-      h+='<div style="'+goldCard+'">';
-      h+='<div style="'+label+'">'+gwT('contact')+'</div>';
-      [[<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.15 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,'0532 XXX XX XX'],[<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>,'mehmet@glamworld.com'],[<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>,'Istanbul']].forEach(function(x){
-        h+='<div style="'+row+'"><span style="color:'+goldDim+';display:flex;align-items:center;gap:6px;">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.7);">'+x[1]+'</span></div>';
-      });
-      h+='</div>';
-      h+='<div onclick="gwHidePanel();setTimeout(function(){location.reload();},400);" style="text-align:center;padding:13px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>+gwT('logout')+'</div>';
-      return h+'</div>';}
-    if(s==='set'){var h='<div style="'+p+'">';
-      h+='<div style="'+label+'">'+gwT('settings')+'</div>';
-      [['Bildirimler','#4caf50','ON'],['Koyu Tema','#4caf50','ON'],['2FA Güvenlik','#ff7043','OFF'],['Konum','#4caf50','ON']].forEach(function(x){
-        h+='<div style="'+goldCard+'display:flex;justify-content:space-between;align-items:center;padding:13px 14px;margin-bottom:8px;"><span style="font-size:12px;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:8px;">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>+x[0]+'</span><span style="font-size:10px;font-weight:900;color:'+x[1]+';background:'+x[1]+'18;padding:3px 10px;border-radius:20px;">'+x[2]+'</span></div>';
-      });
-      h+='<div onclick="gwHidePanel();setTimeout(function(){location.reload();},400);" style="margin-top:4px;text-align:center;padding:13px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>+gwT('logout')+'</div>';
-      return h+'</div>';}
+    var p20='style="padding:20px;"';
+    if(s==='home')return '<div '+p20+'>'
+      +'<div style="font-size:11px;color:rgba(201,162,39,0.4);letter-spacing:3px;margin-bottom:6px;">'+new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase()+'</div>'
+      +'<div style="font-size:19px;font-weight:900;color:#ffd700;margin-bottom:18px;letter-spacing:1px;">'+gwT('hi')+'</div>'
+      +'<div class="gw-stat-row">'
+      +[['5',gwT('today').toUpperCase(),'◈'],['₺11.4K',gwT('month').toUpperCase(),'◎'],['4.9',gwT('rating').toUpperCase(),'◇'],['42',gwT('cust').toUpperCase(),'◉']].map(function(x){return '<div class="gw-stat-box dia-card"><div style="font-size:16px;margin-bottom:4px;color:rgba(201,162,39,0.6);">'+x[2]+'</div><div style="font-size:15px;font-weight:900;color:#ffd700;">'+x[0]+'</div><div style="font-size:8px;color:rgba(201,162,39,0.4);letter-spacing:1px;margin-top:2px;">'+x[1]+'</div></div>';}).join('')
+      +'</div>'
+      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:10px;">'+gwT('todayApts')+'</div>'
+      +[['09:00','Ahmet Y.','Saç Kesimi','₺300'],['11:00','Mehmet K.','Sakal+Saç','₺500'],['14:00','Ali D.','Komple','₺450'],['16:00','Can B.','Saç Kesimi','₺300']].map(function(r){return '<div class="gw-card dia-card" style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:11px;font-weight:900;color:#ffd700;min-width:42px;">'+r[0]+'</div><div style="flex:1;"><div style="font-size:12px;color:rgba(255,255,255,0.85);font-weight:700;">'+r[1]+'</div><div style="font-size:10px;color:rgba(201,162,39,0.45);margin-top:1px;">'+r[2]+'</div></div><div style="font-size:12px;font-weight:900;color:#ffd700;">'+r[3]+'</div></div>';}).join('')
+      +'</div>';
+    if(s==='cal')return '<div '+p20+'>'+gwBuildCal()+'</div>';
+    if(s==='inc')return '<div '+p20+'>'+gwBuildIncome()+'</div>';
+    if(s==='prof')return '<div '+p20+'>'
+      +'<div style="text-align:center;margin-bottom:22px;padding:20px;background:rgba(201,162,39,0.05);border:1px solid rgba(201,162,39,0.15);border-radius:16px;">'
+      +'<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(201,162,39,0.05));border:1.5px solid rgba(201,162,39,0.35);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#ffd700;font-weight:900;">◈</div>'
+      +'<div style="font-size:17px;font-weight:900;color:#ffd700;letter-spacing:1px;">Mehmet Usta</div>'
+      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:3px;margin-top:4px;">'+gwT('diamond')+' · ISTANBUL</div></div>'
+      +'<div class="gw-card dia-card"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('services')+'</div>'
+      +[['Sac Kesimi','₺300'],['Tras','₺200'],['Komple','₺450'],['Boya','₺600']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(201,162,39,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+'</span><span style="font-size:12px;font-weight:900;color:#ffd700;">'+x[1]+'</span></div>';}).join('')+'</div>'
+      +'<div class="gw-card dia-card" style="margin-top:0;"><div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('contact')+'</div>'
+      +[['Tel','0532 XXX XX XX'],['Mail','mehmet@glamworld.com'],['Adres','Besiktas, Istanbul']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(201,162,39,0.08);"><span style="font-size:11px;color:rgba(201,162,39,0.5);">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.7);">'+x[1]+'</span></div>';}).join('')+'</div></div>';
+    if(s==='set')return '<div '+p20+'>'
+      +'<div style="font-size:9px;color:rgba(201,162,39,0.4);letter-spacing:2px;margin-bottom:14px;">'+gwT('settings')+'</div>'
+      +[['🔔','Bildirimler / Notifications','#4caf50','ON'],['🌙','Koyu Tema / Dark Mode','#4caf50','ON'],['🔒','2FA Güvenlik / Security','#ff7043','OFF'],['📍','Konum / Location','#4caf50','ON']].map(function(x){return '<div class="gw-card dia-card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:14px 16px;"><span style="font-size:12px;color:rgba(255,255,255,0.8);">'+x[0]+' '+x[1]+'</span><span style="font-size:10px;font-weight:900;color:'+x[2]+';background:'+x[2]+'18;padding:4px 10px;border-radius:20px;">'+x[3]+'</span></div>';}).join('')
+      +'<div onclick="gwHidePanel();setTimeout(function(){location.reload();},400);" style="margin-top:8px;text-align:center;padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">'+gwT('logout')+'</div></div>';
     return '';
   }
 
   function gwSilScr(s){
-    var p='padding:20px;';
-    var sil='#c0c0c0';var silDim='rgba(192,192,192,0.4)';
-    var silCard='background:rgba(192,192,192,0.04);border:1px solid rgba(192,192,192,0.15);border-radius:14px;padding:15px;margin-bottom:10px;';
-    var row='display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(192,192,192,0.07);align-items:center;';
-    var label='font-size:9px;color:'+silDim+';letter-spacing:2px;font-weight:700;margin-bottom:12px;';
-    if(s==='home'){var h='<div style="'+p+'">';
-      h+='<div style="font-size:18px;font-weight:900;color:'+sil+';margin-bottom:20px;letter-spacing:0.5px;">'+gwT('hi')+'</div>';
-      h+='<div style="'+label+'">'+gwT('cats')+'</div>';
-      h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;">';
-      var l=gwGetLang()||'TR';var cats=(GWP_T[l]||GWP_T.TR).svcCats;
-      var catIcons=[''+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>+'',''+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>+'',''+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>+'',''+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>+'',''+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>+'',''+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>+''];
-      cats.forEach(function(cat,i){
-        h+='<div style="'+silCard+'text-align:center;cursor:pointer;padding:13px 6px;margin-bottom:0;"><div style="color:'+sil+';margin-bottom:6px;display:flex;justify-content:center;">'+catIcons[i]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.7);font-weight:700;letter-spacing:0.5px;">'+cat+'</div></div>';
-      });
-      h+='</div>';
-      h+='<div style="'+label+'">'+gwT('nearby')+'</div>';
-      [['Ahmet Usta','Berber','4.9','2 km','₺200'],['Salon Elite','Kuaför','4.8','3.5 km','₺350'],['Nail Studio','Tırnak','4.7','1.8 km','₺150']].forEach(function(u){
-        h+='<div style="'+silCard+'display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;">';
-        h+='<div style="width:38px;height:38px;border-radius:50%;background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.15);display:flex;align-items:center;justify-content:center;color:'+sil+';flex-shrink:0;">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>+'</div>';
-        h+='<div style="flex:1;"><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+u[0]+'</div><div style="font-size:10px;color:'+silDim+';margin-top:2px;">'+u[1]+' · '+u[2]+' / 5</div></div>';
-        h+='<div style="text-align:right;"><div style="font-size:11px;font-weight:900;color:'+sil+';">'+u[4]+'</div><div style="font-size:9px;color:'+silDim+';">'+u[3]+'</div></div>';
-        h+='</div>';
-      });
-      return h+'</div>';}
-    if(s==='apt'){var h='<div style="'+p+'">';
-      h+='<div style="'+label+'">'+gwT('myApts')+'</div>';
-      [['Yarın 14:00','Ahmet Usta','Saç Kesimi',gwT('confirmed'),'#4caf50'],['15 Haz 10:00','Salon Elite','Boya + Kesim',gwT('pending'),'rgba(201,162,39,0.9)'],['20 Haz 09:00','Nail Studio','Manikür',gwT('pending'),'rgba(201,162,39,0.9)']].forEach(function(r){
-        h+='<div style="'+silCard+'padding:13px 14px;margin-bottom:10px;">';
-        h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
-        h+='<span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+r[1]+'</span>';
-        h+='<span style="font-size:9px;font-weight:900;color:'+r[4]+';background:'+r[4].replace('0.9','0.1')+';padding:3px 9px;border-radius:20px;display:flex;align-items:center;gap:4px;">'+r[3]+'</span>';
-        h+='</div><div style="font-size:10px;color:'+silDim+';">'+r[0]+' &nbsp;·&nbsp; '+r[2]+'</div>';
-        h+='</div>';
-      });
-      return h+'</div>';}
-    if(s==='fav'){var h='<div style="'+p+'">';
-      h+='<div style="'+label+'">'+gwT('favs')+'</div>';
-      [['Ahmet Usta','Berber · Istanbul','4.9'],['Salon Elite','Kuaför · Ankara','4.8'],['Nail Studio','Tırnak · Izmir','4.7']].forEach(function(f){
-        h+='<div style="'+silCard+'display:flex;align-items:center;gap:13px;padding:13px 14px;margin-bottom:10px;">';
-        h+='<div style="width:40px;height:40px;border-radius:50%;background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.15);display:flex;align-items:center;justify-content:center;color:'+sil+';flex-shrink:0;">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>+'</div>';
-        h+='<div style="flex:1;"><div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);">'+f[0]+'</div><div style="font-size:10px;color:'+silDim+';margin-top:2px;">'+f[1]+'</div></div>';
-        h+='<div style="font-size:11px;color:'+sil+';font-weight:700;">'+f[2]+' / 5</div>';
-        h+='</div>';
-      });
-      return h+'</div>';}
-    if(s==='prof'){var h='<div style="'+p+'">';
-      h+='<div style="text-align:center;margin-bottom:22px;padding:24px;'+silCard+'background:linear-gradient(145deg,rgba(10,12,18,0.6),rgba(15,18,28,0.6));">';
-      h+='<div style="width:60px;height:60px;border-radius:50%;background:rgba(192,192,192,0.06);border:2px solid rgba(192,192,192,0.25);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:'+sil+';">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>.Replace('14','26')+'</div>';
-      h+='<div style="font-size:16px;font-weight:900;color:'+sil+';margin-bottom:4px;">'+gwT('hi')+'</div>';
-      h+='<div style="font-size:9px;color:'+silDim+';letter-spacing:3px;">'+gwT('silver')+'</div>';
-      h+='</div>';
-      h+='<div style="'+silCard+'">';
-      h+='<div style="'+label+'">'+gwT('contact')+'</div>';
-      [[<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.15 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,'––'],[<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>,'misafir@glamworld.com']].forEach(function(x){
-        h+='<div style="'+row+'"><span style="color:'+silDim+';display:flex;align-items:center;gap:6px;">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.65);">'+x[1]+'</span></div>';
-      });
-      h+='</div>';
-      h+='<div onclick="gwHidePanel();setTimeout(function(){location.reload();},400);" style="text-align:center;padding:13px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;">'+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>+gwT('logout')+'</div>';
-      return h+'</div>';}
+    var p20='style="padding:20px;"';
+    if(s==='home')return '<div '+p20+'>'
+      +'<div style="font-size:18px;font-weight:900;color:#c0c0c0;margin-bottom:18px;letter-spacing:0.5px;">'+gwT('hi')+'</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('cats')+'</div>'
+      +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">'
+      +(function(){var l=gwGetLang()||'TR';var cats=(GWP_T[l]||GWP_T.TR).svcCats;var icons=['◈','◇','◉','◎','◆','◊'];return cats.map(function(cat,i){return '<div class="gw-card sil-card" style="text-align:center;cursor:pointer;padding:14px 8px;margin-bottom:0;"><div style="font-size:18px;margin-bottom:6px;color:rgba(192,192,192,0.6);">'+icons[i]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.7);font-weight:700;letter-spacing:0.5px;">'+cat+'</div></div>';}).join('');})()
+
+      +'</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:12px;">'+gwT('nearby')+'</div>'
+      +[['Ahmet Usta','Berber','4.9','2 km','₺200'],['Salon Elite','Kuaför','4.8','3.5 km','₺350'],['Nail Studio','Tirnak','4.7','1.8 km','₺150']].map(function(u){return '<div class="gw-card sil-card" style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:50%;background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.15);display:flex;align-items:center;justify-content:center;color:#c0c0c0;font-size:14px;font-weight:900;flex-shrink:0;">◈</div><div style="flex:1;"><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+u[0]+'</div><div style="font-size:10px;color:rgba(192,192,192,0.45);margin-top:2px;">'+u[1]+' · '+u[2]+'/5</div></div><div style="text-align:right;"><div style="font-size:11px;font-weight:900;color:#c0c0c0;">'+u[4]+'</div><div style="font-size:9px;color:rgba(192,192,192,0.35);">'+u[3]+'</div></div></div>';}).join('')
+      +'</div>';
+    if(s==='apt')return '<div '+p20+'>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">'+gwT('myApts')+'</div>'
+      +[['Yarın 14:00','Ahmet Usta','Saç Kesimi',gwT('confirmed'),'#4caf50'],['15 Haz 10:00','Salon Elite','Boya+Kesim',gwT('pending'),'#ffd700'],['20 Haz 09:00','Nail Studio','Manikür',gwT('pending'),'#ffd700']].map(function(r){return '<div class="gw-card sil-card" style="padding:14px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);">'+r[1]+'</span><span style="font-size:9px;font-weight:900;color:'+r[4]+';background:'+r[4]+'15;padding:3px 9px;border-radius:20px;">'+r[3]+'</span></div><div style="font-size:10px;color:rgba(192,192,192,0.45);">'+r[0]+' · '+r[2]+'</div></div>';}).join('')
+      +'</div>';
+    if(s==='fav')return '<div '+p20+'>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.4);letter-spacing:2px;margin-bottom:14px;">'+gwT('favs')+'</div>'
+      +[['Ahmet Usta','Berber · Istanbul','4.9'],['Salon Elite','Kuaför · Ankara','4.8'],['Nail Studio','Tirnak · Izmir','4.7']].map(function(f){return '<div class="gw-card sil-card" style="display:flex;align-items:center;gap:14px;padding:14px;margin-bottom:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(192,192,192,0.08);border:1px solid rgba(192,192,192,0.15);display:flex;align-items:center;justify-content:center;color:#c0c0c0;font-size:14px;font-weight:900;flex-shrink:0;">◈</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);">'+f[0]+'</div><div style="font-size:10px;color:rgba(192,192,192,0.45);margin-top:2px;">'+f[1]+'</div></div><div style="font-size:11px;color:#c0c0c0;font-weight:700;">'+f[2]+'/5</div></div>';}).join('')
+      +'</div>';
+    if(s==='prof')return '<div '+p20+' style="text-align:center;">'
+      +'<div style="width:56px;height:56px;border-radius:50%;background:rgba(192,192,192,0.07);border:1.5px solid rgba(192,192,192,0.25);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#c0c0c0;font-weight:900;">◈</div>'
+      +'<div style="font-size:17px;font-weight:900;color:#c0c0c0;margin-bottom:4px;letter-spacing:0.5px;">'+gwT('hi')+'</div>'
+      +'<div style="font-size:9px;color:rgba(192,192,192,0.35);letter-spacing:3px;margin-bottom:24px;">'+gwT('silver')+'</div>'
+      +'<div class="gw-card sil-card" style="text-align:left;margin-bottom:12px;">'
+      +[['Tel','--'],['Mail','misafir@glamworld.com']].map(function(x){return '<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(192,192,192,0.07);"><span style="font-size:11px;color:rgba(192,192,192,0.45);">'+x[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.65);">'+x[1]+'</span></div>';}).join('')
+      +'</div>'
+      +'<div onclick="gwHidePanel()" style="padding:14px;border-radius:12px;border:1px solid rgba(255,80,80,0.3);color:rgba(255,100,100,0.8);font-size:12px;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:DM Sans,sans-serif;">'+gwT('logout')+'</div></div>';
     return '';
   }
 
