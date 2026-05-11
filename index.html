@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A1</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A4</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -261,80 +261,15 @@ body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box
   function showGwTip(btn){
     if(gwTipShowing)return;
     gwTipShowing=true;
-    document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
-    document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
-    document.querySelectorAll('.gw-spark').forEach(function(s){s.remove();});
-    var r=btn.getBoundingClientRect();
-    var bx=r.left+r.width/2;var by=r.top;
-    var tipTop=80;
-    // Işık bağı (ışın)
-    var beam=document.createElement('div');beam.id='gw-beam';
-    var beamH=by-tipTop-60;
-    beam.style.cssText='top:'+(tipTop+60)+'px;height:0;--beam-h:'+beamH+'px;';
-    document.body.appendChild(beam);
-    // Tooltip tepede
-    var tip=document.createElement('div');tip.id='gw-tip';
-    var GWT={TR:['💎 AYRICALIKLI DÜNYAYA GİRİŞ YAP 💎','Ayrıcalıklı üyeliğiniz sizi bekliyor...'],EN:['💎 ENTER THE EXCLUSIVE WORLD 💎','Your exclusive membership awaits...'],DE:['💎 EXKLUSIVE WELT BETRETEN 💎','Ihre exklusive Mitgliedschaft wartet...'],ES:['💎 ENTRAR AL MUNDO EXCLUSIVO 💎','Tu membresía exclusiva te espera...'],FR:['💎 ENTRER DANS LE MONDE EXCLUSIF 💎','Votre adhésion exclusive vous attend...'],RU:['💎 ВОЙТИ В МИР ПРИВИЛЕГИЙ 💎','Ваше эксклюзивное членство ждёт...'],UKR:['💎 ЕКСКЛЮЗИВНИЙ ВХІД 💎','Ваше ексклюзивне членство чекає...'],CN:['💎 进入尊享世界 💎','您的尊享会员资格正在等待...'],AR:['💎 ادخل إلى العالم الحصري 💎','عضويتك الحصرية بانتظارك...']};
-    var cl=gwGetLang();var gwtx=GWT[cl]||GWT['TR'];
-    tip.innerHTML='<div id="gw-tip-txt">'+gwtx[0]+'</div><div id="gw-tip-sub">'+gwtx[1]+'</div>';
-    document.body.appendChild(tip);
-    // Altın aura
-    document.getElementById('gw-aura')&&document.getElementById('gw-aura').remove();
-    var aura=document.createElement('div');aura.id='gw-aura';document.body.appendChild(aura);
-    setTimeout(function(){aura.remove();},1000);
-    // Pırlanta sesi (Web Audio API)
-    try{
-      var ac=new(window.AudioContext||window.webkitAudioContext)();
-      var freqs=[2093,2637,3136,4186];
-      freqs.forEach(function(f,i){
-        setTimeout(function(){
-          var o=ac.createOscillator();var g=ac.createGain();
-          o.connect(g);g.connect(ac.destination);
-          o.type='sine';o.frequency.setValueAtTime(f,ac.currentTime);
-          g.gain.setValueAtTime(0.15,ac.currentTime);
-          g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.4);
-          o.start();o.stop(ac.currentTime+0.4);
-        },i*60);
-      });
-    }catch(e){}
-    // Kıvılcımlar tepede
-    var sparks=['💎','✦','◆','✧','◇','★'];
-    for(var i=0;i<8;i++){
-      (function(i){setTimeout(function(){
-        var sp=document.createElement('div');sp.className='gw-spark';
-        sp.textContent=sparks[i%sparks.length];
-        var sx=window.innerWidth/2+(Math.random()-0.5)*200;
-        var sy=60+Math.random()*60;
-        sp.style.cssText='left:'+sx+'px;top:'+sy+'px;font-size:'+(8+Math.random()*10)+'px;color:#ffd700;text-shadow:0 0 8px #ffd700;';
-        document.body.appendChild(sp);
-        setTimeout(function(){sp.remove();},1000);
-      },i*100);})(i);
-    }
-    // 2.5 sn sonra modal aç
-    // Tooltip'e dokunulunca hemen aç (mobil), masaüstünde 2.5sn
-    var delay=window.innerWidth>768?2500:(window.innerHeight>window.innerWidth?3000:4500);
-    clearTimeout(gwModalTimer);
+    clearTimeout(gwModalTimer);clearTimeout(gwTipTimer);
     gwModalTimer=setTimeout(function(){
-      document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
-      document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
       gwTipShowing=false;
       btn.dataset.gwAllow='1';
       btn.click();
-    },delay);
-    // Tooltip'e tıklanınca hemen aç
-    var tipEl=document.getElementById('gw-tip');
-    if(tipEl){tipEl.style.pointerEvents='auto';tipEl.style.cursor='pointer';
-      tipEl.addEventListener('click',function(){clearTimeout(gwModalTimer);document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();gwTipShowing=false;btn.dataset.gwAllow='1';btn.click();},{once:true});
-    }
-    // 5sn sonra temizle (daha uzun ekranda kalır)
-    clearTimeout(gwTipTimer);
-    gwTipTimer=setTimeout(function(){
-      document.getElementById('gw-tip')&&document.getElementById('gw-tip').remove();
-      document.getElementById('gw-beam')&&document.getElementById('gw-beam').remove();
-      gwTipShowing=false;
-    },window.innerWidth>768?3000:(window.innerHeight>window.innerWidth?4000:7000));
+    },300);
+    gwTipTimer=setTimeout(function(){gwTipShowing=false;},900);
   }
-  function enhanceBin(){
+    function enhanceBin(){
     document.querySelectorAll('.bin').forEach(function(btn){
       if(btn.dataset.gwDone)return;
       btn.dataset.gwDone='1';
@@ -590,7 +525,16 @@ body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box
     var pNames=['💳 Kart','🍎 Apple Pay','📱 Mobil Ödeme','🏦 Banka Havalesi'];
     extra.querySelectorAll('div[style*="cursor:pointer"]').forEach(function(d,i){d.addEventListener('click',function(){gwToast(pNames[i]+' — '+t.soon);});});
     gwLockBody();
-    startSholen();
+    // Kristal ses - kart açılışı
+    try{var ac=new(window.AudioContext||window.webkitAudioContext)();
+      [[1047,0],[1319,0.08],[1568,0.16],[2093,0.24]].forEach(function(n){
+        var o=ac.createOscillator(),g=ac.createGain();
+        o.connect(g);g.connect(ac.destination);o.type='sine';
+        o.frequency.setValueAtTime(n[0],ac.currentTime+n[1]);
+        g.gain.setValueAtTime(0.10,ac.currentTime+n[1]);
+        g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+n[1]+0.5);
+        o.start(ac.currentTime+n[1]);o.stop(ac.currentTime+n[1]+0.5);
+      });}catch(e){}
     
     
     setTimeout(function(){
