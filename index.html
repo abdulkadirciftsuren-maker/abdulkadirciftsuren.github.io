@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A13</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A14</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -341,7 +341,13 @@ html body [class*="modal"] input:focus,html body [class*="Modal"] input:focus{
 
   var gwBinParent=null,gwBinNext=null;
   var gwGpL={TR:'Google Profili',EN:'Google Profile',DE:'Google Profil',ES:'Perfil Google',FR:'Profil Google',RU:'Профиль Google',UKR:'Профіль Google',AR:'ملف Google'};
-  var gwBinInt=setInterval(function(){
+  // Buton oluşturma fonksiyonu
+  function gwCheckBin(){
+    if(document.getElementById('gw-panel'))return;
+    var bin=document.querySelector('.bin');
+    var fb=document.getElementById('gw-bin-fb');
+    if(!bin&&fb&&document.getElementById('gw-prof-fb'))return; // Zaten hazır
+
     if(document.getElementById('gw-panel'))return;
     var bin=document.querySelector('.bin');
     var fb=document.getElementById('gw-bin-fb');
@@ -458,7 +464,22 @@ html body [class*="modal"] input:focus,html body [class*="Modal"] input:focus{
       var gImg=document.querySelector('img[src*="googleusercontent"],img[src*="lh3.google"],img[src*="lh4.google"],img[src*="lh5.google"]');
       if(gImg&&gImg.src){gPhoto.src=gImg.src;gPhoto.style.display='block';if(gInit)gInit.style.display='none';}
     }
-  },1500);
+  
+  }
+  // İlk çalıştırma
+  gwCheckBin();
+  // MutationObserver - .bin kaybolunca ANINDA tetikle
+  new MutationObserver(function(){setTimeout(gwCheckBin,50);}).observe(document.body,{childList:true,subtree:true});
+  // Fotoğraf için hafif kontrol (5 saniyede bir)
+  setInterval(function(){
+    var gPhoto=document.getElementById('gw-g-photo');
+    var gInit=document.getElementById('gw-g-init');
+    if(gPhoto&&!gPhoto.src){
+      var gImg=document.querySelector('img[src*="googleusercontent"],img[src*="lh3.google"],img[src*="lh4.google"]');
+      if(gImg&&gImg.src){gPhoto.src=gImg.src;gPhoto.style.display='block';if(gInit)gInit.style.display='none';}
+    }
+  },5000);
+
 
   // VIP Modal — sade, güzel, çalışan
   var gwSholenInt=null;
