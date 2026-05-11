@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A26</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A27</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -414,47 +414,83 @@ html body [class*='modal'] [style*='background:#'].gw-enhanced:not(button),html 
           sbi.forEach(function(el){if(found)return;var t=(el.textContent||'').toLowerCase();words.forEach(function(w){if(t.indexOf(w)>=0)found=el;});});
           return found;
         }
-        function gwCloseProfMenu(){var m=document.getElementById('gw-pmenu');if(m)m.remove();}
-        function gwShowProfMenu(btn){
+        // ── PROFİL MENÜSÜ — profesyonel, emoji yok ──────────
+        var svgP='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+        var svgC='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+        var svgS='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+        var svgX='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>';
+
+        function gwCloseProfMenu(){
+          var m=document.getElementById('gw-pmenu');
+          var ov=document.getElementById('gw-pmenu-ov');
+          if(m)m.remove();if(ov)ov.remove();
+          window._pmenuOpen=false;
+        }
+        function gwOpenProfMenu(btn){
           if(document.getElementById('gw-panel')){gwHidePanel();return;}
-          if(document.getElementById('gw-pmenu')){gwCloseProfMenu();return;}
+          if(window._pmenuOpen){gwCloseProfMenu();return;}
           var r=btn.getBoundingClientRect();
+          var top=Math.min(r.bottom+8,window.innerHeight-220);
+          var left=Math.max(4,Math.min(r.left,window.innerWidth-200));
           var m=document.createElement('div');m.id='gw-pmenu';
-          m.style.cssText='position:fixed;z-index:100010;background:linear-gradient(145deg,rgba(10,5,20,0.97),rgba(18,8,35,0.97));border:1.5px solid rgba(201,162,39,0.7);border-radius:14px;padding:6px;min-width:170px;box-shadow:0 8px 32px rgba(0,0,0,0.85);top:'+(r.bottom+8)+'px;left:'+Math.min(r.left,window.innerWidth-185)+'px;';
+          m.style.cssText='position:fixed;z-index:100011;background:linear-gradient(160deg,rgba(8,4,18,0.98),rgba(14,8,28,0.98));border:1px solid rgba(201,162,39,0.5);border-radius:16px;padding:8px;min-width:192px;box-shadow:0 12px 40px rgba(0,0,0,0.9),0 0 0 1px rgba(201,162,39,0.1);top:'+top+'px;left:'+left+'px;font-family:DM Sans,sans-serif;';
+          // Başlık
+          var hdr=document.createElement('div');
+          hdr.style.cssText='padding:8px 12px 10px;border-bottom:1px solid rgba(201,162,39,0.15);margin-bottom:4px;';
+          hdr.innerHTML='<div style="font-size:10px;letter-spacing:3px;color:rgba(201,162,39,0.5);font-weight:700;">HESABIM</div>';
+          m.appendChild(hdr);
+          // Menü öğeleri
           var items=[
-            {i:'👤',l:'Profilim',w:['profil','profile','профіл']},
-            {i:'📅',l:'Randevularım',w:['randevu','appoint','записи']},
-            {i:'⚙️',l:gwT('settings')||'Ayarlar',w:['ayar','setting','настрой']},
-            {i:'🚪',l:gwT('logout')||'Çıkış',w:[]}
+            {svg:svgP,l:gwT('hi')?gwGetLang()==='TR'?'Profilim':'Profile':'Profilim',w:['profil','profile'],sub:true},
+            {svg:svgC,l:gwGetLang()==='TR'?'Randevularım':'Appointments',w:['randevu','appoint'],sub:true},
+            {svg:svgS,l:gwT('settings')||'Ayarlar',w:['ayar','setting'],sub:true},
+            {svg:svgX,l:gwT('logout')||'Çıkış Yap',w:[],sub:false,danger:true}
           ];
           items.forEach(function(item,idx){
+            if(idx===3){
+              var sep=document.createElement('div');
+              sep.style.cssText='border-top:1px solid rgba(201,162,39,0.1);margin:4px 0;';
+              m.appendChild(sep);
+            }
             var d=document.createElement('div');
-            d.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,0.88);font-size:13px;font-weight:600;font-family:DM Sans,sans-serif;';
-            d.innerHTML='<span style="font-size:16px;">'+item.i+'</span><span>'+item.l+'</span>';
-            d.addEventListener('mouseover',function(){this.style.background='rgba(201,162,39,0.12)';});
+            var col=item.danger?'rgba(255,100,100,0.75)':'rgba(220,210,195,0.9)';
+            var hov=item.danger?'rgba(255,80,80,0.08)':'rgba(201,162,39,0.08)';
+            d.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;color:'+col+';font-size:13px;font-weight:600;transition:background 0.15s;';
+            d.innerHTML='<span style="opacity:0.8;flex-shrink:0;">'+item.svg+'</span><span>'+item.l+'</span>';
+            d.addEventListener('mouseover',function(){this.style.background=hov;});
             d.addEventListener('mouseout',function(){this.style.background='';});
-            if(idx<3){
+            d.addEventListener('touchstart',function(){this.style.background=hov;},{passive:true});
+            if(item.sub){
               d.addEventListener('click',(function(w){return function(){
                 gwCloseProfMenu();
-                var sbi=gwFindSbi(w);
-                if(sbi){sbi.click();return;}
+                var sbi=document.querySelectorAll('.sbi'),found=null;
+                sbi.forEach(function(el){if(found)return;var t=(el.textContent||'').toLowerCase();w.forEach(function(x){if(t.indexOf(x)>=0)found=el;});});
+                if(found){found.click();return;}
                 var fab2=document.querySelector('.menu-fab');
-                if(fab2){fab2.click();setTimeout(function(){var s=gwFindSbi(w);if(s)s.click();},300);}
+                if(fab2){fab2.click();setTimeout(function(){
+                  sbi=document.querySelectorAll('.sbi');found=null;
+                  sbi.forEach(function(el){if(found)return;var t=(el.textContent||'').toLowerCase();w.forEach(function(x){if(t.indexOf(x)>=0)found=el;});});
+                  if(found)found.click();
+                },300);}
               };})(item.w));
             } else {
-              d.addEventListener('click',function(){gwCloseProfMenu();setTimeout(function(){location.reload();},400);});
+              d.addEventListener('click',function(){gwCloseProfMenu();setTimeout(function(){location.reload();},350);});
             }
             m.appendChild(d);
           });
+          // Overlay - dil menüsü gibi her yerden kapat
+          var ov=document.createElement('div');ov.id='gw-pmenu-ov';
+          ov.style.cssText='position:fixed;inset:0;z-index:100010;background:transparent;';
+          ov.addEventListener('touchstart',function(e){e.preventDefault();gwCloseProfMenu();},{passive:false});
+          ov.addEventListener('click',gwCloseProfMenu);
+          document.body.appendChild(ov);
           document.body.appendChild(m);
-          setTimeout(function(){
-            var closeH=function(e){if(!m.contains(e.target)){gwCloseProfMenu();document.removeEventListener('click',closeH);}};
-            document.addEventListener('click',closeH);
-          },150);
+          window._pmenuOpen=true;
+          history.pushState(null,'',location.href);
         }
         pf.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});
-        pf.addEventListener('touchend',function(){setTimeout(function(){gwShowProfMenu(pf);},50);});
-        pf.addEventListener('click',function(){gwShowProfMenu(pf);});
+        pf.addEventListener('touchend',function(){gwOpenProfMenu(pf);});
+        pf.addEventListener('click',function(){gwOpenProfMenu(pf);});
         // SOLA koy (Google'ın soluna)
         if(gwBf&&gwBf.parentNode)gwBf.parentNode.insertBefore(pf,gwBf);
         else child.parentNode.insertBefore(pf,child);
@@ -866,6 +902,7 @@ html body [class*='modal'] [style*='background:#'].gw-enhanced:not(button),html 
   overlay.addEventListener('click',function(){closeLangMenu();});
 
   window.addEventListener('popstate',function(){
+    if(window._pmenuOpen){gwCloseProfMenu();return;}
     if(window._langOpen){closeLangMenu();}
   });
 
@@ -1088,6 +1125,7 @@ html body [class*='modal'] [style*='background:#'].gw-enhanced:not(button),html 
   window.gwHidePanel=gwHidePanel;
 
   function gwGoBack(){
+    if(window._pmenuOpen){gwCloseProfMenu();return;}
     var pnl=document.getElementById('gw-panel');
     if(pnl){
       if(gwNavStack.length>0){gwPnlShowScr(gwNavStack.pop());}
