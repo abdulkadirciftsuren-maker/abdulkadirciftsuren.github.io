@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/abdulkadirciftsuren.github.io/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/abdulkadirciftsuren.github.io/logo192.png"/><link rel="manifest" href="/abdulkadirciftsuren.github.io/manifest.json"/><title>React App</title><script defer="defer" src="/abdulkadirciftsuren.github.io/static/js/main.d1ce564f.js"></script><link href="/abdulkadirciftsuren.github.io/static/css/main.e6c13ad2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
 <div id="gw-badge" style="position:fixed;left:10px;top:10px;z-index:99999;display:flex;flex-direction:column;gap:2px;pointer-events:auto;cursor:grab;user-select:none;touch-action:none;">
   <div style="display:flex;align-items:center;gap:4px">
-    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A6</span>
+    <span style="font-size:9px;font-weight:900;color:#ffd700;background:rgba(0,0,0,0.88);border:1px solid rgba(201,162,39,0.6);border-radius:5px;padding:2px 7px;letter-spacing:1px">A7</span>
     <span id="gw-date" style="font-size:8px;font-weight:700;color:rgba(201,162,39,0.8);background:rgba(0,0,0,0.8);border:1px solid rgba(201,162,39,0.3);border-radius:5px;padding:2px 6px"></span>
   </div>
   <span id="gw-time" style="font-size:9px;font-weight:700;color:rgba(201,162,39,0.7);background:rgba(0,0,0,0.75);border:1px solid rgba(201,162,39,0.2);border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums"></span>
@@ -238,6 +238,23 @@ body.gw-tier-silver #gw-prof-fb{border-color:rgba(192,192,192,0.9)!important;box
 /* Sayfa geçişleri - titremeyi önle */
 html body .lbar>*,html body .nbar>*{transition:none!important;animation-duration:0.001s!important;}
 #gw-bin-fb,#gw-prof-fb{transition:none!important;}
+/* Giriş kartı iyileştirme */
+html body [class*="modal"] input,html body [class*="Modal"] input{
+  background:rgba(255,255,255,0.07)!important;
+  border:1.5px solid rgba(201,162,39,0.4)!important;
+  border-radius:12px!important;
+  color:#fff!important;
+  padding:12px 16px!important;
+  font-size:14px!important;
+  margin-bottom:10px!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+html body [class*="modal"] input:focus,html body [class*="Modal"] input:focus{
+  border-color:rgba(201,162,39,0.8)!important;
+  outline:none!important;
+  box-shadow:0 0 0 2px rgba(201,162,39,0.15)!important;
+}
 </style>
 <script>
 (function(){
@@ -347,6 +364,17 @@ html body .lbar>*,html body .nbar>*{transition:none!important;animation-duration
       else gwBinParent.appendChild(prof);
     }
     if(bin&&fb)fb.remove();
+    // Giriş sonrası otomatik panel - tier seçimine göre
+    if(!bin&&gwBinParent&&fb&&!document.getElementById('gw-panel')){
+      var ap=document.body.dataset.gwLoginPending||gwTierActive||'diamond';
+      if(ap&&!document.body.dataset.gwAutoPanel){
+        document.body.dataset.gwAutoPanel='1';
+        setTimeout(function(){
+          if(!document.getElementById('gw-panel'))gwShowPanel(ap);
+        },800);
+      }
+    }
+    if(bin)delete document.body.dataset.gwAutoPanel;
     var gplEl=document.getElementById('gw-gpl');
     if(gplEl){var nl=gwGpL[gwGetLang()||'TR']||'Google Profili';if(gplEl.textContent!==nl)gplEl.textContent=nl;}
     // Giriş sonrası işaretsiz çocuk = React profil butonu
@@ -551,6 +579,14 @@ html body .lbar>*,html body .nbar>*{transition:none!important;animation-duration
       gwUnlockBody();
     }
   }
+  // Klavye açılınca input görünür kalsın
+  document.addEventListener('focusin',function(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){
+      setTimeout(function(){
+        e.target.scrollIntoView({block:'center',behavior:'smooth'});
+      },350);
+    }
+  });
   var gwObsBusy=false;
   new MutationObserver(function(){
     if(gwObsBusy)return;gwObsBusy=true;
